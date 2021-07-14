@@ -88,7 +88,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
 #### 작업 3: MSIX 패키징용으로 Windows 10을 실행하는 Azure VM 준비
 
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드의 가상 머신 목록에서 **az140-cl-vm42** 항목을 선택합니다. 그러면 **az140-cl-vm42** 블레이드가 열립니다.
-1. **az140-cl-vm42** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm42 \** **연결** 블레이드의**| RDP** 탭에서 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-cl-vm42** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm42** **연결** 블레이드의 **| RDP** 탭에서 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
@@ -154,7 +154,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
 
 #### 작업 5: 패키징할 소프트웨어 다운로드
 
-1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://github.com/microsoft/XmlNotepad**로 이동합니다.
+1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://github.com/microsoft/XmlNotepad** 로 이동합니다.
 1. **microsoft/XmlNotepad** **readme.md** 페이지에서 [독립 실행형 다운로드 가능 설치 관리자](http://www.lovettsoftware.com/downloads/xmlnotepad/xmlnotepadsetup.zip) 다운로드 링크를 선택하여 압축된 설치 파일을 다운로드합니다.
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 파일 탐색기를 시작하고 **다운로드** 폴더로 이동합니다. 그런 다음 압축된 파일을 열어 해당 내용을 복사한 후, **C:\\AllFiles\\Labs\\04\\** 폴더를 만들어 복사한 내용을 새로 만든 폴더에 붙여넣습니다. 
 
@@ -192,7 +192,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
 
    >**참고**: MSIX Packaging Tool 사용 시에는 Windows 업데이트와 Windows Search가 일시적으로 사용하지 않도록 설정됩니다. 여기서는 Windows Search 서비스를 이미 사용하지 않도록 설정했습니다. 
 
-1. **Create new package** 마법사의 **Prepare computer **페이지에서 **Next**를 클릭합니다.
+1. **Create new package** 마법사의 **Prepare computer** 페이지에서 **Next**를 클릭합니다.
 1. **Create new package** 마법사의 **Select installer** 페이지에서 **Choose the installer you want to package** 텍스트 상자 옆에 있는 **Browse**를 선택합니다. 그런 다음 **Open** 대화 상자에서 **C:\\AllFiles\\Labs\\04** 폴더로 이동하여 **XmlNotepadSetup.msi**를 선택하고 **Open**을 클릭합니다. 
 1. **Create new package** 마법사의 **Select installer** 페이지에 있는 **Signing preference** 드롭다운 목록에서 **Sign with a certificate (.pfx)** 항목을 선택합니다. 그런 다음 **Browse for certificate** 텍스트 상자 옆에 있는 **Browse**를 선택하고 **Open** 대화 상자에서 **C:\\AllFiles\\Labs\\04** 폴더로 이동해 **adatum.pfx** 파일을 선택한 후 **Open**을 클릭합니다. **Password** 텍스트 상자에는 **Pa55w.rd1234**를 입력하고 **Next**를 클릭합니다.
 1. **Create new package** 마법사의 **Package information** 페이지에서 패키지 정보를 검토하고 게시자 이름이 **CN=Adatum**으로 설정되어 있는지 확인한 후에 **Next**를 선택합니다. 그러면 다운로드한 소프트웨어의 설치가 트리거됩니다.
@@ -257,7 +257,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
 
 #### 작업 2: 앱 연결 컨테이너 만들기
 
-1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://aka.ms/msixmgr**로 이동합니다. **msixmgr.zip** 파일을 열지 아니면 저장할지를 선택하라는 메시지가 표시되면 **저장**을 클릭합니다. 그러면 **다운로드** 폴더에 MXIS mgr tool 보관 파일이 다운로드됩니다.
+1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://aka.ms/msixmgr** 로 이동합니다. **msixmgr.zip** 파일을 열지 아니면 저장할지를 선택하라는 메시지가 표시되면 **저장**을 클릭합니다. 그러면 **다운로드** 폴더에 MXIS mgr tool 보관 파일이 다운로드됩니다.
 1. 파일 탐색기에서 **다운로드** 폴더로 이동하여 압축된 파일을 열고 **x64** 폴더를 **C:\\AllFiles\\Labs\\04** 폴더에 복사합니다. 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 앱 연결 컨테이너로 사용할 VHD 파일을 만듭니다.
 
@@ -318,7 +318,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
 #### 작업 1: Windows Virtual Desktop 호스트가 포함된 Active Directory 그룹 구성
 
 1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \** **연결** 블레이드의**| 연결** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11** **연결** 블레이드의 **| 연결** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
@@ -358,7 +358,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
    ```
    > **참고**: 이 단계에서 확인한 사용자 계정 이름을 적어 두세요. 이 작업 뒷부분에서 해당 이름이 필요합니다.
 
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **시작 **메뉴에서 **Azure AD Connect** 폴더를 확장하고 **Azure AD Connect**를 선택합니다.
+1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **시작** 메뉴에서 **Azure AD Connect** 폴더를 확장하고 **Azure AD Connect**를 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **Azure AD Connect 시작** 페이지에서 **구성**을 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **추가 작업** 페이지에서 **동기화 옵션 사용자 지정**을 선택하고 **다음**을 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **AD Azure에 연결** 페이지에서 이 작업의 앞부분에서 확인한 **aadsyncuser** 사용자 계정의 사용자 계정 이름과 **Pa55w.rd1234** 암호를 사용하여 인증합니다.
@@ -395,7 +395,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 애
    |이름|**az140-42-msixvhds**|
 
 1. Azure Portal이 표시된 Microsoft Edge의 파일 공유 목록에서 새로 만든 파일 공유를 선택합니다. 
-1. **az140-42a-msixvhds** 블레이드 왼쪽의 세로 메뉴에서 **액세스 제어(IAM)**을 선택합니다.
+1. **az140-42a-msixvhds** 블레이드 왼쪽의 세로 메뉴에서 **액세스 제어(IAM)** 을 선택합니다.
 1. 스토리지 계정의 **az140-42a-msixvhds \| 액세스 제어(IAM)** 블레이드에서 **+ 추가**를 선택하고 드롭다운 메뉴에서 **역할 할당 추가**를 선택합니다. 
 1. **역할 할당 추가** 블레이드에서 다음 설정을 지정하고 **저장**을 선택합니다.
 

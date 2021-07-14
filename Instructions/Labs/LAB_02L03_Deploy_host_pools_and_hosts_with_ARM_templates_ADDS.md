@@ -51,7 +51,7 @@ Azure Resource Manager 템플릿을 사용하여 Windows Virtual Desktop 호스�
 
 1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 소유자 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
 1. Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \** **연결** 블레이드의**| 연결** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11** **연결** 블레이드의 **| 연결** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
@@ -93,7 +93,7 @@ Azure Resource Manager 템플릿을 사용하여 Windows Virtual Desktop 호스�
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 메시지가 표시되면 이 랩에서 사용 중인 구독의 소유자 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
 1. az140-dc-vm11에 연결된 원격 데스크톱 세션 내의 Azure Portal에서 Azure Portal 페이지 상단의 **리소스, 서비스 및 문서 검색** 텍스트 상자를 사용하여 **가상 네트워크**를 검색한 후 해당 위치로 이동합니다. 그런 다음 **가상 네트워크** 블레이드에서 **az140-adds-vnet11**을 선택합니다. 
-1. **az140-adds-vnet11** 블레이드에서 **서브넷**을 선택하고 **서브넷 **블레이드에서 **+ 서브넷**을 선택합니다. 그런 다음 **서브넷 추가** 블레이드에서 다음 설정을 지정하고(나머지 설정은 모두 기본값으로 유지) 저장을 클릭합니다.
+1. **az140-adds-vnet11** 블레이드에서 **서브넷**을 선택하고 **서브넷** 블레이드에서 **+ 서브넷**을 선택합니다. 그런 다음 **서브넷 추가** 블레이드에서 다음 설정을 지정하고(나머지 설정은 모두 기본값으로 유지) 저장을 클릭합니다.
 
    |설정|값|
    |---|---|
@@ -216,7 +216,7 @@ Azure Resource Manager 템플릿을 사용하여 Windows Virtual Desktop 호스�
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내에서 **시작**을 클릭하고 **시작** 메뉴에서 **Remote Desktop** 클라이언트 앱을 선택합니다.
 1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다. userPrincipalName을 로그인 이름으로 입력하고, 암호로는 **Pa55w.rd1234**를 사용합니다.
 
-   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace **창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery**를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser7 **자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 **Pa55w.rd1234 **사용). 
+   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL** 에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next** 를 선택합니다. 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 **Pa55w.rd1234** 사용). 
 
 1. **Remote Desktop** 페이지에서 **SessionDesktop** 아이콘을 두 번 클릭합니다. 자격 증명을 입력하라는 메시지가 표시되면 **Pa55w.rd1234**를 입력하고 **Remember me** 체크박스를 선택한 후에 **OK**를 클릭합니다.
 1. **aduser7**이 Remote Desktop을 통해 호스트에 정상적으로 로그인했는지 확인합니다.
@@ -224,7 +224,7 @@ Azure Resource Manager 템플릿을 사용하여 Windows Virtual Desktop 호스�
 
    > **참고**: 이번에는 개인 데스크톱 할당을 직접 모드에서 자동으로 전환해 보겠습니다. 
 
-1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2-DAG \| 할당 **블레이드의 할당 목록 바로 위에 있는 알림 표시줄에서 **VM 할당** 링크를 클릭합니다. 그러면 **az140-23-hp2 \| 세션 호스트** 블레이드로 리디렉션됩니다. 
+1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2-DAG | 할당** 블레이드의 할당 목록 바로 위에 있는 알림 표시줄에서 **VM 할당** 링크를 클릭합니다. 그러면 **az140-23-hp2 \| 세션 호스트** 블레이드로 리디렉션됩니다. 
 1. **az140-23-hp2 \| 세션 호스트** 블레이드에서 호스트 중 하나의 **할당된 사용자** 열 목록에 **aduser7**이 표시되어 있는지 확인합니다.
 
    > **참고**: 호스트 풀이 자동 할당 방식으로 구성되어 있으므로 aduser7이 할당된 사용자로 표시됩니다.

@@ -69,7 +69,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Windows V
 1. Azure Portal에서 **구독**을 검색하여 선택하고 **구독** 블레이드에서 이 랩에 사용할 Azure 구독에 해당하는 항목을 선택합니다.
 1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **사용량 및 할당량**을 선택합니다. 
 1. 구독의 **사용량 및 할당량** 블레이드에서 **증가 요청**을 선택합니다.
-1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >**을 선택합니다.
+1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >** 을 선택합니다.
 
    |설정|값|
    |---|---|
@@ -93,7 +93,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Windows V
 
    >**참고**: 여기서는 랩 환경 실행 비용을 최소화하기 위해 **BS Series** Azure VM을 사용합니다. 하지만 Windows Virtual Desktop 시나리오에서 반드시 **BS Series** Azure VM을 사용해야 하는 것은 아닙니다.
 
-1. **새 지원 요청** 블레이드의 **세부 정보** 탭으로 돌아와 다음 항목을 지정하고 **다음: 검토 + 만들기 >**를 선택합니다.
+1. **새 지원 요청** 블레이드의 **세부 정보** 탭으로 돌아와 다음 항목을 지정하고 **다음: 검토 + 만들기 >** 를 선택합니다.
 
    |설정|값|
    |---|---|
@@ -221,7 +221,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Windows V
 
    > **참고**: Azure AD DS 도메인 컴퓨터 및 해당 리소스에 액세스할 수 있어야 하는 모든 기존 클라우드 전용 사용자는 암호를 변경하거나 초기화해야 합니다. 이 랩의 앞부분에서 만든 **aadadmin1** 계정도 마찬가지입니다.
 
-1. 랩 컴퓨터에 표시된 Azure Portal의 **Cloud Shell** 창에서 **PowerShell **세션을 엽니다.
+1. 랩 컴퓨터에 표시된 Azure Portal의 **Cloud Shell** 창에서 **PowerShell** 세션을 엽니다.
 1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 Azure AD **aadadmin1** 사용자 계정의 objectID 특성을 확인합니다.
 
    ```powershell
@@ -295,7 +295,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Windows V
 
 1  Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a \** **연결** 블레이드의**| RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a** **연결** 블레이드의 **| RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
@@ -414,7 +414,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Windows V
    ```
 
 1. Cloud Shell 창을 닫습니다.
-1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Active Directory** 블레이드를 검색하여 선택합니다. 그런 다음 Azure AD 테넌트 블레이드 왼쪽의 세로 메뉴 모음에 있는 **관리* 섹션에서 **사용자**를 선택합니다. 그런 후에 **사용자 \| 모든 사용자** 블레이드에서 새 사용자 계정이 작성되었음을 확인합니다.
+1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Active Directory** 블레이드를 검색하여 선택합니다. 그런 다음 Azure AD 테넌트 블레이드 왼쪽의 세로 메뉴 모음에 있는 **관리** 섹션에서 **사용자**를 선택합니다. 그런 후에 **사용자 \| 모든 사용자** 블레이드에서 새 사용자 계정이 작성되었음을 확인합니다.
 1. Azure AD 테넌트 블레이드로 다시 이동하여 왼쪽 세로 메뉴 모음에 있는 **관리** 섹션에서 **그룹**을 선택합니다. 그런 후에 **그룹 \| 모든 그룹** 블레이드에서 새 그룹 계정이 작성되었음을 확인합니다.
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 내에서 **Active Directory 사용자 및 컴퓨터** 콘솔로 전환합니다. 그런 다음 **Active Directory 사용자 및 컴퓨터** 콘솔에서 **AADDC Users** OU로 이동하여 동일한 사용자 및 그룹 계정이 포함되어 있는지 확인합니다.
 
