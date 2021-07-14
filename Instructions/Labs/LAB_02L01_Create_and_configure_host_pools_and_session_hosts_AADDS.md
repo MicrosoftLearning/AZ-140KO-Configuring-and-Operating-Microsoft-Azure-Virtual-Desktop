@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: '랩: 호스트 풀 및 세션 호스트 만들기 및 구성(Azure AD DS)'
     module: '모듈 2: WVD 인프라 구현'

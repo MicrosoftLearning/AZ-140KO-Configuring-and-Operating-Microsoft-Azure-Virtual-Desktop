@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: '랩: WVD용 스토리지 구현 및 관리(Azure AD DS)'
     module: '모듈 2: WVD 인프라 구현'

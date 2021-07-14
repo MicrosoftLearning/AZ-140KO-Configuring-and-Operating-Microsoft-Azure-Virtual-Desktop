@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: '랩: Azure Resource Manager 템플릿을 사용하여 호스트 풀 및 호스트 배포'
     module: '모듈 2: WVD 인프라 구현'
