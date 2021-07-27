@@ -1,17 +1,17 @@
----
+﻿---
 lab:
-    title: '랩: WVD용 스토리지 구현 및 관리(Azure AD DS)'
-    module: '모듈 2: WVD 인프라 구현'
+    title: '랩: AVD용 스토리지 구현 및 관리(Azure AD DS)'
+    module: '모듈 2: AVD 인프라 구현'
 ---
 
-# 랩 - WVD용 스토리지 구현 및 관리(Azure AD DS)
+# 랩 - AVD용 스토리지 구현 및 관리(Azure AD DS)
 # 학생 랩 매뉴얼
 
 ## 랩 종속성
 
 - Azure 구독
-- Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할, 그리고 Azure 구독의 소유자 또는 참가자 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
-- **Azure Windows Virtual Desktop의 배포 준비(Azure AD DS)** 랩 완료
+- Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할, 그리고 Azure 구독의 Owner 또는 Contributor 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
+- **Azure Virtual Desktop의 배포 준비(Azure AD DS)** 랩 완료
 
 ## 예상 소요 시간
 
@@ -19,13 +19,13 @@ lab:
 
 ## 랩 시나리오
 
-Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual Desktop 배포용 스토리지를 구현하고 관리해야 합니다.
+Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual Desktop 배포용 스토리지를 구현하고 관리해야 합니다.
 
 ## 목표
   
 이 랩을 완료하면 다음을 수행할 수 있습니다.
 
-- Azure AD DS 환경에서 Windows Virtual Desktop용 프로필 컨테이너를 저장하도록 Azure Files 구성
+- Azure AD DS 환경에서 Azure Virtual Desktop용 프로필 컨테이너를 저장하도록 Azure Files 구성
 
 ## 랩 파일
 
@@ -33,9 +33,9 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual
 
 ## 지침
 
-### 연습 1: Windows Virtual Desktop용 프로필 컨테이너를 저장하도록 Azure Files 구성
+### 연습 1: Azure Virtual Desktop용 프로필 컨테이너를 저장하도록 Azure Files 구성
 
-이 연습의 기본 작업은 다음과 같습니다.
+이 연습의 주요 작업은 다음과 같습니다.
 
 1. Azure Storage 계정 만들기
 1. Azure Files 공유 만들기
@@ -45,9 +45,9 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual
 
 #### 작업 1: Azure Storage 계정 만들기
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 소유자 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드의 도구 모음에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a** **연결** 블레이드의 **| RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-cl-vm11a** 블레이드의 도구 모음에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a \** **연결** 블레이드의**| RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
@@ -67,9 +67,8 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual
    |구독|이 랩에서 사용 중인 Azure 구독의 이름|
    |리소스 그룹|새 리소스 그룹 **az140-22a-RG**의 이름|
    |스토리지 계정 이름|3~15자 사이의 소문자와 숫자로 구성된 전역적으로 고유한 이름(문자로 시작해야 함)|
-   |위치|Windows Virtual Desktop 랩 환경을 호스트하는 Azure 지역의 이름|
+   |위치|Azure Virtual Desktop 랩 환경을 호스트하는 Azure 지역의 이름|
    |성능|**Standard**|
-   |계정 종류|**StorageV2(범용 v2)**|
    |복제|**LRS(로컬 중복 스토리지)**|
 
    >**참고**: 스토리지 계정 이름 길이가 15자를 초과하지 않는지 확인합니다. 이 이름을 사용하여 Active Directory Domain Services(AD DS) 도메인에서 컴퓨터 계정을 만듭니다. 이 도메인은 스토리지 계정이 포함된 Azure 구독과 연결되어 있는 Azure AD 테넌트와 통합됩니다. 따라서 이 스토리지 계정에서 호스트되는 파일 공유에 액세스할 때 AD DS 기반 인증을 사용할 수 있습니다.
@@ -81,7 +80,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual
 #### 작업 2: Azure Files 공유 만들기
 
 1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **스토리지 계정** 블레이드로 다시 이동하여 새로 만든 스토리지 계정에 해당하는 항목을 선택합니다.
-1. 스토리지 계정 블레이드 왼쪽의 세로 메뉴에 있는 **파일 서비스** 섹션에서 **파일 공유**, **+ 파일 공유**를 차례로 선택합니다.
+1. 스토리지 계정 블레이드 왼쪽의 세로 메뉴에 있는 **데이터 스토리지** 섹션에서 **파일 공유**, **+ 파일 공유**를 차례로 선택합니다.
 1. **새 파일 공유** 블레이드에서 다음 설정을 지정하고 **선택**을 선택합니다(다른 설정은 모두 기본값으로 유지).
 
    |설정|값|
@@ -90,13 +89,13 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual
 
 #### 작업 3: Azure Storage 계정에 대해 Azure AD DS 인증을 사용하도록 설정
 
-1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Microsoft Edge 창에 표시되어 있는 Azure Portal로 이동합니다. 그런 다음 이전 작업에서 만든 스토리지 계정 속성이 표시된 블레이드의 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **구성**을 선택합니다. 
+1. **az140-cl-vm11a** 에 연결된 원격 데스크톱 세션 내의 Microsoft Edge 창에 표시되어 있는 Azure Portal로 이동합니다. 그런 다음 이전 작업에서 만든 스토리지 계정 속성이 표시된 블레이드의 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **구성**을 선택합니다. 
 1. **Azure Active Directory Domain Services(Azure AD DS)** 섹션에서 **사용** 옵션을 선택하고 **저장**을 선택합니다.
 
 #### 작업 4: Azure Files RBAC 기반 권한 구성
 
-1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 Microsoft Edge 창으로 이동합니다. 그런 다음 이 연습 앞부분에서 만든 스토리지 계정 속성이 표시된 블레이드의 왼쪽 세로 메뉴에 있는 **파일 서비스** 섹션에서 **파일 공유**를 선택합니다. 그 후에 공유 목록에서 **az140-22a-profiles** 항목을 선택합니다.
-1. **az140-22a-profiles** 블레이드 왼쪽의 세로 메뉴에서 **액세스 제어(IAM)** 를 선택합니다.
+1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 Microsoft Edge 창으로 이동합니다. 그런 다음 이 연습 앞부분에서 만든 스토리지 계정 속성이 표시된 블레이드의 왼쪽 세로 메뉴에 있는 **데이터 스토리지** 섹션에서 **파일 공유**를 선택합니다. 그 후에 공유 목록에서 **az140-22a-profiles** 항목을 선택합니다.
+1. **az140-22a-profiles** 블레이드 왼쪽의 세로 메뉴에서 **액세스 제어(IAM)**를 선택합니다.
 1. **az140-22a-profiles \| 액세스 제어(IAM)** 블레이드에서 **+ 추가**를 선택하고 드롭다운 메뉴에서 **역할 할당 추가**를 선택합니다.
 1. **역할 할당 추가** 블레이드에서 다음 설정을 지정하고 **저장**을 선택합니다.
 
@@ -129,6 +128,6 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Windows Virtual
 1. 매핑된 드라이브의 권한이 표시된 대화 상자의 **보안** 탭으로 돌아와 **편집**, **추가**를 차례로 선택합니다. 그 후에 **사용자, 컴퓨터, 서비스 계정 및 그룹 선택** 대화 상자에서 **찾을 위치를 선택하십시오.** 텍스트 상자에 **adatum.com** 항목이 포함되어 있는지 확인하고, **선택할 개체 이름을 입력하십시오.** 텍스트 상자에 **az140-wvd-aadmins**를 입력한 후에 **확인**을 클릭합니다.
 1. 매핑된 드라이브의 권한이 표시된 대화 상자의 **보안** 탭으로 돌아와 **az140-wvd-aadmins** 항목이 선택되어 있는지 확인합니다. 그런 다음 **허용** 열에서 **모든 권한** 체크박스를 선택하고 **확인**을 클릭합니다. 
 1. 매핑된 드라이브의 권한이 표시된 대화 상자의 **보안** 탭에서 **편집**을 선택하고 그룹 및 사용자 이름 목록에서 **인증된 사용자** 항목을 선택한 후에 **제거**를 선택합니다.
-1. 매핑된 드라이브의 권한이 표시된 대화 상자의 **보안** 탭에서 **편집**을 선택하고 그룹 및 사용자 이름 목록에서 **사용자** 항목을 선택한 후에 **제거**를 선택합니다. 그런 다음 **확인**을 클릭하고 다시 **확인**을 두 번 클릭하여 프로세스를 완료합니다. 
+1. 매핑된 드라이브의 권한이 표시된 대화 상자의 **보안** 탭에서 **편집**을 선택하고 그룹 및 사용자 이름 목록에서 **사용자** 항목을 선택한 후에 **제거**를 선택합니다. 그런 다음 **OK**을 클릭하고 다시 **확인**을 두 번 클릭하여 프로세스를 완료합니다. 
 
    >**참고**: **icacls** 명령줄 유틸리티를 사용하여 권한을 설정할 수도 있습니다. 
