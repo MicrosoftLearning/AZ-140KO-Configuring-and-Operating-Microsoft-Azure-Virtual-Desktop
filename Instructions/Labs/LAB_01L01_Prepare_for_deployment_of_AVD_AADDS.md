@@ -75,14 +75,14 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
    > **참고**: Azure 지역의 이름을 확인하려면 **Cloud Shell**의 PowerShell 프롬프트에서 `(Get-AzLocation).Location`을 실행합니다.
    
-1. 이전 단계에서 실행한 명령 출력을 검토하여 대상 Azure 지역에서 Azure VM의 **Standard DSv3 Family** 및 **StandardBDFamily** 둘 다에서 사용 가능한 vCPU가 **20**개 이상인지 확인합니다. 사용 가능한 vCPU가 20개 이상인 경우에는 다음 연습부터 바로 진행하면 됩니다. 그렇지 않은 경우에는 이 연습의 다음 작업을 계속 진행합니다. 
+1. 이전 단계에서 실행한 명령 출력을 검토하여 대상 Azure 지역에서 Azure VM의 **Standard DSv3 Family** 및 **StandardBSFamily** 둘 다에서 사용 가능한 vCPU가 **20**개 이상인지 확인합니다. 사용 가능한 vCPU가 20개 이상인 경우에는 다음 연습부터 바로 진행하면 됩니다. 그렇지 않은 경우에는 이 연습의 다음 작업을 계속 진행합니다. 
 
 #### 작업 2: vCPU 할당량 늘리기 요청
 
 1. Azure Portal에서 **구독**을 검색하여 선택하고 **구독** 블레이드에서 이 랩에 사용할 Azure 구독에 해당하는 항목을 선택합니다.
 1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정**섹션에서 **사용량 및 할당량**을 선택합니다. 
 1. 구독의 **사용량 및 할당량** 블레이드에서 **증가 요청**을 선택합니다.
-1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >**을 선택합니다.
+1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >** 을 선택합니다.
 
    |설정|값|
    |---|---|
@@ -106,7 +106,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
    >**참고**: 여기서는 랩 환경 실행 비용을 최소화하기 위해 **BS Series** Azure VM을 사용합니다. Azure Virtual Desktop 시나리오에서 반드시 **BS Series** Azure VM을 사용해야 하는 것은 아닙니다.
 
-1. **새 지원 요청** 블레이드의 **세부 정보** 탭으로 돌아와 다음 항목을 지정하고 **다음: 검토 + 만들기 >**를 선택합니다.
+1. **새 지원 요청** 블레이드의 **세부 정보** 탭으로 돌아와 다음 항목을 지정하고 **다음: 검토 + 만들기 >** 를 선택합니다.
 
    |설정|값|
    |---|---|
@@ -237,7 +237,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
    > **참고**: Azure AD DS 도메인 컴퓨터 및 해당 리소스에 액세스할 수 있어야 하는 모든 기존 클라우드 전용 사용자는 암호를 변경하거나 초기화해야 합니다. 이 랩의 앞부분에서 만든 **aadadmin1** 계정도 마찬가지입니다.
 
-1. 랩 컴퓨터에 표시된 Azure Portal의 **Cloud Shell** 창에서 **PowerShell **세션을 엽니다.
+1. 랩 컴퓨터에 표시된 Azure Portal의 **Cloud Shell** 창에서 **PowerShell**세션을 엽니다.
 1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 Azure AD **aadadmin1** 사용자 계정의 objectID 특성을 확인합니다.
 
    ```powershell
@@ -312,7 +312,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 1  Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a \** **연결** 블레이드의**| RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a |\ 연결** 블레이드의**RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
