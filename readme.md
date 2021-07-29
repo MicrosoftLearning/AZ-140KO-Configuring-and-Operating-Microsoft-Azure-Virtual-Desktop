@@ -1,4 +1,4 @@
-﻿# AZ-140: Windows Virtual Desktop 구성 및 작동
+﻿# AZ-140: Microsoft Azure Virtual Desktop 구성 및 작동
 
 - **[최신 학생용 핸드북 및 AllFiles 콘텐츠 다운로드](../../releases/latest)**
 - **MCT인가요?** - [MCT용 GitHub 사용자 가이드](https://microsoftlearning.github.io/MCT-User-Guide-KO/)를 살펴보세요.

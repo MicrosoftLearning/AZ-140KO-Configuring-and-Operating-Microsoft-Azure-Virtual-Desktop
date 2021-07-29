@@ -10,8 +10,8 @@ lab:
 ## 랩 종속성
 
 - 이 랩에서 사용할 Azure 구독
-- 이 랩에서 사용할 Azure 구독에 대한 소유자 또는 참가자 역할, 그리고 해당 Azure 구독에 연결된 Azure AD 테넌트의 전역 관리자 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
-- **Azure Windows Virtual Desktop의 배포 준비(AD DS)** 랩 완료
+- 이 랩에서 사용할 Azure 구독에 대한 Owner 또는 Contributor 역할, 그리고 해당 Azure 구독에 연결된 Azure AD 테넌트의 전역 관리자 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
+- **Azure Virtual Desktop의 배포 준비(AD DS)** 랩 완료
 - **Azure Portal을 사용하여 호스트 풀 및 세션 호스트 배포(AD DS)** 랩 완료
 
 ## 예상 소요 시간
@@ -20,14 +20,14 @@ lab:
 
 ## 랩 시나리오
 
-Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세션 호스트의 자동 크기 조정을 구성해야 합니다.
+Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세션 호스트의 자동 크기 조정을 구성해야 합니다.
 
 ## 목표
   
 이 랩을 완료하면 다음을 수행할 수 있습니다.
 
-- Windows Virtual Desktop 세션 호스트의 자동 크기 조정 구성
-- Windows Virtual Desktop 세션 호스트의 자동 크기 조정 확인
+- Azure Virtual Desktop 세션 호스트의 자동 크기 조정 구성
+- Azure Virtual Desktop 세션 호스트의 자동 크기 조정 확인
 
 ## 랩 파일
 
@@ -35,19 +35,19 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
 
 ## 지침
 
-### 연습 1: Windows Virtual Desktop 세션 호스트의 자동 크기 조정 구성
+### 연습 1: Azure Virtual Desktop 세션 호스트의 자동 크기 조정 구성
 
-이 연습의 기본 작업은 다음과 같습니다.
+이 연습의 주요 작업은 다음과 같습니다.
 
-1. Windows Virtual Desktop 세션 호스트의 자동 크기 조정 준비
+1. Azure Virtual Desktop 세션 호스트의 자동 크기 조정 준비
 1. Azure Automation 계정 만들기 및 구성
 1. Azure 논리 앱 만들기
 
-#### 작업 1: Windows Virtual Desktop 세션 호스트의 자동 크기 조정 준비
+#### 작업 1: Azure Virtual Desktop 세션 호스트의 자동 크기 조정 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 소유자 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저 창에서 **Cloud Shell** 창 내에 **PowerShell** 셸 세션을 엽니다.
-1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 랩에서 사용할 Windows Virtual Desktop 세션 호스트 Azure VM을 시작합니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 랩에서 사용할 Azure Virtual Desktop 세션 호스트 Azure VM을 시작합니다.
 
    ```powershell
    Get-AzVM -ResourceGroup 'az140-21-RG' | Start-AzVM -NoWait
@@ -57,9 +57,9 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
 
 #### 작업 2: Azure Automation 계정 만들기 및 구성
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 소유자 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
 1. Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **연결** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
+1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **RDP** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
@@ -74,7 +74,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
    Connect-AzAccount
    ```
 
-1. 메시지가 표시되면 이 랩에서 사용 중인 구독의 소유자 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
+1. 메시지가 표시되면 이 랩에서 사용 중인 구독의 Owner 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 자동 크기 조정 솔루션의 일부분인 Azure Automation 계정을 만드는 데 사용할 PowerShell 스크립트를 다운로드합니다.
 
    ```powershell
@@ -139,13 +139,13 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
    .\CreateOrUpdateAzAutoAccount.ps1 @Params
    ```
 
-   >**참고**: 스크립트가 완료될 때까지 기다립니다. 10분 정도 걸릴 수 있습니다.
+   >**참고**: 스크립트가 완료될 때까지 기다립니다. 완료되려면 10분 정도 걸립니다.
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 스크립트 출력을 검토합니다. 
 
    >**참고**: 출력에는 웹후크 URI, Log Analytics 작업 영역 Id, 그리고 자동 크기 조정 솔루션의 일부분인 Azure Logic App을 프로비전할 때 제공해야 하는 해당 기본 키 값이 포함되어 있습니다.
 
-1. Azure Automation 계정의 구성을 확인하려면 **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 메시지가 표시되면 이 랩에서 사용 중인 구독의 소유자 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
+1. Azure Automation 계정의 구성을 확인하려면 **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 메시지가 표시되면 이 랩에서 사용 중인 구독의 Owner 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Automation 계정**을 검색하여 선택합니다. 그런 다음 **Automation 계정** 블레이드에서 새로 프로비전된 Azure Automation 계정에 해당하는 항목(**az140-automation-51** 접두사로 시작되는 항목)을 선택합니다.
 1. Automation 계정 블레이드 왼쪽의 세로 메뉴에 있는 **프로세스 자동화** 섹션에서 **Runbook**을 선택하고 Runbook 목록에서 **WVDAutoScaleRunbookARMBased** Runbook이 있는지 확인합니다.
 1. Automation 계정 블레이드 왼쪽의 세로 메뉴에 있는 **계정 설정** 섹션에서 **실행 계정**을 선택하고 오른쪽의 계정 목록에서 **Azure 실행 계정** 옆에 있는 **+ 만들기**를 클릭합니다.
@@ -219,8 +219,8 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
      "LogAnalyticsPrimaryKey"        = $LogAnalyticsPrimaryKey                  # 선택 사항입니다. 지정하지 않으면 스크립트가 Log Analytics에 로그되지 않습니다.
      "ConnectionAssetName"           = $AutoAccountConnection.Name              # 선택 사항입니다. 기본값: "AzureRunAsConnection"
      "RecurrenceInterval"            = $RecurrenceInterval                      # 선택 사항입니다. 기본값: 15
-     "BeginPeakTime"                 = $BeginPeakTime                           # 선택 사항입니다. 기본값: "09:00"
-     "EndPeakTime"                   = $EndPeakTime                             # 선택 사항입니다. 기본값: "17:00"
+     "BeginPeakTime"                 = $BeginPeakTime                           # 선택 사항입니다. 기본값: "오전 9:00"
+     "EndPeakTime"                   = $EndPeakTime                             # 선택 사항입니다. 기본값: "오후 5:00"
      "TimeDifference"                = $TimeDifference                          # 선택 사항입니다. 기본값: "-7:00"
      "SessionThresholdPerCPU"        = $SessionThresholdPerCPU                  # 선택 사항입니다. 기본값: 1
      "MinimumNumberOfRDSH"           = $MinimumNumberOfRDSH                     # 선택 사항입니다. 기본값: 1
@@ -240,16 +240,16 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
 1. **az140-21-hp1_Autoscale_Scheduler** 블레이드 왼쪽의 세로 메뉴에 있는 **개발 도구** 섹션에서 **논리 앱 디자이너**를 선택합니다. 
 1. 디자이너 창에서 레이블이 **되풀이**인 사각형을 클릭하여 자동 크기 조정을 평가해야 하는 빈도를 제어하는 데 이 옵션을 사용할 수 있음을 확인합니다. 
 
-### 연습 2: Windows Virtual Desktop 세션 호스트의 자동 크기 조정 확인 및 검토
+### 연습 2: Azure Virtual Desktop 세션 호스트의 자동 크기 조정 확인 및 검토
 
-이 연습의 기본 작업은 다음과 같습니다.
+이 연습의 주요 작업은 다음과 같습니다.
 
-1. Windows Virtual Desktop 세션 호스트의 자동 크기 조정 확인
-1. Azure Log Analytics를 사용하여 Windows Virtual Desktop 이벤트 추적
+1. Azure Virtual Desktop 세션 호스트의 자동 크기 조정 확인
+1. Azure Log Analytics를 사용하여 Azure Virtual Desktop 이벤트 추적
 
-#### 작업 1: Windows Virtual Desktop 세션 호스트의 자동 크기 조정 확인
+#### 작업 1: Azure Virtual Desktop 세션 호스트의 자동 크기 조정 확인
 
-1. Windows Virtual Desktop 세션 호스트의 자동 크기 조정을 확인하려면 **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **가상 머신**을 검색하여 선택합니다. 그런 다음 **가상 머신** 블레이드에서 **az140-21-RG** 리소스 그룹 내 Azure VM 3개의 상태를 검토합니다.
+1. Azure Desktop 세션 호스트의 자동 크기 조정을 확인하려면 **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **가상 머신**을 검색하여 선택합니다. 그런 다음 **가상 머신** 블레이드에서 **az140-21-RG** 리소스 그룹 내 Azure VM 3개의 상태를 검토합니다.
 1. Azure VM 3개 중 2개는 할당 취소 중이거나 이미 **중지됨(할당 취소됨)** 상태임을 확인합니다.
 
    >**참고**: 자동 크기 조정이 작동함을 확인하는 즉시 해당 요금을 최소화할 수 있도록 Azure 논리 앱을 사용하지 않도록 설정해야 합니다.
@@ -261,13 +261,13 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
 1. **Automation 계정** 블레이드 왼쪽의 세로 메뉴에 있는 **프로세스 자동화** 섹션에서 **작업**을 선택하고 **WVDAutoScaleRunbookARMBased** Runbook의 개별 호출에 해당하는 작업 목록을 검토합니다.
 1. 가장 최근 작업을 선택하고 해당 작업의 블레이드에서 **모든 로그** 탭 머리글을 클릭합니다. 그러면 작업 실행 단계의 세부 목록이 표시됩니다.
 
-#### 작업 2: Azure Log Analytics를 사용하여 Windows Virtual Desktop 이벤트 추적
+#### 작업 2: Azure Log Analytics를 사용하여 Azure Virtual Desktop 이벤트 추적
 
->**참고**: 자동 크기 조정 및 다른 Windows Virtual Desktop 이벤트를 분석하려는 경우 Log Analytics를 사용할 수 있습니다.
+>**참고**: 자동 크기 조정 및 다른 Azure Virtual Desktop 이벤트를 분석하려는 경우 Log Analytics를 사용할 수 있습니다.
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Log Analytics 작업 영역**을 검색하여 선택합니다. 그런 다음 **Log Analytics 작업 영역** 블레이드에서 이 랩에서 사용하는 Azure Log Analytics 작업 영역에 해당하는 항목(이름이 **az140-workspace-51** 접두사로 시작되는 항목)을 선택합니다.
 1. Log Analytics 작업 영역 블레이드 왼쪽의 세로 메뉴에 있는 **일반** 섹션에서 **로그**을 클릭하고 **Log Analytics 시작** 창에서 **시작**을 클릭합니다.
-1. **쿼리** 창 왼쪽의 **모든 쿼리** 세로 메뉴에서 **Windows Virtual Desktop**을 선택하고 미리 정의된 쿼리를 검토합니다.
+1. **쿼리** 창 왼쪽의 **모든 쿼리** 세로 메뉴에서 **Azure Virtual Desktop**을 선택하고 미리 정의된 쿼리를 검토합니다.
 1. **쿼리** 창을 닫습니다. 그러면 **새 쿼리 1** 탭이 자동으로 표시됩니다.
 1. 쿼리 창에 다음 쿼리를 붙여넣고 **실행**을 클릭하여 이 랩에서 사용하는 호스트 풀의 모든 이벤트를 표시합니다.
 
@@ -309,7 +309,7 @@ Active Directory Domain Services(AD DS) 환경에서 Windows Virtual Desktop 세
 
 ### 연습 3: 랩에서 프로비전한 Azure VM 중지 및 할당 취소
 
-이 연습의 기본 작업은 다음과 같습니다.
+이 연습의 주요 작업은 다음과 같습니다.
 
 1. 랩에서 프로비전한 Azure VM 중지 및 할당 취소
 
