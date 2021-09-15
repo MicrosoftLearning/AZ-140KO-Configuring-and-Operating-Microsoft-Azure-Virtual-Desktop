@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: AVD용 스토리지 구현 및 관리(AD DS)'
     module: '모듈 2: AVD 인프라 구현'
@@ -87,7 +87,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
 
 #### 작업 3: Azure Storage 계정에 대해 AD DS 인증을 사용하도록 설정 
 
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 내의 Microsoft Edge 창에서 다른 탭을 열고 [Azure Files 샘플 GitHub 리포지토리](https://github.com/Azure-Samples/azure-files-samples/releases)로 이동합니다. 그런 다음 압축된 **AzFilesHybid.zip** PowerShell 모듈의 최신 버전을 다운로드하여 **C:\\Allfiles\\Labs\\02** 폴더에 압축을 풉니다(필요하면 폴더를 만듭니다).
+1. **az140-dc-vm11**에 연결된 원격 데스크톱 내의 Microsoft Edge 창에서 다른 탭을 열고 [Azure Files 샘플 GitHub 리포지토리](https://github.com/Azure-Samples/azure-files-samples/releases)로 이동합니다. 그런 다음 압축된 **AzFilesHybrid.zip** PowerShell 모듈의 최신 버전을 다운로드하여 **C:\\Allfiles\\Labs\\02** 폴더에 압축을 풉니다(필요하면 폴더를 만듭니다).
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자:  Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **Zone.Identifier** 대체 데이터 스트림을 제거합니다. 이 데이터 스트림의 값은 해당 스트림을 인터넷에서 다운로드했음을 나타내는 **3**입니다.
 
    ```powershell

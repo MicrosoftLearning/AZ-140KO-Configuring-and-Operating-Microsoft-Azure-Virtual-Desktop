@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Virtual Desktop(Azure AD DS) 배포 준비'
     module: '모듈 1: AVD 아키텍처 계획'
@@ -206,7 +206,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    > **참고**: 기술적 측면에서는 도메인 이름이 반드시 고유할 필요는 없지만, 일반적으로는 기존 Azure 또는 온-프레미스 DNS 네임스페이스와 다른 Azure AD DS 도메인 이름을 할당해야 합니다.
 
 1. **Azure AD Domain Services 만들기** 블레이드의 **네트워킹** 탭에서 **가상 네트워크** 드롭다운 목록 옆의 **새로 만들기**를 선택합니다.
-1. **가상 네트워크 만들기** 블레이드에서 다음 설정을 지정하고 **확인**을 선택합니다(나머지는 기존 값을 그대로 유지).
+1. **가상 네트워크 생성** 블레이드에서 다음 설정을 지정하고 **확인**을 클릭합니다.
 
    |설정|값|
    |---|---|

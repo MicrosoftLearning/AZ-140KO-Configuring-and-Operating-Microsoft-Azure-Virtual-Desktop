@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Portal을 사용하여 호스트 풀 및 세션 호스트 배포(AD DS)'
     module: '모듈 2: AVD 인프라 구현'
@@ -127,11 +127,12 @@ Active Directory Domain Services(AD DS) 환경에서 호스트 풀과 세션 호
    |서브넷|**hp1-Subnet(10.0.1.0/24)**|
    |네트워크 보안 그룹|**기본**|
    |공용 인바운드 포트|**아니요**|
+   |조인할 디렉터리를 선택합니다.|**Active Directory**|
+   |AD 도메인 가입 UPN|**student@adatum.com**|
+   |암호|**Pa55w.rd1234**|
    |도메인 또는 단위 지정|**예**|
    |가입할 도메인|**adatum.com**|
    |조직 구성 단위 경로|**OU=WVDInfra,DC=adatum,DC=com**|
-   |AD 도메인 가입 UPN|**student@adatum.com**|
-   |암호|**Pa55w.rd1234**|
    |사용자 이름|Student|
    |암호|Pa55w.rd1234|
    |암호 확인|Pa55w.rd1234|
