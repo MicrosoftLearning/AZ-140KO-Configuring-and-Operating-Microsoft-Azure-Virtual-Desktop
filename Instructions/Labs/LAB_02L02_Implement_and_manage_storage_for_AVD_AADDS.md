@@ -89,8 +89,10 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
 
 #### 작업 3: Azure Storage 계정에 대해 Azure AD DS 인증을 사용하도록 설정
 
-1. **az140-cl-vm11a** 에 연결된 원격 데스크톱 세션 내의 Microsoft Edge 창에 표시되어 있는 Azure Portal로 이동합니다. 그런 다음 이전 작업에서 만든 스토리지 계정 속성이 표시된 블레이드의 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **구성**을 선택합니다. 
-1. **Azure Active Directory Domain Services(Azure AD DS)** 섹션에서 **사용** 옵션을 선택하고 **저장**을 선택합니다.
+1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Microsoft Edge 창에 표시되어 있는 Azure Portal로 이동합니다. 그런 다음 이전 작업에서 만든 스토리지 계정 속성이 표시된 블레이드의 왼쪽 세로 메뉴에 있는 **데이터 스토리지** 섹션에서 **파일 공유**를 선택합니다. 
+1. **파일 공유 설정** 섹션에서 **Active Directory** 레이블 옆에 있는 **구성되지 않음** 링크를 선택합니다.
+1. **Active Directory 원본 사용** 섹션의 **Azure Active Directory Domain Services**에서 **설정**을 선택합니다.
+1. **ID 기반 액세스** 블레이드에서 **사용** 옵션을 선택하고 **저장**을 선택합니다.
 
 #### 작업 4: Azure Files RBAC 기반 권한 구성
 

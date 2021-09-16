@@ -1,6 +1,6 @@
 ---
 lab:
-    title: '랩: Azure Virtual Desktop(Azure AD DS) 배포 준비'
+    title: '랩: Azure Virtual Desktop의 배포 준비(Azure AD DS)'
     module: '모듈 1: AVD 아키텍처 계획'
 ---
 
@@ -206,7 +206,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    > **참고**: 기술적 측면에서는 도메인 이름이 반드시 고유할 필요는 없지만, 일반적으로는 기존 Azure 또는 온-프레미스 DNS 네임스페이스와 다른 Azure AD DS 도메인 이름을 할당해야 합니다.
 
 1. **Azure AD Domain Services 만들기** 블레이드의 **네트워킹** 탭에서 **가상 네트워크** 드롭다운 목록 옆의 **새로 만들기**를 선택합니다.
-1. **가상 네트워크 만들기** 블레이드에서 다음 설정을 지정하고 **확인**을 선택합니다(나머지는 기존 값을 그대로 유지).
+1. **가상 네트워크 생성** 블레이드에서 다음 설정을 지정하고 **확인**을 클릭합니다.
 
    |설정|값|
    |---|---|
@@ -310,7 +310,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    Add-AzureADGroupMember -ObjectId $groupObjectId -RefObjectId $userObjectId
    ```
 
-1  Cloud Shell 창을 닫습니다.
+1.  Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
 1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a |\ 연결** 블레이드의**RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
