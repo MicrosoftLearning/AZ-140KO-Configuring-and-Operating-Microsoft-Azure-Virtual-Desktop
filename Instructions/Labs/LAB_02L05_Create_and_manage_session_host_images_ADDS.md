@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 세션 호스트 이미지 만들기 및 관리(AD DS)'
     module: '모듈 2: WVD 인프라 구현'
@@ -97,9 +97,9 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
    Start-Process -FilePath 'C:\Allfiles\Labs\02\x64\Release\FSLogixAppsSetup.exe' -ArgumentList '/quiet' -Wait
    ```
 
-   > **참고**: 설치가 완료될 때까지 기다립니다. 1분 정도 걸릴 수 있습니다.
+   > **참고**: 설치가 완료될 때까지 기다립니다. 1분 정도 걸릴 수 있습니다. 설치로 인해 재부팅되면 **az140-25-vm0**에 다시 연결합니다.
 
-   > **참고**: 다음으로는 Microsoft Teams를 설치 및 구성합니다.
+   > **참고**: 그 다음에는 Microsoft Teams의 설치 및 구성을 진행합니다(학습 목적을 위해, 이 랩에 사용되는 이미지에 Teams가 이미 존재하기 때문).
 
 1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **시작**을 마우스 오른쪽 단추로 클릭하고 오른쪽 클릭 메뉴에서 **실행**을 선택합니다. 그런 다음 **실행** 대화 상자의 **열기** 텍스트 상자에 **cmd**를 입력하고 **Enter** 키를 눌러 **명령 프롬프트**를 시작합니다.
 1. **관리자: C:\windows\system32\cmd.exe** 창의 명령 프롬프트에서 다음 명령을 실행하여 Microsoft Teams 시스템별 설치를 준비합니다.
@@ -127,7 +127,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
    > **참고**: 설치 관리자에서는 ALLUSER=1 및 ALLUSERS=1 매개 변수가 지원됩니다. ALLUSER=1 매개 변수는 VDI 환경의 시스템별 설치용입니다. ALLUSERS=1 매개 변수는 VDI 환경과 VDI 이외 환경에서 모두 사용 가능합니다. 
 
-1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **관리자: Windows PowerShell ISE** 창으로 전환한 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음 명령을 실행하여 Microsoft Edge Chromium을 설치합니다.
+1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음을 실행하여 Microsoft Edge Chromium을 설치합니다(학습 목적을 위해, 이 랩에 사용되는 이미지에 Edge가 이미 존재하기 때문).
 
    ```powershell
    Start-BitsTransfer -Source "https://aka.ms/edge-msi" -Destination 'C:\Allfiles\Labs\02\MicrosoftEdgeEnterpriseX64.msi'

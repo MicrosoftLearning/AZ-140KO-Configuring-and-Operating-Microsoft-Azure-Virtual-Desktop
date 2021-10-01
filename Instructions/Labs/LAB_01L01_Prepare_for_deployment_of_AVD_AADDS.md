@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Virtual Desktop의 배포 준비(Azure AD DS)'
     module: '모듈 1: AVD 아키텍처 계획'
@@ -342,7 +342,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 #### 작업 3: Azure AD DS에 동기화할 AD DS 사용자 및 그룹 만들기
 
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로 **Pa55w.rd1234**를 입력하여 로그인합니다.
-1. Azure Portal의 **Cloud Shell**에서 PowerShell 세션을 엽니다.
+1. Azure Portal에서 **Cloud Shell**을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
    >**참고**: **aadadmin1** 사용자 계정을 사용하여 **Cloud Shell**을 처음 시작하는 경우 Cloud Shell 홈 디렉터리를 구성해야 합니다. **탑재된 스토리지가 없음** 메시지가 표시되면 이 랩에서 사용하는 구독을 선택하고 **스토리지 만들기**를 선택합니다. 

@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Virtual Desktop의 배포 준비(AD DS)'
     module: '모듈 1: AVD 아키텍처 계획'
@@ -76,7 +76,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
    > **참고**: Azure 지역의 이름을 확인하려면 **Cloud Shell**의 PowerShell 프롬프트에서 `(Get-AzLocation).Location`을 실행합니다.
    
-1. 이전 단계에서 실행한 명령 출력을 검토하여 대상 Azure 지역에서 Azure VM의 **Standard DSv3 Family** 및 **StandardBSFamily** 둘 다에서 사용 가능한 vCPU가 **20**개 이상인지 확인합니다. 사용 가능한 vCPU가 20개 이상인 경우에는 다음 연습부터 바로 진행하면 됩니다. 그렇지 않은 경우에는 이 연습의 다음 작업을 계속 진행합니다. 
+1. 이전 단계에서 실행한 명령 출력을 검토하여 대상 Azure 지역에서 Azure VM의 **Standard DSv3 Family** 및 **StandardBDFamily** 둘 다에서 사용 가능한 vCPU가 **40**개 이상인지 확인합니다. 사용 가능한 vCPU가 20개 이상인 경우에는 다음 연습부터 바로 진행하면 됩니다. 그렇지 않은 경우에는 이 연습의 다음 작업을 계속 진행합니다. 
 
 #### 작업 2: vCPU 할당량 늘리기 요청
 
@@ -171,6 +171,8 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 1. **새 AD 포리스트를 사용하여 Azure VM 만들기** 블레이드에서 **검토 + 만들기**, **만들기**를 차례로 선택합니다.
 
    > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 완료되려면 15분 정도 걸립니다. 
+
+   > **참고**: 배포가 완료되면 **az140-adds-vnet11** 가상 네트워크의 블레이드로 이동하고, DNS 사용자 지정 구성이 새로 배포된 Azure VM의 IP 주소(10.0.0.4)로 설정되었는지 확인하고, 그렇지 않으면 수동으로 추가합니다.
 
 #### 작업 3: Azure Resource Manager 빠른 시작 템플릿을 사용하여 Windows 10을 실행하는 Azure VM 배포
 

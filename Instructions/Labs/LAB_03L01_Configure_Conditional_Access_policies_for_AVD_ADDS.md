@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: WVD용 조건부 액세스 정책 구성(AD DS)'
     module: '모듈 3: 액세스 및 보안 관리'
@@ -88,7 +88,7 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
 
 #### 작업 3: Azure AD MFA용 사용자 등록
 
-1. 랩 컴퓨터에서 InPrivate 웹 브라우저 세션을 열고 [Azure portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 연습 앞부분에서 확인한 **user5**사용자 계정 이름과 암호 **Pa55w.rd1234**를 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 **InPrivate** 웹 브라우저 세션을 열고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 연습 앞부분에서 확인한 **aduser5** 사용자 계정 이름과 암호 **Pa55w.rd1234**를 입력하여 로그인합니다.
 1. **자세한 정보 필요** 메시지가 표시되면 **다음**을 클릭합니다. 그러면 브라우저가 **Microsoft Authenticator** 페이지로 자동 리디렉션됩니다.
 1. **추가 보안 인증** 페이지의 **1단계: 어떻게 연락해야 하나요?** 에서 원하는 인증 방법을 선택하고 지침을 따라 등록 프로세스를 완료합니다. 
 1. Azure Portal 페이지 오른쪽 위에서 사용자 아바타에 해당하는 아이콘을 클릭하고 **로그아웃**을 클릭한 후에 **In private** 브라우저 창을 닫습니다. 
@@ -152,6 +152,7 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell** 콘솔 창에서 다음 명령을 실행하여 Azure AD Connect 델타 동기화를 트리거합니다.
 
    ```powershell
+   Import-Module -Name "C:\Program Files\Microsoft Azure AD Sync\Bin\ADSync"
    Start-ADSyncSyncCycle -PolicyType Delta
    ```
 
@@ -201,7 +202,7 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
 
    >**참고**: 명령이 완료되고 **az140-21-RG** 리소스 그룹에 있는 모든 Azure VM이 실행될 때까지 기다립니다. 
 
-1. 랩 컴퓨터에서 **InPrivate** 웹 브라우저 세션을 열고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 연습 앞부분에서 확인한 **user5** 사용자 계정 이름과 암호 **Pa55w.rd1234**를 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 **InPrivate** 웹 브라우저 세션을 열고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 연습 앞부분에서 확인한 **aduser5** 사용자 계정 이름과 암호 **Pa55w.rd1234**를 입력하여 로그인합니다.
 
    > **참고**: MFA를 통해 인증하라는 메시지가 표시되지 않음을 확인합니다.
 
@@ -221,8 +222,7 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
 >**참고**: 이 작업에서는 Azure Virtual Desktop 세션에 로그인하려면 MFA를 사용해야 하는 Azure AD 기반 조건부 액세스 정책을 수정하여 Azure AD 조인 컴퓨터에서 시작되는 연결에는 MFA를 사용하지 않아도 되도록 설정합니다.
 
 1. 랩 컴퓨터의 Azure Portal이 표시된 브라우저 창 내 **조건부 액세스 | 정책** 블레이드에서 **az140-31-wvdpolicy1** 정책에 해당하는 항목을 클릭합니다.
-1. **az140-31-wvdpolicy1** 블레이드의 **할당** 섹션에서 **조건**을 클릭하고 조건 목록에서 **디바이스 상태**를 클릭합니다. 그런 다음 **디바이스 상태** 블레이드에서 **구성** 스위치를 **예**로 설정하고 **제외** 탭을 클릭합니다. 그 후에 **제외** 탭에서 **디바이스 하이브리드 Azure AD 조인**을 선택하고 **완료**를 클릭합니다.
-1. **az140-31-wvdpolicy1** 블레이드의 **액세스 제어** 섹션에서 **권한 부여**를 클릭하고 **권한 부여** 블레이드에서 **하이브리드 Azure AD 조인 디바이스 필요** 체크박스를 선택합니다. 그런 후에 **선택한 컨트롤 중 하나가 필요함** 옵션이 사용하도록 설정되어 있는지 확인하고 **선택**을 클릭합니다.
+1. **az140-31-wvdpolicy1** 블레이드의 **액세스 제어** 섹션에서 **권한 부여**를 클릭하고 **권한 부여** 블레이드에서 **다단계 인증 필요** 및 **하이브리드 Azure AD 조인 디바이스 필요** 체크박스를 선택합니다. 그런 후에 **선택한 컨트롤 중 하나가 필요함** 옵션이 사용하도록 설정되어 있는지 확인하고 **선택**을 클릭합니다.
 1. **az140-31-wvdpolicy1** 블레이드에서 **저장**을 클릭합니다.
 
 #### 작업 4: 수정된 Azure AD 기반 조건부 액세스 정책 테스트
