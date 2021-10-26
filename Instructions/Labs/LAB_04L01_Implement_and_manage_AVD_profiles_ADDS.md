@@ -144,44 +144,40 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 프�
 
    > **참고**: 일관성 있는 사용자 환경을 제공하려면 모든 Azure Virtual Desktop 세션 호스트에서 FSLogix 구성 요소를 설치하고 구성해야 합니다. 랩 환경의 다른 세션 호스트에서는 무인 방식으로 이 작업을 수행합니다. 
 
-1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 및 **'az140-21-p1-1'** 세션 호스트에 FSLogix 구성 요소를 설치합니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 세션 호스트에 FSLogix 구성 요소를 설치합니다.
 
    ```powershell
-   $servers = 'az140-21-p1-1', 'az140-21-p1-2'
-   foreach ($server in $servers) {
-      $localPath = 'C:\Allfiles\Labs\04\x64'
-      $remotePath = "\\$server\C$\Allfiles\Labs\04\x64\Release"
-      Copy-Item -Path $localPath\Release -Destination $remotePath -Filter '*.exe' -Force -Recurse
-      Invoke-Command -ComputerName $server -ScriptBlock {
-         Start-Process -FilePath $using:localPath\Release\FSLogixAppsSetup.exe -ArgumentList '/quiet' -Wait
-      } 
-   }
+   $server = 'az140-21-p1-1' 
+   $localPath = 'C:\Allfiles\Labs\04\x64'
+   $remotePath = "\\$server\C$\Allfiles\Labs\04\x64\Release"
+   Copy-Item -Path $localPath\Release -Destination $remotePath -Filter '*.exe' -Force -Recurse
+   Invoke-Command -ComputerName $server -ScriptBlock {
+      Start-Process -FilePath $using:localPath\Release\FSLogixAppsSetup.exe -ArgumentList '/quiet' -Wait
+   } 
    ```
 
    > **참고**: 스크립트 실행이 완료될 때까지 기다립니다. 완료되려면 2분 정도 걸립니다.
 
-1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 및 **az140-21-p1-1** 세션 호스트에 프로필 레지스트리 설정을 구성합니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 세션 호스트에서 프로필 레지스트리 설정을 구성합니다.
 
    ```powershell
    $profilesParentKey = 'HKLM:\SOFTWARE\FSLogix'
    $profilesChildKey = 'Profiles'
    $fileShareName = 'az140-22-profiles'
-   foreach ($server in $servers) {
-      Invoke-Command -ComputerName $server -ScriptBlock {
-         New-Item -Path $using:profilesParentKey -Name $using:profilesChildKey –Force
-         New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'Enabled' -PropertyType DWord -Value 1
-         New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'VHDLocations' -PropertyType MultiString -Value "\\$using:storageAccountName.file.core.windows.net\$using:fileShareName"
-      }
+   Invoke-Command -ComputerName $server -ScriptBlock {
+      New-Item -Path $using:profilesParentKey -Name $using:profilesChildKey –Force
+      New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'Enabled' -PropertyType DWord -Value 1
+      New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'VHDLocations' -PropertyType MultiString -Value "\\$using:storageAccountName.file.core.windows.net\$using:fileShareName"
    }
    ```
 
    > **참고**: FSLogix 기반 프로필 기능을 테스트하려면 이전 랩에서 사용한 Azure Virtual Desktop 세션 호스트에서 테스트용으로 사용할 **ADATUM\aduser1** 계정의 로컬에 캐시된 프로필을 제거해야 합니다.
 
-1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 세션 호스트로 사용되는 모든 Azure VM에서 **ADATUM\\aduser1** 계정의 로컬에 캐시된 프로필을 제거합니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 세션 호스트로 사용되는 두 Azure VM에서 모두 **ADATUM\\aduser1** 계정의 로컬에 캐시된 프로필을 제거합니다.
 
    ```powershell
    $userName = 'aduser1'
-   $servers = 'az140-21-p1-0','az140-21-p1-1', 'az140-21-p1-2'
+   $servers = 'az140-21-p1-0','az140-21-p1-1'
    Get-CimInstance -ComputerName $servers -Class Win32_UserProfile | Where-Object { $_.LocalPath.split('\')[-1] -eq $userName } | Remove-CimInstance
    ```
 

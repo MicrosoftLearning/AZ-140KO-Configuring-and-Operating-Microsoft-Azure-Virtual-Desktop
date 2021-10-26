@@ -66,8 +66,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
    |스토리지 계정 이름|3~15자 사이의 소문자와 숫자로 구성된 전역적으로 고유한 이름(문자로 시작해야 함)|
    |지역|Azure Virtual Desktop 랩 환경을 호스트하는 Azure 지역의 이름|
    |성능|**Standard**|
-   |중복성|**지리 중복 스토리지(GRS)**|
-   |지역에서 사용할 수 없는 경우 사용 가능한 데이터에 읽기 액세스 권한 부여|사용|
+   |중복성|**RA-GRS(읽기 액세스 지역 중복 스토리지)**|
 
    >**참고**: 스토리지 계정 이름 길이가 15자를 초과하지 않는지 확인합니다. 이 이름을 사용하여 Active Directory Domain Services(AD DS) 도메인에서 컴퓨터 계정을 만듭니다. 이 도메인은 스토리지 계정이 포함된 Azure 구독과 연결되어 있는 Azure AD 테넌트와 통합됩니다. 따라서 이 스토리지 계정에서 호스트되는 파일 공유에 액세스할 때 AD DS 기반 인증을 사용할 수 있습니다.
 
@@ -142,7 +141,8 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
    AzureStorageSid   : S-1-5-21-1102940778-2483248400-1820931179-2109
    ```
 
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창으로 전환합니다. 그런 다음 스토리지 계정이 표시된 블레이드에서 **파일 공유**를 선택하고 **Active Directory** 설정이 **구성됨**인지 확인합니다.
+1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창으로 전환합니다. 그런 다음 스토리지 계정 속성이 표시된 블레이드의 세로 메뉴에 있는 **설정** 섹션에서 **구성**을 선택합니다.
+1. 스토리지 계정의 구성 블레이드에서 **Active Directory Domain Services(AD DS)** 옵션이 **사용**으로 설정되어 있으며 **조인된 도메인** 항목은 **adatum.com**으로 설정되어 있는지 확인합니다.
 
    >**참고**: 브라우저 페이지를 새로 고쳐야 Azure Portal 내에서 변경 내용이 반영될 수도 있습니다.
 
