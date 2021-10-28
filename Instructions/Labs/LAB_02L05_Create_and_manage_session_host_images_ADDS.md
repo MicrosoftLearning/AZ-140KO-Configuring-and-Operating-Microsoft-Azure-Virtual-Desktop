@@ -68,7 +68,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
      -TemplateParameterFile $HOME/az140-25_azuredeployvm25.parameters.json
    ```
 
-   > **참고**: 배포가 완료될 때까지 기다리지 말고 다음 연습을 진행하세요. 배포는 10분 정도 걸릴 수 있습니다.
+   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포에는 약 10분이 소요됩니다.
 
 #### 작업 2: Azure Virtual Desktop 호스트 이미지 구성
 
