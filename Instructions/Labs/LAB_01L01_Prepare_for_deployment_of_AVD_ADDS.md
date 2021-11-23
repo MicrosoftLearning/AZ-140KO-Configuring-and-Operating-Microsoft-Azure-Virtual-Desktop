@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Virtual Desktop의 배포 준비(AD DS)'
     module: '모듈 1: AVD 아키텍처 계획'
@@ -76,7 +76,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
    > **참고**: Azure 지역의 이름을 확인하려면 **Cloud Shell**의 PowerShell 프롬프트에서 `(Get-AzLocation).Location`을 실행합니다.
    
-1. 이전 단계에서 실행한 명령 출력을 검토하여 대상 Azure 지역에서 Azure VM의 **Standard DSv3 Family** 및 **StandardBSFamily** 둘 다에서 사용 가능한 vCPU가 **20**개 이상인지 확인합니다. 사용 가능한 vCPU가 20개 이상인 경우에는 다음 연습부터 바로 진행하면 됩니다. 그렇지 않은 경우에는 이 연습의 다음 작업을 계속 진행합니다. 
+1. 이전 단계에서 실행한 명령 출력을 검토하여 대상 Azure 지역에서 Azure VM의 **Standard DSv3 Family** 및 **StandardBDFamily** 둘 다에서 사용 가능한 vCPU가 **40**개 이상인지 확인합니다. 사용 가능한 vCPU가 20개 이상인 경우에는 다음 연습부터 바로 진행하면 됩니다. 그렇지 않은 경우에는 이 연습의 다음 작업을 계속 진행합니다. 
 
 #### 작업 2: vCPU 할당량 늘리기 요청
 
@@ -129,6 +129,9 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 #### 작업 1: Azure VM 배포에 사용할 수 있는 DNS 이름 식별
 
 1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. Azure Portal이 표시된 웹 브라우저에서 Azure AD 테넌트의 **개요** 블레이드로 이동한 후 왼쪽 세로 메뉴에 있는 **관리** 섹션에서 **속성**을 클릭합니다.
+1. Azure AD 테넌트 **속성** 블레이드의 블레이드 맨 아래쪽에서 **보안 관리 기본값** 링크를 선택합니다.
+1. **보안 기본값 사용** 블레이드에서 필요한 경우 **아니요**를 선택하고 **내 조직에서 조건부 액세스를 사용 중임** 체크박스를 선택한 후 **저장**을 선택합니다.
 1. Azure Portal에서 검색 텍스트 상자의 오른쪽에 있는 도구 모음 아이콘을 직접 선택하여 **Cloud Shell** 창을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
@@ -172,9 +175,11 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
    > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 완료되려면 15분 정도 걸립니다. 
 
+   > **참고**: 배포가 완료되면 **az140-adds-vnet11** 가상 네트워크의 블레이드로 이동하고, DNS 사용자 지정 구성이 새로 배포된 Azure VM의 IP 주소(10.0.0.4)로 설정되었는지 확인하고, 그렇지 않으면 수동으로 추가합니다.
+
 #### 작업 3: Azure Resource Manager 빠른 시작 템플릿을 사용하여 Windows 10을 실행하는 Azure VM 배포
 
-1. 랩 컴퓨터에서 Azure Portal이 표시된 웹브라우저 내 Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이전 작업에서 만든 **az140-adds-vnet11** 가상 네트워크에 서브넷 **cl-Subnet**을 추가합니다.
+1. 랩 컴퓨터에서 Azure Portal이 표시된 웹브라우저 내 Cloud Shell 창에서 PowerShell 세션울 열고 다음 명령을 실행하여 이전 작업에서 만든 **az140-adds-vnet11** 가상 네트워크에 서브넷 **cl-Subnet**을 추가합니다.
 
    ```powershell
    $resourceGroupName = 'az140-11-RG'
@@ -392,7 +397,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 TLS 1.2를 사용합니다.
 
    ```powershell
-   New-Item 'HKLM:\SOFTWARE\WOW6432Node\Microsoft.NETFramework\v4.0.30319' -Force | Out-Null
+   New-Item 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -Force | Out-Null
    New-ItemProperty -path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -name 'SystemDefaultTlsVersions' -value '1' -PropertyType 'DWord' -Force | Out-Null
    New-ItemProperty -path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -name 'SchUseStrongCrypto' -value '1' -PropertyType 'DWord' -Force | Out-Null
    New-Item 'HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319' -Force | Out-Null

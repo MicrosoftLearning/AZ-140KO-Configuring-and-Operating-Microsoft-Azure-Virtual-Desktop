@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 세션 호스트 이미지 만들기 및 관리(AD DS)'
     module: '모듈 2: WVD 인프라 구현'
@@ -97,9 +97,9 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
    Start-Process -FilePath 'C:\Allfiles\Labs\02\x64\Release\FSLogixAppsSetup.exe' -ArgumentList '/quiet' -Wait
    ```
 
-   > **참고**: 설치가 완료될 때까지 기다립니다. 1분 정도 걸릴 수 있습니다.
+   > **참고**: 설치가 완료될 때까지 기다립니다. 1분 정도 걸릴 수 있습니다. 설치로 인해 재부팅되면 **az140-25-vm0**에 다시 연결합니다.
 
-   > **참고**: 다음으로는 Microsoft Teams를 설치 및 구성합니다.
+   > **참고**: 그 다음에는 Microsoft Teams의 설치 및 구성을 진행합니다(학습 목적을 위해, 이 랩에 사용되는 이미지에 Teams가 이미 존재하기 때문).
 
 1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **시작**을 마우스 오른쪽 단추로 클릭하고 오른쪽 클릭 메뉴에서 **실행**을 선택합니다. 그런 다음 **실행** 대화 상자의 **열기** 텍스트 상자에 **cmd**를 입력하고 **Enter** 키를 눌러 **명령 프롬프트**를 시작합니다.
 1. **관리자: C:\windows\system32\cmd.exe** 창의 명령 프롬프트에서 다음 명령을 실행하여 Microsoft Teams 시스템별 설치를 준비합니다.
@@ -115,8 +115,6 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
    C:\Allfiles\Labs\02\vc_redist.x64.exe /install /passive /norestart /log C:\Allfiles\Labs\02\vc_redist.log
    ```
 
-1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge 창으로 전환하여 [Remote Desktop WebRTC Redirector Service 다운로드 페이지](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4AQBt)로 이동합니다. 그런 다음 설치 관리자 패키지를 **C:\\Allfiles\\Labs\\02** 폴더에 저장합니다.
-1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 파일 탐색기를 시작하고 **C:\\Allfiles\\Labs\\02** 폴더로 이동한 다음 새로 다운로드한 설치 관리자를 두 번 클릭하여 기본 설정으로 설치를 실행합니다.
 1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내의 Microsoft Edge에서 [
 VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftteams/teams-for-vdi#deploy-the-teams-desktop-app-to-the-vm) 설명서 페이지로 이동하여 **64비트 버전** 링크를 클릭합니다. 메시지가 표시되면 **Teams_windows_x64.msi** 파일을 **C:\\Allfiles\\Labs\\02** 폴더에 저장합니다.
 1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **관리자: C:\windows\system32\cmd.exe** 창으로 전환한 후 명령 프롬프트에서 다음 명령을 실행하여 Microsoft Teams 시스템별 설치를 수행합니다.
@@ -127,7 +125,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
    > **참고**: 설치 관리자에서는 ALLUSER=1 및 ALLUSERS=1 매개 변수가 지원됩니다. ALLUSER=1 매개 변수는 VDI 환경의 시스템별 설치용입니다. ALLUSERS=1 매개 변수는 VDI 환경과 VDI 이외 환경에서 모두 사용 가능합니다. 
 
-1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **관리자: Windows PowerShell ISE** 창으로 전환한 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음 명령을 실행하여 Microsoft Edge Chromium을 설치합니다.
+1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음을 실행하여 Microsoft Edge Chromium을 설치합니다(학습 목적을 위해, 이 랩에 사용되는 이미지에 Edge가 이미 존재하기 때문).
 
    ```powershell
    Start-BitsTransfer -Source "https://aka.ms/edge-msi" -Destination 'C:\Allfiles\Labs\02\MicrosoftEdgeEnterpriseX64.msi'
@@ -195,7 +193,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
    |---|---|
    |Shared Image Gallery에 이미지 공유|**예, 이미지 버전으로 갤러리에 공유합니다.**|
    |이미지를 만든 후 이 가상 머신을 자동으로 삭제|체크박스 선택 취소|
-   |대상 이미지 갤러리|새 이미지 갤러리 **az10425imagegallery**의 이름|
+   |대상 이미지 갤러리|새 이미지 갤러리 **az14025imagegallery**의 이름|
    |운영 체제 상태|**일반화됨**|
 
 1. **이미지 만들기** 블레이드의 **기본** 탭에서 **대상 이미지 정의** 텍스트 상자 아래의 **새로 만들기**를 클릭합니다.
@@ -223,7 +221,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
    > **참고**: 배포가 완료될 때까지 기다립니다. 완료되려면 20분 정도 걸립니다.
 
-1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **Shared Image Gallery**를 검색하여 선택하고 **Shared Image Gallery** 블레이드에서 **az10425imagegallery** 항목을 선택합니다. 그런 다음 **az10425imagegallery** 블레이드에서 새로 만든 이미지에 해당하는 **az140-25-host-image** 항목이 있는지 확인합니다.
+1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **Shared Image Gallery**를 검색하여 선택하고 **Shared Image Gallery** 블레이드에서 **az14025imagegallery** 항목을 선택합니다. 그런 다음 ****az14025imagegallery**** 블레이드에서 새로 만든 이미지에 해당하는 **az140-25-host-image** 항목이 있는지 확인합니다.
 
 #### 작업 4: 사용자 지정 이미지를 사용하여 Azure Virtual Desktop 호스트 풀 프로비전
 
@@ -257,13 +255,8 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
    |리소스 그룹|**호스트 풀과 같은 그룹으로 기본 지정됨**|
    |이름 접두사|**az140-25-p4**|
    |가상 머신 위치|이 랩의 첫 번째 연습에서 리소스를 배포한 Azure 지역의 이름|
-   |가용성 옵션|인프라 중복이 필요하지 않습니다.|
-   |가상 머신 크기|**Standard D2s v3**|
-   |VM 수|**1**|
+   |가용성 옵션|인프라 중복 필요 없음|
    |이미지 형식|**갤러리**|
-   |사용자 이름|Student|
-   |암호|Pa55w.rd1234|
-   |암호 확인|Pa55w.rd1234|
 
 1. **호스트 풀 만들기** 블레이드의 **가상 머신** 탭에서 **이미지** 드롭다운 목록 바로 아래에 있는 **모든 이미지 보기** 링크를 클릭합니다.
 1. **이미지 선택** 블레이드의 **내 항목** 탭을 클릭하고 **공유 이미지**를 클릭한 후 공유 이미지 목록에서 **az140-25-host-image**를 선택합니다. 
@@ -271,17 +264,22 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
    |설정|값|
    |---|---|
-   |OS 디스크 유형|**표준 SSD**|
+   |가상 머신 크기|**Standard D2s v3**|
+   |VM 수|**1**|
+   |OS 디스크 유형|**표준 SSD LRS**|
    |가상 네트워크|**az140-adds-vnet11**|
    |서브넷|**hp4-Subnet(10.0.4.0/24)**|
    |네트워크 보안 그룹|**기본**|
    |공용 인바운드 포트|**예**|
    |허용할 인바운드 포트|**RDP**|
+   |AD 도메인 가입 UPN|**student@adatum.com**|
+   |암호|**Pa55w.rd1234**|
    |도메인 또는 단위 지정|**예**|
    |가입할 도메인|**adatum.com**|
    |조직 구성 단위 경로|**OU=WVDInfra,DC=adatum,DC=com**|
-   |AD 도메인 가입 UPN|**student@adatum.com**|
-   |암호|**Pa55w.rd1234**|
+   |사용자 이름|Student|
+   |암호|Pa55w.rd1234|
+   |암호 확인|Pa55w.rd1234|
 
 1. **호스트 풀 만들기** 블레이드의 **작업 영역** 탭에서 다음 설정을 지정하고 **검토 + 만들기**를 선택합니다.
 
