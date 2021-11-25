@@ -107,7 +107,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 이 랩에서 사용할 Azure Log Analytics 작업 영역을 만듭니다.
 
    ```powershell
-   New-AzOperationalInsightsWorkspace -Location $location -Name $workspaceName -Sku Standard -ResourceGroupName $resourceGroupName
+   New-AzOperationalInsightsWorkspace -Location $location -Name $workspaceName -ResourceGroupName $resourceGroupName
    ```
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE**에서 **C:\\Allfiles\\Labs\\05\\CreateOrUpdateAzAutoAccount.ps1** 스크립트를 열고 줄 **82**와 **86** 사이의 코드를 다음과 같이 여러 줄 주석으로 설정합니다.
@@ -266,7 +266,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
 >**참고**: 자동 크기 조정 및 다른 Azure Virtual Desktop 이벤트를 분석하려는 경우 Log Analytics를 사용할 수 있습니다.
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Log Analytics 작업 영역**을 검색하여 선택합니다. 그런 다음 **Log Analytics 작업 영역** 블레이드에서 이 랩에서 사용하는 Azure Log Analytics 작업 영역에 해당하는 항목(이름이 **az140-workspace-51** 접두사로 시작되는 항목)을 선택합니다.
-1. Log Analytics 작업 영역 블레이드 왼쪽의 세로 메뉴에 있는 **일반** 섹션에서 **로그**을 클릭하고 **Log Analytics 시작** 창에서 **시작**을 클릭합니다.
+1. Log Analytics 작업 영역 블레이드 왼쪽의 세로 메뉴에 있는 **일반** 섹션에서 **로그**를 클릭하고, 필요한 경우 **Log Analytics 시작** 창울 닫습니다. 그런 후에 **쿼리** 창으로 진행합니다.
 1. **쿼리** 창 왼쪽의 **모든 쿼리** 세로 메뉴에서 **Azure Virtual Desktop**을 선택하고 미리 정의된 쿼리를 검토합니다.
 1. **쿼리** 창을 닫습니다. 그러면 **새 쿼리 1** 탭이 자동으로 표시됩니다.
 1. 쿼리 창에 다음 쿼리를 붙여넣고 **실행**을 클릭하여 이 랩에서 사용하는 호스트 풀의 모든 이벤트를 표시합니다.
@@ -306,6 +306,8 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
    | where logmessage_s contains "ERROR:" or logmessage_s contains "WARN:"
    | project TimeStampUTC = TimeGenerated, TimeStampLocal = TimeStamp_s, HostPool = hostpoolName_s, LineNumAndMessage = logmessage_s, AADTenantId = TenantId
    ```
+
+>**참고**: `TenantId`와 관련된 오류 메시지는 무시하세요.
 
 ### 연습 3: 랩에서 프로비전한 Azure VM 중지 및 할당 취소
 

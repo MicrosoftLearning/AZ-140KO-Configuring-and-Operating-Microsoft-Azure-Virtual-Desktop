@@ -155,7 +155,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://github.com/microsoft/XmlNotepad** 로 이동합니다.
 1. **microsoft/XmlNotepad** **readme.md** 페이지에서 [독립 실행형 다운로드 가능 설치 관리자](http://www.lovettsoftware.com/downloads/xmlnotepad/xmlnotepadsetup.zip) 다운로드 링크를 선택하여 압축된 설치 파일을 다운로드합니다.
-1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 파일 탐색기를 시작하고 **다운로드** 폴더로 이동합니다. 그런 다음 압축된 파일을 열어 해당 내용을 복사한 후 **C:\\AllFiles\\Labs\\04\\** 디렉터리에 붙여넣습니다. 
+1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 파일 탐색기를 시작하고 **다운로드** 폴더로 이동합니다. 그런 다음 이 폴더에 있는 압축된 파일을 열어 해당 내용을 복사한 후 **C:\\AllFiles\\Labs\\04\\** 디렉터리에 붙여넣습니다. 
 
 #### 작업 6: MSIX Packaging Tool 설치
 
@@ -257,7 +257,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
 #### 작업 2: MSIX 앱 연결 이미지 만들기
 
-1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://aka.ms/msixmgr** 로 이동합니다. **msixmgr.zip** 파일을 열지 아니면 저장할지를 선택하라는 메시지가 표시되면 **저장**을 클릭합니다. 그러면 **다운로드** 폴더에 MXIS mgr tool 보관 파일이 다운로드됩니다.
+1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://aka.ms/msixmgr** 로 이동합니다. 그러면 **다운로드** 폴더에 **msixmgr.zip** 파일(MSIX mgr 도구 보관 파일)이 자동으로 다운로드됩니다.
 1. 파일 탐색기에서 **다운로드** 폴더로 이동하여 압축된 파일을 열고 **x64** 폴더의 내용을 **C:\\AllFiles\\Labs\\04** 폴더에 복사합니다. 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 MSIX 앱 연결 이미지로 사용할 VHD 파일을 만듭니다.
 
@@ -280,6 +280,8 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
    Format-Volume -FileSystem NTFS -Confirm:$false -DriveLetter $partition.DriveLetter -Force
    ```
 
+   > **참고**: F: 드라이브를 포맷할지 묻는 팝업 창이 표시되면 **취소**를 선택합니다.
+
 1. **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 MSIX 파일을 호스트할 폴더 구조를 만든 후 해당 폴더에 이전 작업에서 만든 MSIX 패키지의 압축을 풉니다.
 
    ```powershell
@@ -289,7 +291,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
    .\msixmgr.exe -Unpack -packagePath .\$appName.msix -destination "$($partition.DriveLetter):\Apps" -applyacls
    ```
 
-1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내의 파일 탐색기에서 **F:\\Apps** 폴더로 이동하여 폴더의 내용을 검토합니다.
+1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내의 파일 탐색기에서 **F:\\Apps** 폴더로 이동하여 폴더의 내용을 검토합니다. 폴더에 대한 액세스 권한을 얻을지 묻는 메시지가 표시되면 **계속**을 선택합니다.
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 콘솔에서 다음 명령을 실행하여 MSIX 이미지로 사용할 VHD 파일을 분리합니다.
 
    ```powershell
@@ -374,16 +376,8 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
    > **참고**: 프로덕션 시나리오에서 별도의 스토리지 계정 사용을 고려해야 합니다. 이렇게 하려면 사용자 프로필을 호스트하는 스토리지 계정에 대해 이미 구현한 Azure AD DS 인증용으로 해당 스토리지 계정을 구성해야 합니다. 이 과정에서는 개별 랩의 중복 단계를 최소화하기 위해 같은 스토리지 계정을 사용합니다.
 
-1. 스토리지 계정 블레이드 왼쪽의 세로 메뉴에 있는 **데이터 스토리지** 섹션에서 **파일 공유**, **+ 파일 공유**를 차례로 선택합니다.
-1. **새 파일 공유** 블레이드에서 다음 설정을 지정하고 **선택**을 선택합니다(다른 설정은 모두 기본값으로 유지).
-
-   |설정|값|
-   |---|---|
-   |이름|**az140-42-msixvhds**|
-
-1. Azure Portal이 표시된 Microsoft Edge의 파일 공유 목록에서 새로 만든 파일 공유를 선택합니다. 
-1. **az140-42a-msixvhds** 블레이드 왼쪽의 세로 메뉴에서 **액세스 제어(IAM)** 을 선택합니다.
-1. 스토리지 계정의 **az140-42a-msixvhds \| 액세스 제어(IAM)** 블레이드에서 **+ 추가**를 선택하고 드롭다운 메뉴에서 **역할 할당 추가**를 선택합니다. 
+1. 스토리지 계정 블레이드 왼쪽의 세로 메뉴에서 **액세스 제어(IAM)** 를 선택합니다.
+1. 스토리지 계정의 **액세스 제어(IAM)** 블레이드에서 **+ 추가**를 선택하고 드롭다운 메뉴에서 **역할 할당 추가**를 선택합니다. 
 1. **역할 할당 추가** 블레이드에서 다음 설정을 지정하고 **저장**을 선택합니다.
 
    |설정|값|
@@ -409,6 +403,15 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
    |선택|**az140-wvd-users**|
 
    > **참고**: Azure Desktop 사용자와 호스트에게는 파일 공유에 대한 읽기 이상의 권한이 필요합니다.
+
+1. 스토리지 계정 블레이드 왼쪽의 세로 메뉴에 있는 **데이터 스토리지** 섹션에서 **파일 공유**, **+ 파일 공유**를 차례로 선택합니다.
+1. **새 파일 공유** 블레이드에서 다음 설정을 지정하고 **선택**을 선택합니다(다른 설정은 모두 기본값으로 유지).
+
+   |설정|값|
+   |---|---|
+   |이름|**az140-42-msixvhds**|
+
+1. Azure Portal이 표시된 Microsoft Edge의 파일 공유 목록에서 새로 만든 파일 공유를 선택합니다. 
 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **명령 프롬프트**를 시작하고 **명령 프롬프트** 창에서 다음 명령을 실행하여 **az140-42-msixvhds** 공유에 드라이브를 매핑합니다(`<storage-account-name>` 자리 표시자는 스토리지 계정 이름으로 바꿔야 함). 그런 다음 명령이 정상적으로 완료되는지 확인합니다.
 
@@ -439,7 +442,6 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Virtual Desktop**을 검색하여 선택합니다. 그런 다음 **Azure Virtual Desktop** 블레이드 왼쪽의 세로 메뉴에 있는 **관리** 섹션에서 **호스트 풀**을 선택합니다.
 1. **Azure Virtual Desktop \| 호스트 풀** 블레이드의 호스트 풀 목록에서 **az140-21-hp1** 항목을 선택합니다.
-1. **az140-21-hp1** 호스트 풀 항목의 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **속성**을 선택합니다.
 1. **az140-21-hp1 \| 속성** 블레이드 왼쪽의 세로 메뉴에 있는 **관리** 섹션에서 **MSIX 패키지**를 선택합니다.
 1. **az140-21-hp1 \| MSIX 패키지** 블레이드에서 **+ 추가**를 클릭합니다.
 1. **MSIX 패키지 추가** 블레이드의 **MSIX 이미지 경로** 텍스트 상자에 **XmlNotepad.vhd** 파일에 대한 경로를 `\\<storage-account-name>.file.core.windows.net\az140-42-msixvhds\packages\XmlNotepad.vhd` 형식으로 입력한 다음(`<storage-account-name>` 자리 표시자를 **az140-42-msixvhds** 파일 공유를 호스트하는 스토리지 계정 이름으로 바꿈) **추가**를 클릭합니다.

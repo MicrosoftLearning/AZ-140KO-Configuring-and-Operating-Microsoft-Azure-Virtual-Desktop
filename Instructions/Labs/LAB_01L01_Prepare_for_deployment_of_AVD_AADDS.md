@@ -129,6 +129,9 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 #### 작업 1: Azure AD DS 도메인 관리용 Azure AD 사용자 계정 만들기 및 구성
 
 1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할, 그리고 Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. Azure Portal이 표시된 웹 브라우저에서 Azure AD 테넌트의 **개요** 블레이드로 이동한 후 왼쪽 세로 메뉴에 있는 **관리** 섹션에서 **속성**을 클릭합니다.
+1. Azure AD 테넌트 **속성** 블레이드의 블레이드 맨 아래쪽에서 **보안 관리 기본값** 링크를 선택합니다.
+1. **보안 기본값 사용** 블레이드에서 필요한 경우 **아니요**를 선택하고 **내 조직에서 조건부 액세스를 사용 중임** 체크박스를 선택한 후 **저장**을 선택합니다.
 1. Azure Portal에서 검색 텍스트 상자의 오른쪽에 있는 도구 모음 아이콘을 직접 선택하여 **Cloud Shell** 창을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
@@ -342,7 +345,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 #### 작업 3: Azure AD DS에 동기화할 AD DS 사용자 및 그룹 만들기
 
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로 **Pa55w.rd1234**를 입력하여 로그인합니다.
-1. Azure Portal의 **Cloud Shell**에서 PowerShell 세션을 엽니다.
+1. Azure Portal에서 **Cloud Shell**을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
    >**참고**: **aadadmin1** 사용자 계정을 사용하여 **Cloud Shell**을 처음 시작하는 경우 Cloud Shell 홈 디렉터리를 구성해야 합니다. **탑재된 스토리지가 없음** 메시지가 표시되면 이 랩에서 사용하는 구독을 선택하고 **스토리지 만들기**를 선택합니다. 

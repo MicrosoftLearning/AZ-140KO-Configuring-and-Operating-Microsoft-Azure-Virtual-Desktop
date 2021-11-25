@@ -144,40 +144,44 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 프�
 
    > **참고**: 일관성 있는 사용자 환경을 제공하려면 모든 Azure Virtual Desktop 세션 호스트에서 FSLogix 구성 요소를 설치하고 구성해야 합니다. 랩 환경의 다른 세션 호스트에서는 무인 방식으로 이 작업을 수행합니다. 
 
-1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 세션 호스트에 FSLogix 구성 요소를 설치합니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 및 **'az140-21-p1-1'** 세션 호스트에 FSLogix 구성 요소를 설치합니다.
 
    ```powershell
-   $server = 'az140-21-p1-1' 
-   $localPath = 'C:\Allfiles\Labs\04\x64'
-   $remotePath = "\\$server\C$\Allfiles\Labs\04\x64\Release"
-   Copy-Item -Path $localPath\Release -Destination $remotePath -Filter '*.exe' -Force -Recurse
-   Invoke-Command -ComputerName $server -ScriptBlock {
-      Start-Process -FilePath $using:localPath\Release\FSLogixAppsSetup.exe -ArgumentList '/quiet' -Wait
-   } 
+   $servers = 'az140-21-p1-1', 'az140-21-p1-2'
+   foreach ($server in $servers) {
+      $localPath = 'C:\Allfiles\Labs\04\x64'
+      $remotePath = "\\$server\C$\Allfiles\Labs\04\x64\Release"
+      Copy-Item -Path $localPath\Release -Destination $remotePath -Filter '*.exe' -Force -Recurse
+      Invoke-Command -ComputerName $server -ScriptBlock {
+         Start-Process -FilePath $using:localPath\Release\FSLogixAppsSetup.exe -ArgumentList '/quiet' -Wait
+      } 
+   }
    ```
 
    > **참고**: 스크립트 실행이 완료될 때까지 기다립니다. 완료되려면 2분 정도 걸립니다.
 
-1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 세션 호스트에서 프로필 레지스트리 설정을 구성합니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 **az140-21-p1-1** 및 **az140-21-p1-1** 세션 호스트에 프로필 레지스트리 설정을 구성합니다.
 
    ```powershell
    $profilesParentKey = 'HKLM:\SOFTWARE\FSLogix'
    $profilesChildKey = 'Profiles'
    $fileShareName = 'az140-22-profiles'
-   Invoke-Command -ComputerName $server -ScriptBlock {
-      New-Item -Path $using:profilesParentKey -Name $using:profilesChildKey –Force
-      New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'Enabled' -PropertyType DWord -Value 1
-      New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'VHDLocations' -PropertyType MultiString -Value "\\$using:storageAccountName.file.core.windows.net\$using:fileShareName"
+   foreach ($server in $servers) {
+      Invoke-Command -ComputerName $server -ScriptBlock {
+         New-Item -Path $using:profilesParentKey -Name $using:profilesChildKey –Force
+         New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'Enabled' -PropertyType DWord -Value 1
+         New-ItemProperty -Path $using:profilesParentKey\$using:profilesChildKey -Name 'VHDLocations' -PropertyType MultiString -Value "\\$using:storageAccountName.file.core.windows.net\$using:fileShareName"
+      }
    }
    ```
 
    > **참고**: FSLogix 기반 프로필 기능을 테스트하려면 이전 랩에서 사용한 Azure Virtual Desktop 세션 호스트에서 테스트용으로 사용할 **ADATUM\aduser1** 계정의 로컬에 캐시된 프로필을 제거해야 합니다.
 
-1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 세션 호스트로 사용되는 두 Azure VM에서 모두 **ADATUM\\aduser1** 계정의 로컬에 캐시된 프로필을 제거합니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 세션 호스트로 사용되는 모든 Azure VM에서 **ADATUM\\aduser1** 계정의 로컬에 캐시된 프로필을 제거합니다.
 
    ```powershell
    $userName = 'aduser1'
-   $servers = 'az140-21-p1-0','az140-21-p1-1'
+   $servers = 'az140-21-p1-0','az140-21-p1-1', 'az140-21-p1-2'
    Get-CimInstance -ComputerName $servers -Class Win32_UserProfile | Where-Object { $_.LocalPath.split('\')[-1] -eq $userName } | Remove-CimInstance
    ```
 
@@ -187,11 +191,12 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 프�
 1. **az140-cl-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
 1. 메시지가 표시되면 **ADATUM\\aduser1** 자격 증명으로 로그인합니다. 
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내에서 **시작**을 클릭합니다. 그런 다음 **시작** 메뉴에서 **Remote Desktop**을 클릭하여 Remote Desktop 클라이언트를 시작합니다.
-1. **az140-cl-vm11**에 연결된 **원격 데스크톱** 세션 내의 Remote Desktop 클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭합니다. 그런 다음 메시지가 표시되면 **aduser1** 계정의 암호를 입력하고 **Command Prompt** 창이 정상적으로 열리는지 확인합니다.
+1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내 **Remote Desktop** 클라이언트 창에서 **제출**을 선택하고 메시지가 표시되면 **aduser1** 자격 증명을 사용하여 로그인합니다.
+1. 애플리케이션 목록에서 **명령 프롬프트**를 두 번 클릭하고 메시지가 표시되면 **aduser1** 계정의 암호를 제공하여 **명령 프롬프트** 창이 열리는지 확인합니다.
 1. **명령 프롬프트** 창 왼쪽 위의 **명령 프롬프트** 아이콘을 마우스 오른쪽 단추로 클릭하고 드롭다운 메뉴에서 **속성**을 선택합니다.
 1. **명령 프롬프트 속성** 대화 상자에서 **글꼴** 탭을 선택하고 크기 및 글꼴 설정을 수정한 후에 **확인**을 선택합니다.
 1. **명령 프롬프트** 창에 **logoff**를 입력하고 **Enter** 키를 눌러 원격 데스크톱 세션에서 로그아웃합니다.
-1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop** 클라이언트 창에 있는 애플리케이션 목록에서 az-140-21-ws1 아래의 **SessionDesktop**을 두 번 클릭하여 원격 데스크톱 세션이 시작되는지 확인합니다. 
+1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop** 클라이언트 창에 있는 애플리케이션 목록에서 az-140-21-s1 아래의 **SessionDesktop**을 두 번 클릭하여 원격 데스크톱 세션이 시작되는지 확인합니다. 
 1. **SessionDesktop**세션 내에서 **시작**을 마우스 오른쪽 단추로 클릭하고 오른쪽 클릭 메뉴에서 **실행**을 선택합니다. 그런 다음 **실행** 대화 상자의 **열기** 텍스트 상자에 **cmd**를 입력하고 **확인**을 클릭하여 **명령 프롬프트** 창을 시작합니다.
 1. **명령 프롬프트** 창 설정이 이 작업의 앞부분에서 구성한 것과 일치하는지 확인합니다.
 1. **SessionDesktop**세션 내에서 모든 창을 최소화하고 바탕 화면을 마우스 오른쪽 단추로 클릭한 후에 오른쪽 클릭 메뉴에서 **새로 만들기**를 선택합니다. 그런 다음 계단식 메뉴에서 **바로 가기**를 선택합니다. 
@@ -205,3 +210,28 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 프�
 1. 스토리지 계정 블레이드의 **파일 서비스** 섹션에서 **파일 공유**를 선택하고 파일 공유 목록에서 **az140-22-profiles**를 선택합니다. 
 1. 이름이 **ADATUM\aduser1** 계정의 SID(보안 식별자)+**_aduser1** 접미사 형식인 폴더가 **az140-22-profiles** 블레이드의 내용에 포함되어 있는지 확인합니다.
 1. 이전 단계에서 확인한 폴더를 선택하여 **Profile_aduser1.vhd** 파일 하나가 포함되어 있음을 확인합니다.
+
+### 연습 2: 랩에서 프로비전 및 사용한 Azure VM 중지 및 할당 취소
+
+이 연습의 주요 작업은 다음과 같습니다.
+
+1. 랩에서 프로비전 및 사용한 Azure VM 중지 및 할당 취소
+
+>**참고**: 이 연습에서는 해당 컴퓨팅 비용을 최소화하기 위해 이 랩에서 프로비전 및 사용한 Azure VM의 할당을 취소합니다.
+
+#### 작업 1: 랩에서 프로비전 및 사용한 Azure VM 할당 취소
+
+1. 랩 컴퓨터로 전환한 다음 Azure Portal이 표시된 웹 브라우저 창에서 **Cloud Shell** 창 내에 **PowerShell** 셸 세션을 엽니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 랩에서 만들고 사용한 모든 Azure VM의 목록을 표시합니다.
+
+   ```powershell
+   Get-AzVM -ResourceGroup 'az140-21-RG'
+   ```
+
+1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 랩에서 만들고 사용한 모든 Azure VM을 중지하고 할당을 취소합니다.
+
+   ```powershell
+   Get-AzVM -ResourceGroup 'az140-21-RG' | Stop-AzVM -NoWait -Force
+   ```
+
+   >**참고**: 명령은 비동기적으로 실행되므로(-NoWait 매개 변수에 의해 결정됨) 동일한 PowerShell 세션 내에서 즉시 다른 PowerShell 명령을 실행할 수는 있지만, Azure VM이 실제로 중지 및 할당 취소되려면 몇 분 정도 걸립니다.
