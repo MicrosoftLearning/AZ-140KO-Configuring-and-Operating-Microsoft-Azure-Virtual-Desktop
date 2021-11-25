@@ -257,7 +257,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
 #### 작업 2: MSIX 앱 연결 이미지 만들기
 
-1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://aka.ms/msixmgr**로 이동합니다. 그러면 **다운로드** 폴더에 **msixmgr.zip** 파일(MSIX mgr 도구 보관 파일)이 자동으로 다운로드됩니다.
+1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Microsoft Edge**를 시작하고 **https://aka.ms/msixmgr** 로 이동합니다. 그러면 **다운로드** 폴더에 **msixmgr.zip** 파일(MSIX mgr 도구 보관 파일)이 자동으로 다운로드됩니다.
 1. 파일 탐색기에서 **다운로드** 폴더로 이동하여 압축된 파일을 열고 **x64** 폴더의 내용을 **C:\\AllFiles\\Labs\\04** 폴더에 복사합니다. 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 MSIX 앱 연결 이미지로 사용할 VHD 파일을 만듭니다.
 
