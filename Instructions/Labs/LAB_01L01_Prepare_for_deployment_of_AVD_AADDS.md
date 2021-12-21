@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Virtual Desktop의 배포 준비(Azure AD DS)'
     module: '모듈 1: AVD 아키텍처 계획'
@@ -259,11 +259,13 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 1. 이전 두 단계를 반복하여 **wvdaadmin1** 사용자 계정의 암호를 재설정합니다.
 
+
 ### 연습 2: Azure AD DS 도메인 환경 구성
   
 이 연습의 주요 작업은 다음과 같습니다.
 
 1. Azure Resource Manager 빠른 시작 템플릿을 사용하여 Windows 10을 실행하는 Azure VM 배포
+1. Azure Bastion 배포
 1. Azure AD DS 도메인의 기본 구성 검토
 1. Azure AD DS에 동기화할 AD DS 사용자 및 그룹 만들기
 
@@ -298,7 +300,48 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    > **참고**: 배포는 10분 정도 걸릴 수 있습니다. 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 
 
 
-#### 작업 2: Azure AD DS 도메인의 기본 구성 검토
+#### 작업 2: Azure Bastion 배포 
+
+> **참고**: Azure Bastion을 사용하면 이 연습의 이전 작업에서 배포한 공용 엔드포인트 없이 Azure VM에 연결할 수 있으며, 운영 체제 수준 자격 증명을 노리는 무차별 암호 대입 익스플로잇으로부터 보호를 받습니다.
+
+> **참고**: 브라우저에서 팝업 기능이 사용되고 있는지 확인하세요.
+
+1. Azure Portal을 표시하는 브라우저 창에서 다른 탭을 열고, 브라우저 탭에서 Azure Portal로 이동합니다.
+1. Azure Portal에서 검색 텍스트 상자의 오른쪽에 있는 도구 모음 아이콘을 직접 선택하여 **Cloud Shell** 창을 엽니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음을 실행하여 이전 연습에서 만든 **az140-aadds-vnet11** 가상 네트워크에 서브넷 **AzureBastionSubnet**을 추가합니다.
+
+   ```powershell
+   $resourceGroupName = 'az140-11a-RG'
+   $vnet = Get-AzVirtualNetwork -ResourceGroupName $resourceGroupName -Name 'az140-aadds-vnet11a'
+   $subnetConfig = Add-AzVirtualNetworkSubnetConfig `
+     -Name 'AzureBastionSubnet' `
+     -AddressPrefix 10.10.254.0/24 `
+     -VirtualNetwork $vnet
+   $vnet | Set-AzVirtualNetwork
+   ```
+
+1. Cloud Shell 창을 닫습니다.
+1. Azure Portal에서 **Bastion**을 검색하여 선택하고 **Bastion** 블레이드에서 **+ 만들기**를 선택합니다.
+1. **Bastion 만들기** 블레이드의 **기본** 탭에서 다음 설정을 지정하고 **검토 + 만들기**를 선택합니다.
+
+   |설정|값|
+   |---|---|
+   |구독|이 랩에서 사용 중인 Azure 구독의 이름|
+   |리소스 그룹|**az140-11a-RG**|
+   |이름|**az140-11a-bastion**|
+   |지역|이 연습의 이전 작업에서 리소스를 배포한 것과 동일한 Azure 지역|
+   |계층|**기본**|
+   |가상 네트워크|**az140-aadds-vnet11a**|
+   |서브넷|**AzureBastionSubnet (10.10.254.0/24)**|
+   |공용 IP 주소|**새로 만들기**|
+   |공용 IP 이름|**az140-aadds-vnet11a-ip**|
+
+1. **Bastion 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
+
+   > **참고**: 이 연습의 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 배포에는 약 5분이 소요될 수 있습니다.
+
+
+#### 작업 3: Azure AD DS 도메인의 기본 구성 검토
 
 > **참고**: Azure AD DS에 새로 조인된 컴퓨터에 로그인하려면 로그인하려는 사용자 계정을 **AAD DC Administrators** Azure AD 그룹에 추가해야 합니다. 이 Azure AD 그룹은 Azure AD DS 인스턴스를 프로비전한 Azure 구독과 연결되어 있는 Azure AD 테넌트에 자동 작성됩니다.
 
@@ -315,12 +358,12 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 1.  Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-cl-vm11a |\ 연결** 블레이드의**RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
+1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \** **연결** 블레이드의**| Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|
    |---|---|
-   |사용자 이름|**ADATUM\\aadadmin1**|
+   |사용자 이름|**Student@adatum.com**|
    |암호|**Pa55w.rd1234**|
 
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 Active Directory 및 DNS 관련 원격 서버 관리 도구를 설치합니다.
@@ -342,7 +385,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 1. **Active Directory 사용자 및 컴퓨터** 콘솔의 **AADDC Users** OU에서 **aadadmin1** 사용자 계정을 선택하여 해당 **속성** 대화 상자를 표시합니다. 그런 다음 **계정** 탭으로 전환하여 사용자 계정 이름 접미사가 기본 Azure AD DNS 도메인 이름과 일치하며 수정 불가능한 상태임을 확인합니다. 
 1. **Active Directory 사용자 및 컴퓨터** 콘솔에서 **Domain Controllers** 조직 구성 단위의 내용을 검토하여 임의로 생성된 이름이 지정되어 있는 도메인 컨트롤러 2개의 컴퓨터 계정이 포함되어 있음을 확인합니다. 
 
-#### 작업 3: Azure AD DS에 동기화할 AD DS 사용자 및 그룹 만들기
+#### 작업 4: Azure AD DS에 동기화할 AD DS 사용자 및 그룹 만들기
 
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로 **Pa55w.rd1234**를 입력하여 로그인합니다.
 1. Azure Portal에서 **Cloud Shell**을 엽니다.

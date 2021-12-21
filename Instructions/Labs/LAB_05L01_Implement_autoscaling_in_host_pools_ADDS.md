@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 호스트 풀에서 자동 크기 조정 구현(AD DS)'
     module: '모듈: WVD 인프라 모니터링 및 유지 관리'
@@ -59,12 +59,12 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
 
 1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
 1. Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **RDP** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
+1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의**| Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|
    |---|---|
-   |사용자 이름|**ADATUM\\Student**|
+   |사용자 이름|**Student**|
    |암호|**Pa55w.rd1234**|
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다.
@@ -208,26 +208,26 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
 
    ```powershell
    $Params = @{
-     "AADTenantId"                   = $AADTenantId                             # 선택 사항입니다. 지정하지 않으면 현재 Azure 컨텍스트가 사용됩니다.
-     "SubscriptionID"                = $AzSubscription.Id                       # 선택 사항입니다. 지정하지 않으면 현재 Azure 컨텍스트가 사용됩니다.
-     "ResourceGroupName"             = $ResourceGroup.ResourceGroupName         # 선택 사항입니다. 기본값: "WVDAutoScaleResourceGroup"
-     "Location"                      = $ResourceGroup.Location                  # 선택 사항입니다. 기본값: "West US2"
+     "AADTenantId"                   = $AADTenantId                             # Optional. If not specified, it will use the current Azure context
+     "SubscriptionID"                = $AzSubscription.Id                       # Optional. If not specified, it will use the current Azure context
+     "ResourceGroupName"             = $ResourceGroup.ResourceGroupName         # Optional. Default: "WVDAutoScaleResourceGroup"
+     "Location"                      = $ResourceGroup.Location                  # Optional. Default: "West US2"
      "UseARMAPI"                     = $true
      "HostPoolName"                  = $WVDHostPool.Name
-     "HostPoolResourceGroupName"     = $WVDHostPool.ResourceGroupName           # 선택 사항입니다. 기본값: ResourceGroupName 매개 변수 값과 같음
-     "LogAnalyticsWorkspaceId"       = $LogAnalyticsWorkspaceId                 # 선택 사항입니다. 지정하지 않으면 스크립트가 Log Analytics에 로그되지 않습니다.
-     "LogAnalyticsPrimaryKey"        = $LogAnalyticsPrimaryKey                  # 선택 사항입니다. 지정하지 않으면 스크립트가 Log Analytics에 로그되지 않습니다.
-     "ConnectionAssetName"           = $AutoAccountConnection.Name              # 선택 사항입니다. 기본값: "AzureRunAsConnection"
-     "RecurrenceInterval"            = $RecurrenceInterval                      # 선택 사항입니다. 기본값: 15
-     "BeginPeakTime"                 = $BeginPeakTime                           # 선택 사항입니다. 기본값: "오전 9:00"
-     "EndPeakTime"                   = $EndPeakTime                             # 선택 사항입니다. 기본값: "오후 5:00"
-     "TimeDifference"                = $TimeDifference                          # 선택 사항입니다. 기본값: "-7:00"
-     "SessionThresholdPerCPU"        = $SessionThresholdPerCPU                  # 선택 사항입니다. 기본값: 1
-     "MinimumNumberOfRDSH"           = $MinimumNumberOfRDSH                     # 선택 사항입니다. 기본값: 1
-     "MaintenanceTagName"            = $MaintenanceTagName                      # 선택 사항입니다.
-     "LimitSecondsToForceLogOffUser" = $LimitSecondsToForceLogOffUser           # 선택 사항입니다. 기본값: 1
-     "LogOffMessageTitle"            = $LogOffMessageTitle                      # 선택 사항입니다. 기본값: "Machine is about to shut down."
-     "LogOffMessageBody"             = $LogOffMessageBody                       # 선택 사항입니다. 기본값: "Your session will be logged off. Please save and close everything."
+     "HostPoolResourceGroupName"     = $WVDHostPool.ResourceGroupName           # Optional. Default: same as ResourceGroupName param value
+     "LogAnalyticsWorkspaceId"       = $LogAnalyticsWorkspaceId                 # Optional. If not specified, script will not log to the Log Analytics
+     "LogAnalyticsPrimaryKey"        = $LogAnalyticsPrimaryKey                  # Optional. If not specified, script will not log to the Log Analytics
+     "ConnectionAssetName"           = $AutoAccountConnection.Name              # Optional. Default: "AzureRunAsConnection"
+     "RecurrenceInterval"            = $RecurrenceInterval                      # Optional. Default: 15
+     "BeginPeakTime"                 = $BeginPeakTime                           # Optional. Default: "09:00"
+     "EndPeakTime"                   = $EndPeakTime                             # Optional. Default: "17:00"
+     "TimeDifference"                = $TimeDifference                          # Optional. Default: "-7:00"
+     "SessionThresholdPerCPU"        = $SessionThresholdPerCPU                  # Optional. Default: 1
+     "MinimumNumberOfRDSH"           = $MinimumNumberOfRDSH                     # Optional. Default: 1
+     "MaintenanceTagName"            = $MaintenanceTagName                      # Optional.
+     "LimitSecondsToForceLogOffUser" = $LimitSecondsToForceLogOffUser           # Optional. Default: 1
+     "LogOffMessageTitle"            = $LogOffMessageTitle                      # Optional. Default: "Machine is about to shut down."
+     "LogOffMessageBody"             = $LogOffMessageBody                       # Optional. Default: "Your session will be logged off. Please save and close everything."
      "WebhookURI"                    = $WebhookURIAutoVar.Value
    }
 
