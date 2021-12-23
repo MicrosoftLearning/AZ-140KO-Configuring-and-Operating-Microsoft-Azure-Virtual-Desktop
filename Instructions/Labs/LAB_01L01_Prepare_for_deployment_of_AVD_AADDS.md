@@ -358,7 +358,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 1.  Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \** **연결** 블레이드의**| Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|

@@ -73,7 +73,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
 #### 작업 2: Azure Virtual Desktop 호스트 이미지 구성
 
 1. Azure Portal에서 **가상 머신**을 검색 및 선택하고 **가상 머신** 블레이드에서 **az140-25-vm0**을 선택합니다.
-1. **az140-25-vm0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm0 \| 연결** 블레이드의**| Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. **az140-25-vm0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm0 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|
