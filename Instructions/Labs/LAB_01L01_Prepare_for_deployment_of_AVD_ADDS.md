@@ -122,11 +122,12 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 이 연습의 주요 작업은 다음과 같습니다.
 
-1. Azure VM 배포에 사용할 수 있는 DNS 이름 식별
+1. Azure VM 배포 준비
 1. Azure Resource Manager 빠른 시작 템플릿을 사용하여 AD DS 도메인 컨트롤러를 실행하는 Azure VM 배포
 1. Azure Resource Manager 빠른 시작 템플릿을 사용하여 Windows 10을 실행하는 Azure VM 배포
+1. Azure Bastion 배포
 
-#### 작업 1: Azure VM 배포에 사용할 수 있는 DNS 이름 식별
+#### 작업 1: Azure VM 배포 준비
 
 1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
 1. Azure Portal이 표시된 웹 브라우저에서 Azure AD 테넌트의 **개요** 블레이드로 이동한 후 왼쪽 세로 메뉴에 있는 **관리** 섹션에서 **속성**을 클릭합니다.
@@ -137,28 +138,19 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
    >**참고**: **Cloud Shell**을 처음 시작할 때 **탑재된 스토리지가 없음** 메시지가 표시되면 이 랩에서 사용하는 구독을 선택하고 **스토리지 만들기**를 선택합니다. 
 
-1. Cloud Shell 창에서 다음 명령을 실행하여 다음 작업에서 입력해야 하는 사용 가능한 DNS 이름을 확인합니다(`<custom-name>` 자리 표시자는 유효한 DNS 도메인 이름 접미사(전역적으로 고유한 접미사일 가능성이 높음)로 대체, `<Azure_region>` 자리 표시자는 Active Directory 도메인 컨트롤러를 호스트할 Azure VM을 배포하려는 Azure 지역 이름으로 대체).
-
-   ```powershell
-   $location = '<Azure_region>'
-   Test-AzDnsAvailability -Location $location -DomainNameLabel <custom-name>
-   ```
-   > **참고**: Azure VM을 프로비전할 수 있는 Azure 지역을 식별하려면 [https://azure.microsoft.com/ko-kr/regions/offers/](https://azure.microsoft.com/ko-kr/regions/offers/)를 참고하세요.
-
-1. 이 명령이 **True**를 반환하는지 확인합니다. True가 반환되지 않으면 **True**가 반환될 때까지 `<custom-name>`의 다른 값을 사용해 같은 명령을 다시 실행합니다.
-1. 그리고 True를 반환한 `<custom-name>`의 값을 적어 둡니다. 다음 작업에서 해당 값이 필요합니다.
 
 #### 작업 2: Azure Resource Manager 빠른 시작 템플릿을 사용하여 AD DS 도메인 컨트롤러를 실행하는 Azure VM 배포
 
-1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저 내 Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 리소스 그룹을 만듭니다.
+1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서, Cloud Shell 창에 있는 PowerShell 세션에서 다음을 실행하여 리소스 그룹을 만듭니다(`<Azure_region>` 자리 표시자는 `eastus` 등 이 랩에서 사용하려는 Azure 지역의 이름으로 대체).
 
    ```powershell
+   $location = '<Azure_region>'
    $resourceGroupName = 'az140-11-RG'
    New-AzResourceGroup -Location $location -Name $resourceGroupName
    ```
 
 1. Azure Portal에서 **Cloud Shell** 창을 닫습니다.
-1. 랩 컴퓨터의 같은 웹 브라우저 창에서 다른 웹 브라우저 탭을 열고 [새 Windows VM 만들기 및 새 AD 포리스트, 도메인 및 DC 만들기](https://github.com/Azure/azure-quickstart-templates/tree/master/application-workloads/active-directory/active-directory-new-domain) 빠른 시작 템플릿으로 이동합니다. 
+1. 랩 컴퓨터의 같은 웹 브라우저 창에서 다른 웹 브라우저 탭을 열고 [새 Windows VM 만들기 및 새 AD 포리스트, 도메인 및 DC 만들기](https://github.com/az140mp/azure-quickstart-templates/tree/master/application-workloads/active-directory/active-directory-new-domain)라는 맞춤형 버전의 빠른 시작 템플릿으로 이동합니다. 
 1. **새 Windows VM 만들기에서 새 AD 포리스트, 도메인 및 DC 만들기** 페이지에서 **Azure에 배포**를 선택합니다. 이렇게 하면 Azure Portal의 **새 AD 포리스트로 Azure VM 만들기** 블레이드로 브라우저가 자동으로 리디렉션됩니다.
 1. **새 AD 포리스트로 Azure VM 만들기** 블레이드에서 **매개 변수 편집**을 선택합니다.
 1. **매개 변수 편집** 블레이드의 **열기** 대화 상자에서 **파일 로드**을 선택하고 **\\\\AZ-140\\AllFiles\\Labs\\01\\az140-11_azuredeploydc11.parameters.json**을 선택한 후에 **열기**, **저장**을 차례로 선택합니다. 
@@ -169,13 +161,10 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
    |구독|이 랩에서 사용 중인 Azure 구독의 이름|
    |리소스 그룹|**az140-11-RG**|
    |도메인 이름|**adatum.com**|
-   |DNS 접두사|이전 작업에서 확인한 DNS 호스트 이름|
 
 1. **새 AD 포리스트를 사용하여 Azure VM 만들기** 블레이드에서 **검토 + 만들기**, **만들기**를 차례로 선택합니다.
 
    > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 완료되려면 15분 정도 걸립니다. 
-
-   > **참고**: 배포가 완료되면 **az140-adds-vnet11** 가상 네트워크의 블레이드로 이동하고, DNS 사용자 지정 구성이 새로 배포된 Azure VM의 IP 주소(10.0.0.4)로 설정되었는지 확인하고, 그렇지 않으면 수동으로 추가합니다.
 
 #### 작업 3: Azure Resource Manager 빠른 시작 템플릿을 사용하여 Windows 10을 실행하는 Azure VM 배포
 
@@ -204,8 +193,47 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
      -TemplateParameterFile $HOME/az140-11_azuredeploycl11.parameters.json
    ```
 
-   > **참고**: 배포가 완료될 때까지 기다리지 말고 다음 연습을 진행하세요. 배포는 10분 정도 걸릴 수 있습니다.
+   > **참고**: 배포가 완료될 때까지 기다리지 말고 다음 작업을 진행하세요. 배포에는 약 10분이 소요될 수 있습니다.
 
+#### 작업 4: Azure Bastion 배포 
+
+> **참고**: Azure Bastion을 사용하면 이 연습의 이전 작업에서 배포한 공용 엔드포인트 없이 Azure VM에 연결할 수 있으며, 운영 체제 수준 자격 증명을 노리는 무차별 암호 대입 익스플로잇으로부터 보호를 받습니다.
+
+> **참고**: 브라우저에서 팝업 기능이 사용되고 있는지 확인하세요.
+
+1. Azure Portal을 표시하는 브라우저 창에서 다른 탭을 열고, 브라우저 탭에서 Azure Portal로 이동합니다.
+1. Azure Portal에서 검색 텍스트 상자의 오른쪽에 있는 도구 모음 아이콘을 직접 선택하여 **Cloud Shell** 창을 엽니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음을 실행하여 이전 연습에서 만든 **az140-aadds-vnet11** 가상 네트워크에 서브넷 **AzureBastionSubnet**을 추가합니다.
+
+   ```powershell
+   $resourceGroupName = 'az140-11-RG'
+   $vnet = Get-AzVirtualNetwork -ResourceGroupName $resourceGroupName -Name 'az140-adds-vnet11'
+   $subnetConfig = Add-AzVirtualNetworkSubnetConfig `
+     -Name 'AzureBastionSubnet' `
+     -AddressPrefix 10.0.254.0/24 `
+     -VirtualNetwork $vnet
+   $vnet | Set-AzVirtualNetwork
+   ```
+
+1. Cloud Shell 창을 닫습니다.
+1. Azure Portal에서 **Bastion**을 검색하여 선택하고 **Bastion** 블레이드에서 **+ 만들기**를 선택합니다.
+1. **Bastion 만들기** 블레이드의 **기본** 탭에서 다음 설정을 지정하고 **검토 + 만들기**를 선택합니다.
+
+   |설정|값|
+   |---|---|
+   |구독|이 랩에서 사용 중인 Azure 구독의 이름|
+   |리소스 그룹|**az140-11-RG**|
+   |이름|**az140-11-bastion**|
+   |지역|이 연습의 이전 작업에서 리소스를 배포한 것과 동일한 Azure 지역|
+   |계층|**기본**|
+   |가상 네트워크|**az140-adds-vnet11**|
+   |서브넷|**AzureBastionSubnet (10.0.254.0/24)**|
+   |공용 IP 주소|**새로 만들기**|
+   |공용 IP 이름|**az140-adds-vnet11-ip**|
+
+1. **Bastion 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
+
+   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포에는 약 5분이 소요될 수 있습니다.
 
 ### 연습 2: Azure AD 포리스트와 Azure AD 테넌트 통합
   
@@ -220,12 +248,12 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 #### 작업 1: Azure AD에 동기화할 AD DS 사용자 및 그룹 만들기
 
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **RDP** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
+1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion** 을 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|
    |---|---|
-   |사용자 이름|**ADATUM\\Student**|
+   |사용자 이름|**Student**|
    |암호|**Pa55w.rd1234**|
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다.

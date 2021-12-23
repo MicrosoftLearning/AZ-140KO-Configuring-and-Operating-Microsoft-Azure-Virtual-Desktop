@@ -73,8 +73,8 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
 #### 작업 2: Azure Virtual Desktop 호스트 이미지 구성
 
 1. Azure Portal에서 **가상 머신**을 검색 및 선택하고 **가상 머신** 블레이드에서 **az140-25-vm0**을 선택합니다.
-1. **az140-25-vm0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-25-vm0 \| 연결** 블레이드의 **RDP** 탭에 있는 **IP 주소** 드롭다운 목록에서 **공용 IP 주소** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
+1. **az140-25-vm0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm0 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|
    |---|---|
@@ -221,7 +221,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
    > **참고**: 배포가 완료될 때까지 기다립니다. 완료되려면 20분 정도 걸립니다.
 
-1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **Shared Image Gallery**를 검색하여 선택하고 **Shared Image Gallery** 블레이드에서 **az14025imagegallery** 항목을 선택합니다. 그런 다음 ****az14025imagegallery**** 블레이드에서 새로 만든 이미지에 해당하는 **az140-25-host-image** 항목이 있는지 확인합니다.
+1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **Azure 컴퓨팅 갤러리**를 검색하여 선택하고 **Azure 컴퓨팅 갤러리** 블레이드에서 **az14025imagegallery** 항목을 선택합니다. 그런 다음 ****az14025imagegallery**** 블레이드에서 새로 만든 이미지에 해당하는 **az140-25-host-image** 항목이 있는지 확인합니다.
 
 #### 작업 4: 사용자 지정 이미지를 사용하여 Azure Virtual Desktop 호스트 풀 프로비전
 

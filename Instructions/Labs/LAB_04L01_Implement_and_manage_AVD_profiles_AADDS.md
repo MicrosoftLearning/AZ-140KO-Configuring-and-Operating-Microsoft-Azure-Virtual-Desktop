@@ -41,12 +41,20 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
 1. Azure Virtual Desktop 세션 호스트 VM에서 로컬 관리자 그룹 구성
 1. Azure Virtual Desktop 세션 호스트 VM에서 FSLogix 기반 프로필 구성
 1. Azure Virtual Desktop을 사용하여 FSLogix 기반 프로필 테스트
+1. Azure 랩 리소스 삭제
 
 #### 작업 1: Azure Virtual Desktop 세션 호스트 VM에서 로컬 관리자 그룹 구성
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드에서 원격 데스크톱을 통해 새로 배포한 Azure VM에 연결합니다. 인증하라는 메시지가 표시되면 사용자 이름으로는 **ADATUM\aadadmin1**, 암호로는 **Pa55w.rd1234**를 지정합니다. 
+1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
+
+   |설정|값|
+   |---|---|
+   |사용자 이름|**Student@adatum.com**|
+   |암호|**Pa55w.rd1234**|
+
 1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 시작 메뉴에서 **Windows 관리 도구** 폴더로 이동하여 해당 폴더를 확장하고 **Active Directory 사용자 및 컴퓨터**를 선택합니다.
 1. **Active Directory 사용자 및 컴퓨터** 콘솔에서 도메인 노드를 마우스 오른쪽 단추로 클릭하고 **새로 만들기** > **조직 구성 단위**를 선택합니다. 그런 다음 **새 개체 - 조직 구성 단위** 대화 상자의 **이름** 텍스트 상자에 **ADDC 사용자**를 입력하고 **확인**을 선택합니다.
 1. **Active Directory 사용자 및 컴퓨터** 콘솔에서 **ADDC 사용자**를 마우스 오른쪽 단추로 클릭하고 **새로 만들기** > **그룹**을 선택합니다. 그런 다음 **새 개체 - 그룹** 대화 상자에서 다음 설정을 지정하고 **OK**을 선택합니다.
@@ -213,3 +221,8 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
 1. 스토리지 계정 블레이드의 **파일 서비스** 섹션에서 **파일 공유**를 선택하고 파일 공유 목록에서 **az140-22a-profiles**를 선택합니다. 
 1. 이름이 **ADATUM\aaduser1** 계정의 SID(보안 식별자) **_aaduser1** 접미사 형식인 폴더가 **az140-22a-profiles** 블레이드의 내용에 포함되어 있는지 확인합니다.
 1. 이전 단계에서 확인한 폴더를 선택하여 **Profile_aaduser1.vhd** 파일 하나가 포함되어 있음을 확인합니다.
+
+#### 작업 4: Azure 랩 리소스 삭제
+
+1. [Azure Portal을 사용하여 Azure Active Directory Domain Services 관리형 도메인 삭제]( https://docs.microsoft.com/ko-kr/azure/active-directory-domain-services/delete-aadds)에 설명된 지침을 따라 Azure AD DS 배포를 제거합니다.
+1. [Azure Resource Manager 리소스 그룹 및 리소스 삭제](https://docs.microsoft.com/ko-kr/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal)에 설명된 지침을 따라 이 과정의 Azure AD DS 랩에서 프로비전한 모든 Azure 리소스 그룹을 제거합니다.
