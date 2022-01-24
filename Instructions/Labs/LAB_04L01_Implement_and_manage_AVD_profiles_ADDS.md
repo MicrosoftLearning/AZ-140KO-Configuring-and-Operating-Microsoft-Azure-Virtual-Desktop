@@ -45,21 +45,18 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 프�
 #### 작업 1: Azure Virtual Desktop 세션 호스트 VM에서 FSLogix 기반 프로필 구성
 
 1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
-1. Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
+1. Azure Portal에서 **가상 머신**을 검색 및 선택하고 **가상 머신** 블레이드에서 **az140-21-p1-0**을 선택합니다.
+1. **az140-21-p1-0** 블레이드에서 **시작**을 선택하고 가상 머신의 상태가 **실행 중**으로 바뀔 때까지 기다립니다.
+1. **az140-21-p1-0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-21-p1-0 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
 
    |설정|값|
    |---|---|
-   |사용자 이름|**Student**|
+   |사용자 이름|**ADATUM\Student**|
    |암호|**Pa55w.rd1234**|
 
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다.
-
-   > **참고**: 다음 단계는 다음 랩 진행 준비를 위한 작업입니다. 호스트를 다시 시작하면 사용자 프로필이 오프로드됩니다.
-
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
-1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저 창에서 **Cloud Shell** 창 내에 **PowerShell** 셸 세션을 엽니다.
+1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 메시지가 표시되면 이 랩에서 사용 중인 구독의 Owner 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
+1. **az140-21-p1-0**에 대한 원격 데스크톱 세션 내의 Azure Portal을 표시하는 Microsoft Edge 창에서 Cloud Shell 창 내의 PowerShell 세션을 엽니다. 
 1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 랩에서 사용할 Azure Virtual Desktop 세션 호스트 Azure VM을 시작합니다.
 
    ```powershell
@@ -67,16 +64,6 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 프�
    ```
 
    >**참고**: Azure VM이 실행될 때까지 기다렸다가 다음 단계를 진행합니다.
-
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 메시지가 표시되면 이 랩에서 사용 중인 구독의 Owner 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **가상 머신**을 검색하여 선택한 후 **가상 머신** 블레이드에서 **az140-21-p1-0**을 선택합니다.
-1. **az140-21-p1-0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-21-p1-0 \| 연결** 블레이드의 **IP 주소** 드롭다운 목록에서 **프라이빗 IP 주소** 항목을 선택하고 **RDP 파일 다운로드**, **열기**를 차례로 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
-
-   |설정|값|
-   |---|---|
-   |사용자 이름|**ADATUM\Student**|
-   |암호|**Pa55w.rd1234**|
 
 1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [FSLogix 다운로드 페이지](https://aka.ms/fslogix_download)로 이동합니다. 그런 다음 압축된 FSLogix 설치 이진 파일을 다운로드하여 **C:\\Allfiles\\Labs\\04** 폴더에 압축을 풉니다(필요하면 폴더를 만듭니다). 그 후에 **x64\\Release** 하위 폴더로 이동하여 **FSLogixAppsSetup.exe** 파일을 두 번 클릭해 **Microsoft FSLogix Apps Setup** 마법사를 시작하고, 기본 설정으로 Microsoft FSLogix Apps 설치 단계를 진행합니다.
 
