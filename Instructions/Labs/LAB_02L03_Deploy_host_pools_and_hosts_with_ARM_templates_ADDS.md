@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Resource Manager 템플릿을 사용하여 호스트 풀 및 호스트 배포'
     module: '모듈 2: WVD 인프라 구현'
@@ -14,7 +14,7 @@ lab:
 - **Azure Virtual Desktop의 배포 준비(AD DS)** 랩 완료
 - **Azure Portal을 사용하여 호스트 풀 및 세션 호스트 배포(AD DS)** 랩 완료
 
-## 예상 소요 시간
+## 예상 시간
 
 45분
 
@@ -49,7 +49,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 
 #### 작업 1: Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트 풀의 배포 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
 1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
@@ -108,7 +108,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 
 #### 작업 2: Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트 풀 및 호스트 배포
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. 랩 컴퓨터의 같은 웹 브라우저 창에서 다른 웹 브라우저 탭을 열고 GitHub Azure RDS 템플릿 리포지토리 페이지 [ARM Template to Create and provision new Azure Virtual Desktop hostpool](https://github.com/Azure/RDS-Templates/tree/master/ARM-wvd-templates/CreateAndProvisionHostPool)로 이동합니다. 
 1. **ARM Template to Create and provision new Azure Virtual Desktop hostpool** 페이지에서 **Azure에 배포**를 선택합니다. 그러면 브라우저가 Azure Portal의 **사용자 지정 배포** 블레이드로 자동 리디렉션됩니다.
 1. **사용자 지정 배포** 블레이드에서 **매개 변수 편집**을 클릭합니다.
@@ -184,7 +184,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 
 1. **사용자 지정 배포** 블레이드에서 **검토 + 만들기**를 선택한 다음 **만들기**를 선택합니다.
 
-   > **참고**: 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 완료되려면 5분 정도 걸립니다.
+   > **참고**: 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 5분 정도 걸릴 수 있습니다.
 
 #### 작업 6: Azure Virtual Desktop 호스트 풀의 변경 내용 확인
 
@@ -220,18 +220,18 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
    |암호|**Pa55w.rd1234**|
 
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내에서 **시작**을 클릭하고 **시작** 메뉴에서 **Remote Desktop** 클라이언트 앱을 선택합니다.
-1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다. userPrincipalName을 로그인 이름으로 입력하고, 암호로는 **Pa55w.rd1234**를 사용합니다.
+1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다. 로그인할 때는 userPrincipalName, 그리고 이 계정을 만들 때 설정한 암호를 입력합니다.
 
-   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 **Pa55w.rd1234** 사용). 
+   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery**를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
 
-1. **Remote Desktop** 페이지에서 **SessionDesktop** 아이콘을 두 번 클릭합니다. 자격 증명을 입력하라는 메시지가 표시되면 **Pa55w.rd1234**를 입력하고 **Remember me** 체크박스를 선택한 후에 **OK**를 클릭합니다.
+1. **Remote Desktop** 페이지에서 **SessionDesktop** 아이콘을 두 번 클릭합니다. 자격 증명을 입력하라는 메시지가 표시되면 같은 암호를 다시 입력하고 **Remember me** 체크박스를 선택한 후에 **OK**를 클릭합니다.
 1. **Stay signed in to all your apps** 창에서 **Allow my organization to manage my device** 체크박스 선택을 취소하고 **No, sign in to this app only**를 선택합니다. 
 1. **aduser7**이 Remote Desktop을 통해 호스트에 정상적으로 로그인했는지 확인합니다.
 1. **aduser7**로 호스트 중 하나에 연결한 원격 데스크톱 세션 내에서 **시작**을 마우스 오른쪽 단추로 클릭하고 오른쪽 클릭 메뉴에서 **종료 또는 로그아웃**을 선택합니다. 그런 다음 계단식 메뉴에서 **로그아웃**을 클릭합니다.
 
    > **참고**: 이번에는 개인 데스크톱 할당을 직접 모드에서 자동으로 전환해 보겠습니다. 
 
-1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2-DAG \| 할당** 블레이드의 할당 목록 바로 위에 있는 알림 표시줄에서 **VM 할당** 링크를 클릭합니다. 그러면 **az140-23-hp2 \| 세션 호스트** 블레이드로 리디렉션됩니다. 
+1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2-DAG \| 할당 **블레이드의 할당 목록 바로 위에 있는 알림 표시줄에서 **VM 할당** 링크를 클릭합니다. 그러면 **az140-23-hp2 \| 세션 호스트** 블레이드로 리디렉션됩니다. 
 1. **az140-23-hp2 \| 세션 호스트** 블레이드에서 호스트 중 하나의 **할당된 사용자** 열 목록에 **aduser7**이 표시되어 있는지 확인합니다.
 
    > **참고**: 호스트 풀이 자동 할당 방식으로 구성되어 있으므로 aduser7이 할당된 사용자로 표시됩니다.
@@ -246,7 +246,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저 창에서 **az140-23-hp2** 호스트 풀 블레이드로 이동합니다. 그런 다음 **필수** 섹션을 검토하여 **호스트 풀 유형**이 **개인**으로, **할당 유형**이 **직접**으로 설정되어 있는지 확인합니다.
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션으로 다시 전환하여 **원격 데스크톱** 창 오른쪽 위에 있는 줄임표 아이콘을 클릭합니다. 그런 다음 드롭다운 메뉴에서 **Unsubscribe**를 클릭하고 확인하라는 메시지가 표시되면 **Continue**를 클릭합니다.
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop** 창 **Let's get started** 페이지에서 **Subscribe**를 선택합니다.
-1. 로그인하라는 메시지가 표시되면 **Pick an account** 페이지에서 **Use another account**를 클릭합니다. 그런 후에 메시지가 표시되면 **aduser8**의 사용자 계정 이름을 사용하여 로그인합니다. 암호로는 **Pa55w.rd1234**를 사용합니다.
+1. 로그인하라는 메시지가 표시되면 **Pick an account** 페이지에서 **Use another account**를 클릭합니다. 그런 후에 메시지가 표시되면 **aduser8** 사용자 계정의 사용자 계정 이름과 이 계정을 만들 때 설정한 암호를 사용하여 로그인합니다.
 1. **Stay signed in to all your apps** 창에서 **Allow my organization to manage my device** 체크박스 선택을 취소하고 **No, sign in to this app only**를 선택합니다. 
 1. **Remote Desktop** 페이지에서 **SessionDesktop** 아이콘을 두 번 클릭하고 **We couldn't connect because there are currently no available resources. Try again later or contact tech support for help if this keeps happening** 오류 메시지가 표시됨을 확인한 후에 **OK**를 클릭합니다.
 
@@ -254,7 +254,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 
 1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2 \| 세션 호스트** 블레이드에서 남아 있는 미할당 호스트 2개 중 하나의 옆에 있는 **할당된 사용자** 열에서 **(할당)** 링크를 선택합니다.
 1. **사용자 할당**에서 **aduser8**을 선택하고 **선택**을 클릭한 후 할당을 확인하라는 메시지가 표시되면 **확인**을 클릭합니다.
-1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션으로 다시 전환하여 **Remote Desktop** 창에서 **SessionDesktop** 아이콘을 두 번 클릭합니다. 암호를 입력하라는 메시지가 표시되면 **Pa55w.rd1234**를 입력하고 **OK**를 클릭하여 할당된 호스트에 정상적으로 로그인할 수 있는지 확인합니다.
+1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션으로 다시 전환하여 **Remote Desktop** 창에서 **SessionDesktop** 아이콘을 두 번 클릭합니다. 암호를 입력하라는 메시지가 표시되면 이 사용자 계정을 만들 때 설정한 암호를 입력하고 **OK**를 클릭하여 할당된 호스트에 정상적으로 로그인할 수 있는지 확인합니다.
 
 ### 연습 2: 랩에서 프로비전한 Azure VM 중지 및 할당 취소
 

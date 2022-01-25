@@ -1,10 +1,10 @@
----
+﻿---
 lab:
-    title: '랩: Azure Virtual Desktop의 배포 준비(Azure AD DS)'
+    title: '랩: Azure Virtual Desktop(Azure AD DS) 배포 준비'
     module: '모듈 1: AVD 아키텍처 계획'
 ---
 
-# 랩 - Azure Virtual Desktop의 배포 준비(Azure AD DS)
+# 랩 - Azure Virtual Desktop(Azure AD DS) 배포 준비
 # 학생 랩 매뉴얼
 
 ## 랩 종속성
@@ -12,7 +12,7 @@ lab:
 - Azure 구독
 - Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할, 그리고 Azure 구독의 Owner 또는 Contributor 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 
-## 예상 소요 시간
+## 예상 시간
 
 150분
 
@@ -45,7 +45,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 #### 작업 1: 현재 vCPU 사용량 파악
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. Azure Portal에서 검색 텍스트 상자 바로 오른쪽의 도구 모음 아이콘을 선택하여 **Cloud Shell** 창을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
@@ -80,7 +80,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 #### 작업 2: vCPU 할당량 늘리기 요청
 
 1. Azure Portal에서 **구독**을 검색하여 선택하고 **구독** 블레이드에서 이 랩에 사용할 Azure 구독에 해당하는 항목을 선택합니다.
-1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정**섹션에서 **사용량 및 할당량**을 선택합니다. 
+1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **사용량 및 할당량**을 선택합니다. 
 1. 구독의 **사용량 및 할당량** 블레이드에서 **증가 요청**을 선택합니다.
 1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >** 을 선택합니다.
 
@@ -149,14 +149,15 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    $aadDomainName = ((Get-AzureAdTenantDetail).VerifiedDomains)[0].Name
    ```
 
-1. Cloud Shell 창에서 다음을 실행하여 상승된 권한을 부여받을 Azure AD 사용자를 만듭니다.
+1. Cloud Shell 창에서 다음을 실행하여 상승된 권한을 부여받을 Azure AD 사용자를 만듭니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
+
+   > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 
    ```powershell
    $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
-   $passwordProfile.Password = 'Pa55w.rd1234'
+   $passwordProfile.Password = '<password>'
    $passwordProfile.ForceChangePasswordNextLogin = $false
    New-AzureADUser -AccountEnabled $true -DisplayName 'aadadmin1' -PasswordProfile $passwordProfile -MailNickName 'aadadmin1' -UserPrincipalName "aadadmin1@$aadDomainName"
-
    New-AzureADUser -AccountEnabled $true -DisplayName 'wvdaadmin1' -PasswordProfile $passwordProfile -MailNickName 'wvdaadmin1' -UserPrincipalName "wvdaadmin1@$aadDomainName"
    ```
 
@@ -209,7 +210,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    > **참고**: 기술적 측면에서는 도메인 이름이 반드시 고유할 필요는 없지만, 일반적으로는 기존 Azure 또는 온-프레미스 DNS 네임스페이스와 다른 Azure AD DS 도메인 이름을 할당해야 합니다.
 
 1. **Azure AD Domain Services 만들기** 블레이드의 **네트워킹** 탭에서 **가상 네트워크** 드롭다운 목록 옆의 **새로 만들기**를 선택합니다.
-1. **가상 네트워크 생성** 블레이드에서 다음 설정을 지정하고 **확인**을 클릭합니다.
+1. **가상 네트워크 만들기** 블레이드에서 다음 설정을 할당하고 **확인**을 선택합니다.
 
    |설정|값|
    |---|---|
@@ -227,7 +228,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
    >**참고**: Azure AD DS 도메인을 프로비전한 후에는 변경할 수 없는 설정으로는 도메인의 DNS 이름, Azure 구독, 리소스 그룹, 도메인 컨트롤러를 호스트하는 가상 네트워크와 서브넷, 포리스트 유형 등이 있습니다.
 
-   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 완료되려면 90분 정도 걸립니다. 
+   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포가 완료되려면 90분 정도 걸립니다. 
 
 #### 작업 3: Azure AD DS 배포의 네트워크 및 ID 설정 구성
 
@@ -248,10 +249,12 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    $objectId = (Get-AzureADUser -Filter "MailNickName eq 'aadadmin1'").ObjectId
    ```
 
-1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이전 단계에서 objectID를 확인한 **aadadmin1** 사용자 계정의 암호를 초기화합니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이전 단계에서 objectID를 확인한 **aadadmin1** 사용자 계정의 암호를 초기화합니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
+
+   > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 
    ```powershell
-   $password = ConvertTo-SecureString 'Pa55w.rd1234' -AsPlainText -Force
+   $password = ConvertTo-SecureString '<password>' -AsPlainText -Force
    Set-AzureADUserPassword -ObjectId $objectId -Password $password -ForceChangePasswordNextLogin $false
    ```
 
@@ -338,7 +341,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 1. **Bastion 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
-   > **참고**: 이 연습의 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 배포에는 약 5분이 소요될 수 있습니다.
+   > **참고**: 이 연습의 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 배포는 5분 정도 걸릴 수 있습니다.
 
 
 #### 작업 3: Azure AD DS 도메인의 기본 구성 검토
@@ -356,16 +359,10 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    Add-AzureADGroupMember -ObjectId $groupObjectId -RefObjectId $userObjectId
    ```
 
-1.  Cloud Shell 창을 닫습니다.
+1  Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
 1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
-
-   |설정|값|
-   |---|---|
-   |사용자 이름|**Student@adatum.com**|
-   |암호|**Pa55w.rd1234**|
-
+1. 메시지가 표시되면 **aadadmin1** 사용자로 로그인합니다. 이 랩 앞부분에서 확인한 해당 사용자의 계정 이름, 그리고 랩 앞부분에서 사용자 계정을 만들 때 설정한 암호를 사용하면 됩니다.
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 Active Directory 및 DNS 관련 원격 서버 관리 도구를 설치합니다.
 
    ```powershell
@@ -387,7 +384,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 #### 작업 4: Azure AD DS에 동기화할 AD DS 사용자 및 그룹 만들기
 
-1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로 **Pa55w.rd1234**를 입력하여 로그인합니다.
+1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로는 이 랩 앞부분에서 설정한 암호를 입력하여 로그인합니다.
 1. Azure Portal에서 **Cloud Shell**을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
@@ -405,11 +402,13 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    $aadDomainName = ((Get-AzureAdTenantDetail).VerifiedDomains)[0].Name
    ```
 
-1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이후 랩에서 사용할 Azure AD 사용자 계정을 만듭니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이후 랩에서 사용할 Azure AD 사용자 계정을 만듭니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
+
+   > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 
    ```powershell
    $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
-   $passwordProfile.Password = 'Pa55w.rd1234'
+   $passwordProfile.Password = '<password>'
    $passwordProfile.ForceChangePasswordNextLogin = $false
    $aadUserNamePrefix = 'aaduser'
    $userCount = 1..9

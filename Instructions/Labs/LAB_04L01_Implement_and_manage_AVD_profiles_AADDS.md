@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: Azure Virtual Desktop 프로필 구현 및 관리(Azure AD DS)'
     module: '모듈 4: 사용자 환경 및 앱 관리'
@@ -13,7 +13,7 @@ lab:
 - Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할, 그리고 Azure 구독의 Owner 또는 Contributor 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 - **Azure Virtual Desktop 소개(Azure AD DS)** 랩에서 프로비전한 Azure Virtual Deskktop 환경
 
-## 예상 소요 시간
+## 예상 시간
 
 30분
 
@@ -87,16 +87,10 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
 
 #### 작업 2: Azure Virtual Desktop 세션 호스트 VM에서 FSLogix 기반 프로필 구성
 
-1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내에서 **az140-21-p1-0**으로 연결하는 원격 데스크톱 세션을 시작하고 메시지가 표시되면 다음 자격 증명을 사용하여 로그인합니다.
-
-   |설정|값|
-   |---|---|
-   |사용자 이름|**ADATUM\wvdaadmin1**|
-   |암호|**Pa55w.rd1234**|
-
+1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내에서 **az140-21-p1-0**으로 연결하는 원격 데스크톱 세션을 시작하고 메시지가 표시되면 **ADATUM\wvdaadmin1** 사용자 이름, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 로그인합니다. 
 1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [FSLogix 다운로드 페이지](https://aka.ms/fslogix_download)로 이동합니다. 그런 다음 압축된 FSLogix 설치 이진 파일을 다운로드하여 **C:\\Source** 폴더에 압축을 풉니다. 그 후에 **x64\\Release** 하위 폴더로 이동한 다음 **FSLogixAppsSetup.exe**를 사용하여 기본 설정으로 Microsoft FSLogix Apps를 설치합니다.
 
-   > **참고**: 이미지가 이미 포함되어 있는지 여부에 따라 FXLogic를 설치할 필요가 없을 수도 있습니다.
+   > **참고**: 이미지가 이미 포함되어 있는지 여부에 따라 FXLogic를 설치할 필요가 없을 수도 있습니다. FX Logix 설치는 재부팅이 필요합니다.
 
 1. **az140-21-p1-0**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 PowerShellGet 모듈의 최신 버전을 설치합니다(설치를 확인하라는 메시지가 표시되면 **예** 선택).
 
@@ -219,7 +213,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 Azure Virtual D
 1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내에서 Azure Portal이 표시된 Microsoft Edge 창으로 전환합니다.
 1. Azure Portal이 표시된 Microsoft Edge 창에서 **스토리지 계정** 블레이드로 이동합니다. 그런 다음 이전 연습에서 만든 스토리지 계정에 해당하는 항목을 선택합니다.
 1. 스토리지 계정 블레이드의 **파일 서비스** 섹션에서 **파일 공유**를 선택하고 파일 공유 목록에서 **az140-22a-profiles**를 선택합니다. 
-1. 이름이 **ADATUM\aaduser1** 계정의 SID(보안 식별자) **_aaduser1** 접미사 형식인 폴더가 **az140-22a-profiles** 블레이드의 내용에 포함되어 있는지 확인합니다.
+1. 이름이 **ADATUM\\aaduser1** 계정의 SID(보안 식별자) **_aaduser1** 접미사 형식인 폴더가 **az140-22a-profiles** 블레이드의 내용에 포함되어 있는지 확인합니다.
 1. 이전 단계에서 확인한 폴더를 선택하여 **Profile_aaduser1.vhd** 파일 하나가 포함되어 있음을 확인합니다.
 
 #### 작업 4: Azure 랩 리소스 삭제

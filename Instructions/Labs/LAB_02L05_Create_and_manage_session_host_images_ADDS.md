@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 세션 호스트 이미지 만들기 및 관리(AD DS)'
     module: '모듈 2: WVD 인프라 구현'
@@ -13,7 +13,7 @@ lab:
 - 이 랩에서 사용할 Azure 구독에 대한 Owner 또는 Contributor 역할, 그리고 해당 Azure 구독에 연결된 Azure AD 테넌트의 전역 관리자 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 - **Azure Virtual Desktop의 배포 준비(AD DS)** 랩 완료
 
-## 예상 소요 시간
+## 예상 시간
 
 60분
 
@@ -39,13 +39,14 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
 이 연습의 주요 작업은 다음과 같습니다.
 
 1. Azure Virtual Desktop 호스트 이미지 구성 준비
+1. Azure Bastion 배포
 1. Azure Virtual Desktop 호스트 이미지 구성
 1. Azure Virtual Desktop 호스트 이미지 만들기
 1. 사용자 지정 이미지를 사용하여 Azure Virtual Desktop 호스트 풀 프로비전
 
 #### 작업 1: Azure Virtual Desktop 호스트 이미지 구성 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. Azure Portal에서 검색 텍스트 상자의 오른쪽에 있는 도구 모음 아이콘을 직접 선택하여 **Cloud Shell** 창을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저 내 Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 Azure Virtual Desktop 호스트 이미지를 저장할 리소스 그룹을 만듭니다.
@@ -68,9 +69,49 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 호�
      -TemplateParameterFile $HOME/az140-25_azuredeployvm25.parameters.json
    ```
 
-   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포에는 약 10분이 소요됩니다.
+   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포는 10분 정도 걸릴 수 있습니다.
 
-#### 작업 2: Azure Virtual Desktop 호스트 이미지 구성
+#### 작업 2: Azure Bastion 배포 
+
+> **참고**: Azure Bastion을 사용하면 이 연습의 이전 작업에서 배포한 공용 엔드포인트 없이 Azure VM에 연결할 수 있으며, 운영 체제 수준 자격 증명을 노리는 무차별 암호 대입 익스플로잇으로부터 보호를 받습니다.
+
+> **참고**: 브라우저에서 팝업 기능이 사용되고 있는지 확인하세요.
+
+1. Azure Portal을 표시하는 브라우저 창에서 다른 탭을 열고, 브라우저 탭에서 Azure Portal로 이동합니다.
+1. Azure Portal에서 검색 텍스트 상자의 오른쪽에 있는 도구 모음 아이콘을 직접 선택하여 **Cloud Shell** 창을 엽니다.
+1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 연습 앞부분에서 만든 **az140-25-vnet** 가상 네트워크에 서브넷 **AzureBastionSubnet**을 추가합니다.
+
+   ```powershell
+   $resourceGroupName = 'az140-25-RG'
+   $vnet = Get-AzVirtualNetwork -ResourceGroupName $resourceGroupName -Name 'az140-25-vnet'
+   $subnetConfig = Add-AzVirtualNetworkSubnetConfig `
+     -Name 'AzureBastionSubnet' `
+     -AddressPrefix 10.25.254.0/24 `
+     -VirtualNetwork $vnet
+   $vnet | Set-AzVirtualNetwork
+   ```
+
+1. Cloud Shell 창을 닫습니다.
+1. Azure Portal에서 **Bastion**을 검색하여 선택하고 **Bastion** 블레이드에서 **+ 만들기**를 선택합니다.
+1. **Bastion 만들기** 블레이드의 **기본** 탭에서 다음 설정을 지정하고 **검토 + 만들기**를 선택합니다.
+
+   |설정|값|
+   |---|---|
+   |구독|이 랩에서 사용 중인 Azure 구독의 이름|
+   |리소스 그룹|**az140-25-RG**|
+   |이름|**az140-25-bastion**|
+   |지역|이 연습의 이전 작업에서 리소스를 배포한 것과 동일한 Azure 지역|
+   |계층|**기본**|
+   |가상 네트워크|**az140-25-vnet**|
+   |서브넷|**AzureBastionSubnet (10.25.254.0/24)**|
+   |공용 IP 주소|**새로 만들기**|
+   |공용 IP 이름|**az140-25-vnet-ip**|
+
+1. **Bastion 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
+
+   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포는 5분 정도 걸릴 수 있습니다.
+
+#### 작업 3: Azure Virtual Desktop 호스트 이미지 구성
 
 1. Azure Portal에서 **가상 머신**을 검색 및 선택하고 **가상 머신** 블레이드에서 **az140-25-vm0**을 선택합니다.
 1. **az140-25-vm0** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm0 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
@@ -174,7 +215,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
    cleanmgr /d C: /verylowdisk
    ```
 
-#### 작업 3: Azure Virtual Desktop 호스트 이미지 만들기
+#### 작업 4: Azure Virtual Desktop 호스트 이미지 만들기
 
 1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내의 **관리자: C:\windows\system32\cmd.exe** 창 내 명령 프롬프트에서 sysprep 유틸리티를 실행하여 운영 체제에서 이미지 생성을 준비한 후 운영 체제를 자동 종료합니다.
 
@@ -191,9 +232,9 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
    |설정|값|
    |---|---|
-   |Azure Compute 갤러리에 이미지 공유|**예, 이미지 버전으로 갤러리에 공유합니다.**|
+   |Azure 컴퓨팅 갤러리에 이미지 공유|**예, 이미지 버전으로 갤러리에 공유합니다.**|
    |이미지를 만든 후 이 가상 머신을 자동으로 삭제|체크박스 선택 취소|
-   |대상 Azure Compute 갤러리|새 갤러리 **az14025imagegallery**의 이름|
+   |대상 Azure 컴퓨팅 갤러리|새 갤러리 **az14025imagegallery**의 이름|
    |운영 체제 상태|**일반화됨**|
 
 1. **이미지 만들기** 블레이드의 **기본** 탭에서 **대상 이미지 정의** 텍스트 상자 아래의 **새로 만들기**를 클릭합니다.
@@ -219,11 +260,11 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
 1. **이미지 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 클릭합니다.
 
-   > **참고**: 배포가 완료될 때까지 기다립니다. 완료되려면 20분 정도 걸립니다.
+   > **참고**: 배포가 완료될 때까지 기다립니다. 20분 정도 걸릴 수 있습니다.
 
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **Azure 컴퓨팅 갤러리**를 검색하여 선택하고 **Azure 컴퓨팅 갤러리** 블레이드에서 **az14025imagegallery** 항목을 선택합니다. 그런 다음 ****az14025imagegallery**** 블레이드에서 새로 만든 이미지에 해당하는 **az140-25-host-image** 항목이 있는지 확인합니다.
 
-#### 작업 4: 사용자 지정 이미지를 사용하여 Azure Virtual Desktop 호스트 풀 프로비전
+#### 작업 5: 사용자 지정 이미지를 사용하여 Azure Virtual Desktop 호스트 풀 프로비전
 
 1. 랩 컴퓨터의 Azure Portal에서 Azure Portal 페이지 상단의 **리소스, 서비스 및 문서 검색** 텍스트 상자를 사용하여 **가상 네트워크**를 검색한 후 해당 위치로 이동합니다. 그런 다음 **가상 네트워크** 블레이드에서 **az140-adds-vnet11**을 선택합니다. 
 1. **az140-adds-vnet11** 블레이드에서 **서브넷**을 선택하고 **서브넷**블레이드에서 **+ 서브넷**을 선택합니다. 그런 다음 **서브넷 추가** 블레이드에서 다음 설정을 지정하고(나머지 설정은 모두 기본값으로 유지) **저장**을 클릭합니다.
@@ -255,7 +296,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
    |리소스 그룹|**호스트 풀과 같은 그룹으로 기본 지정됨**|
    |이름 접두사|**az140-25-p4**|
    |가상 머신 위치|이 랩의 첫 번째 연습에서 리소스를 배포한 Azure 지역의 이름|
-   |가용성 옵션|인프라 중복 필요 없음|
+   |가용성 옵션|인프라 중복이 필요하지 않습니다.|
    |이미지 형식|**갤러리**|
 
 1. **호스트 풀 만들기** 블레이드의 **가상 머신** 탭에서 **이미지** 드롭다운 목록 바로 아래에 있는 **모든 이미지 보기** 링크를 클릭합니다.
@@ -289,7 +330,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 
 1. **호스트 풀 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
-   > **참고**: 배포가 완료될 때까지 기다립니다. 완료되려면 10분 정도 걸립니다.
+   > **참고**: 배포가 완료될 때까지 기다립니다. 10분 정도 걸릴 수 있습니다.
 
    > **참고**: 사용자 지정 이미지 기반 호스트 배포를 수행한 후에는 [GitHub 리포지토리](https://github.com/The-Virtual-Desktop-Team/)에서 제공되는 Virtual Desktop Optimization Tool을 실행하는 것이 좋습니다.
 

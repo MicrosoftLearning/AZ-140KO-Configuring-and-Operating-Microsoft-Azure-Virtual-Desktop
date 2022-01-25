@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 호스트 풀 및 세션 호스트 만들기 및 구성(Azure AD DS)'
     module: '모듈 2: AVD 인프라 구현'
@@ -13,7 +13,7 @@ lab:
 - Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할, 그리고 Azure 구독의 Owner 또는 Contributor 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 - **Azure Virtual Desktop의 배포 준비(Azure AD DS)** 랩 완료
 
-## 예상 소요 시간
+## 예상 시간
 
 60분
 
@@ -45,7 +45,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
 #### 작업 1: Azure Virtual Desktop 호스트 풀 배포용 AD DS 도메인 구독 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
 1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
 1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
@@ -55,7 +55,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
    |사용자 이름|**Student@adatum.com**|
    |암호|**Pa55w.rd1234**|
 
-1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로 **Pa55w.rd1234**를 입력하여 로그인합니다.
+1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로는 이 계정을 만들 때 설정한 암호를 입력하여 로그인합니다.
 
    >**참고**: **aadadmin1** 계정의 UPN(사용자 계정 이름) 특성을 확인하려면 Active Directory 사용자 및 컴퓨터 콘솔에서 계정의 속성 대화 상자를 검토하거나, 랩 컴퓨터로 돌아가 Azure Portal의 Azure AD 테넌트 블레이드에서 계정 속성을 검토하면 됩니다.
 
@@ -70,7 +70,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
 #### 작업 2: Azure Virtual Desktop 호스트 풀 배포
 
-1. **az140-cl-vm11a**에 연결된 원격 데스크톱 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Virtual Desktop**을 검색하여 선택합니다. 그런 다음 Windows Virtual Desktop 블레이드 왼쪽의 세로 메뉴에 있는 **관리** 섹션에서 **호스트 풀**을 선택합니다. 그런 후에 **Azure Virtual Desktop \| 호스트 풀** 블레이드에서 **+ 만들기**를 선택합니다. 
+1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Virtual Desktop**을 검색하여 선택합니다. 그런 다음 **Azure Virtual Desktop** 블레이드 왼쪽의 세로 메뉴에 있는 **관리** 섹션에서 **호스트 풀**을 선택합니다. 그런 후에 **Azure Virtual Desktop \****| 호스트 풀** 블레이드에서 **+ 만들기**를 선택합니다. 
 1. **호스트 풀 만들기** 블레이드의 **기본** 탭에서 다음 설정을 지정하고 **다음: 가상 머신 >** 을 선택합니다.
 
    |설정|값|
@@ -84,7 +84,9 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
    |최대 세션 제한|**10**|
    |부하 분산 알고리즘|**폭 우선**|
 
-1. **호스트 풀 만들기** 블레이드의 **가상 머신** 탭에서 다음 설정을 지정하고(다른 설정은 기본값으로 유지) **다음: 작업 영역 >** 을 선택합니다(*<Azure_AD_domain_name>* 자리 표시자는 Azure AD DS 인스턴스를 배포한 구독과 연결된 Azure AD 테넌트의 이름으로 바꿔야 함).
+1. **호스트 풀 만들기** 블레이드의 **가상 머신** 탭에서 다음 설정을 지정하고(다른 설정은 기본값으로 유지) **다음: 작업 영역 >**을 선택합니다(*<Azure_AD_domain_name>* 자리 표시자는 Azure AD DS 인스턴스를 배포한 구독과 연결된 Azure AD 테넌트의 이름으로, `<password>` 자리 표시자는 aadadmin1 계정을 만들 때 설정한 암호로 바꿔야 함).
+
+   > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 
    |설정|값|
    |---|---|
@@ -106,7 +108,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
    |가입할 도메인|**adatum.com**|
    |조직 구성 단위 경로|**OU=AADDC Computers,DC=adatum,DC=com**|
    |AD 도메인 가입 UPN|**aadadmin1@***<Azure_AD_domain_name>*|
-   |암호|**Pa55w.rd1234**|
+   |암호|`<password>`|
    |가상 머신 관리자 계정 사용자 이름|**student**|
    |가상 머신 관리자 계정 암호|**Pa55w.rd1234**|
 
@@ -118,7 +120,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
 1. **호스트 풀 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
-   > **참고**: 배포가 완료될 때까지 기다립니다. 약 15분 정도 소요됩니다.
+   > **참고**: 배포가 완료될 때까지 기다립니다. 15분 정도 걸립니다.
 
 #### 작업 3: Azure Virtual Desktop 애플리케이션 그룹 구성
 
@@ -260,7 +262,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
 #### 작업 2: Azure Virtual Desktop 작업 영역 구독
 
-1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aaduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 **Pa55w.rd1234** 사용). 
+1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aaduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
 
    > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aaduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 **Pa55w.rd1234** 사용). 
 
@@ -271,7 +273,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
 #### 작업 3: Azure Virtual Desktop 앱 테스트
 
-1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop**클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭하여 **Command Prompt** 창이 시작되는지 확인합니다. 인증하라는 메시지가 표시되면 **aaduser1**사용자 계정의 암호로 **Pa55w.rd1234**를 입력하고 **사용자 이름 및 암호 저장** 체크박스를 선택한 후 **확인**을 선택합니다.
+1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop**클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭하여 **Command Prompt** 창이 시작되는지 확인합니다. 인증하라는 메시지가 표시되면 **aaduser1** 사용자 계정용으로 설정한 암호를 입력하고 **Remember me** 체크박스를 선택한 후 **OK**를 선택합니다.
 
    > **참고**: 처음에는 애플리케이션이 시작되려면 몇 분 정도 걸릴 수 있지만 그 이후부터는 애플리케이션이 훨씬 빠르게 시작됩니다.
 
