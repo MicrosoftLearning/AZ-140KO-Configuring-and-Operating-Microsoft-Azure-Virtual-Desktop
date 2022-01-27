@@ -1,6 +1,6 @@
 ---
 lab:
-    title: '랩: Azure Virtual Desktop의 배포 준비(AD DS)'
+    title: '랩: Azure Virtual Desktop 배포 준비(AD DS)'
     module: '모듈 1: AVD 아키텍처 계획'
 ---
 
@@ -12,7 +12,7 @@ lab:
 - 이 랩에서 사용할 Azure 구독
 - 이 랩에서 사용할 Azure 구독에 대한 Owner 또는 Contributor 역할, 그리고 해당 Azure 구독에 연결된 Azure AD 테넌트의 전역 관리자 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 
-## 예상 소요 시간
+## 예상 시간
 
 60분
 
@@ -46,7 +46,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 #### 작업 1: 현재 vCPU 사용량 파악
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. Azure Portal에서 검색 텍스트 상자 바로 오른쪽의 도구 모음 아이콘을 선택하여 **Cloud Shell** 창을 엽니다.
 1. **Bash** 또는 **PowerShell**을 선택하라는 메시지가 표시되면 **PowerShell**을 선택합니다. 
 
@@ -81,7 +81,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 #### 작업 2: vCPU 할당량 늘리기 요청
 
 1. Azure Portal에서 **구독**을 검색하여 선택하고 **구독** 블레이드에서 이 랩에 사용할 Azure 구독에 해당하는 항목을 선택합니다.
-1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정**섹션에서 **사용량 및 할당량**을 선택합니다. 
+1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **사용량 및 할당량**을 선택합니다. 
 1. 구독의 **사용량 및 할당량** 블레이드에서 **증가 요청**을 선택합니다.
 1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >** 을 선택합니다.
 
@@ -129,7 +129,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 #### 작업 1: Azure VM 배포 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. Azure Portal이 표시된 웹 브라우저에서 Azure AD 테넌트의 **개요** 블레이드로 이동한 후 왼쪽 세로 메뉴에 있는 **관리** 섹션에서 **속성**을 클릭합니다.
 1. Azure AD 테넌트 **속성** 블레이드의 블레이드 맨 아래쪽에서 **보안 관리 기본값** 링크를 선택합니다.
 1. **보안 기본값 사용** 블레이드에서 필요한 경우 **아니요**를 선택하고 **내 조직에서 조건부 액세스를 사용 중임** 체크박스를 선택한 후 **저장**을 선택합니다.
@@ -193,7 +193,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
      -TemplateParameterFile $HOME/az140-11_azuredeploycl11.parameters.json
    ```
 
-   > **참고**: 배포가 완료될 때까지 기다리지 말고 다음 작업을 진행하세요. 배포에는 약 10분이 소요될 수 있습니다.
+   > **참고**: 배포가 완료될 때까지 기다리지 말고 다음 작업을 진행합니다. 배포는 10분 정도 걸릴 수 있습니다.
 
 #### 작업 4: Azure Bastion 배포 
 
@@ -233,7 +233,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 1. **Bastion 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
-   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포에는 약 5분이 소요될 수 있습니다.
+   > **참고**: 배포가 완료될 때까지 기다린 후 다음 연습을 진행합니다. 배포는 5분 정도 걸릴 수 있습니다.
 
 ### 연습 2: Azure AD 포리스트와 Azure AD 테넌트 통합
   
@@ -249,7 +249,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
 1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion** 을 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 입력하고 **연결**을 선택합니다.
 
    |설정|값|
    |---|---|
@@ -277,7 +277,9 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
    New-ADOrganizationalUnit 'WVDClients' -path 'DC=adatum,DC=com' -ProtectedFromAccidentalDeletion $false
    ```
 
-1. **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 AD DS 사용자 계정을 만듭니다. 이 계정은 이 랩에서 사용하는 Azure AD 테넌트에 동기화됩니다.
+1. **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 AD DS 사용자 계정을 만듭니다. 이 계정은 이 랩에서 사용하는 Azure AD 테넌트에 동기화됩니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
+
+   > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 
    ```powershell
    $ouName = 'ToSync'
@@ -288,14 +290,14 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
    foreach ($counter in $userCount) {
      New-AdUser -Name $adUserNamePrefix$counter -Path $ouPath -Enabled $True `
        -ChangePasswordAtLogon $false -userPrincipalName $adUserNamePrefix$counter@$adUPNSuffix `
-       -AccountPassword (ConvertTo-SecureString 'Pa55w.rd1234' -AsPlainText -Force) -passThru
+       -AccountPassword (ConvertTo-SecureString <password> -AsPlainText -Force) -passThru
    } 
 
    $adUserNamePrefix = 'wvdadmin1'
    $adUPNSuffix = 'adatum.com'
    New-AdUser -Name $adUserNamePrefix -Path $ouPath -Enabled $True `
        -ChangePasswordAtLogon $false -userPrincipalName $adUserNamePrefix@$adUPNSuffix `
-       -AccountPassword (ConvertTo-SecureString 'Pa55w.rd1234' -AsPlainText -Force) -passThru
+       -AccountPassword (ConvertTo-SecureString <password> -AsPlainText -Force) -passThru
 
    Get-ADGroup -Identity 'Domain Admins' | Add-AdGroupMember -Members 'wvdadmin1'
    ```
@@ -391,12 +393,14 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 #### 작업 3: 디렉터리 동기화를 구성하는 데 사용할 Azure AD 사용자 만들기
 
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 새 Azure AD 사용자를 만듭니다.
+1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 새 Azure AD 사용자를 만듭니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
+
+   > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 
    ```powershell
    $userName = 'aadsyncuser'
    $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
-   $passwordProfile.Password = 'Pa55w.rd1234'
+   $passwordProfile.Password = '<password>'
    $passwordProfile.ForceChangePasswordNextLogin = $false
    New-AzureADUser -AccountEnabled $true -DisplayName $userName -PasswordProfile $passwordProfile -MailNickName $userName -UserPrincipalName "$userName@$aadDomainName"
    ```
@@ -453,7 +457,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 1. **사용자 로그인** 페이지에서 **암호 해시 동기화**만 사용하도록 설정되었는지 확인하고 **다음**을 선택합니다.
 1. **AD Azure에 연결** 페이지에서 이전 연습에서 만든 **aadsyncuser** 사용자 계정의 자격 증명을 사용하여 인증하고 **다음**을 선택합니다. 
 
-   > **참고**: 이 연습 앞부분에서 적어 둔 **aadsyncuser** 계정의 userPrincipalName 특성을 입력하고 암호로 **Pa55w.rd1234**를 지정합니다.
+   > **참고**: 이 연습 앞부분에서 적어 둔 **aadsyncuser** 계정의 userPrincipalName 특성을 입력하고, 해당 계정의 암호로는 이 랩 앞부분에서 설정한 암호를 지정합니다.
 
 1. **디렉터리 연결** 페이지에서 **adatum.com** 포리스트 항목 오른쪽에 있는 **디렉터리 추가** 단추를 선택합니다.
 1. **AD 포리스트 계정** 창에서 **새 AD 계정 만들기** 옵션이 선택되었는지 확인하고 다음 자격 증명을 지정한 후 **확인**을 선택합니다:

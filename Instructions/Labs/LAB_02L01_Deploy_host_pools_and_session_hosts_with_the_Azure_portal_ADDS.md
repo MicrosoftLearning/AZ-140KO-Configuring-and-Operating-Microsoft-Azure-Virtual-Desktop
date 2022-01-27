@@ -13,7 +13,7 @@ lab:
 - 이 랩에서 사용할 Azure 구독에 대한 Owner 또는 Contributor 역할, 그리고 해당 Azure 구독에 연결된 Azure AD 테넌트의 전역 관리자 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 - **Azure Virtual Desktop의 배포 준비(AD DS)** 랩 완료
 
-## 예상 소요 시간
+## 예상 시간
 
 60분
 
@@ -46,14 +46,14 @@ Active Directory Domain Services(AD DS) 환경에서 호스트 풀과 세션 호
 
 #### 작업 1: Azure Virtual Desktop 호스트 풀 배포용 AD DS 도메인 구독 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal]( )로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal]( )로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-dc-vm11**을 선택합니다.
-1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **RDP** 블레이드의 **IP 주소** 드롭다운 목록에서 **부하 분산 장치 DNS 이름** 항목을 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
+1. **az140-dc-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-dc-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 
    |설정|값|
    |---|---|
-   |사용자 이름|**ADATUM\\Student**|
+   |사용자 이름|**Student**|
    |암호|**Pa55w.rd1234**|
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다.
@@ -146,7 +146,7 @@ Active Directory Domain Services(AD DS) 환경에서 호스트 풀과 세션 호
 
 1. **호스트 풀 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
-   > **참고**: 배포가 완료될 때까지 기다립니다. 완료되려면 10분 정도 걸립니다.
+   > **참고**: 배포가 완료될 때까지 기다립니다. 10분 정도 걸릴 수 있습니다.
 
 #### 작업 3: Azure Virtual Desktop 호스트 풀 세션 호스트 관리
 
@@ -168,7 +168,6 @@ Active Directory Domain Services(AD DS) 환경에서 호스트 풀과 세션 호
    |VM 수|**1**|
    |가상 네트워크|**az140-adds-vnet11**|
    |서브넷|**hp1-Subnet(10.0.1.0/24)**|
-   |공용 IP|**예**|
    |SKU 구성|**기본**|
    |할당 구성|**동적**|
    |네트워크 보안 그룹|**기본**|
@@ -338,23 +337,29 @@ Active Directory Domain Services(AD DS) 환경에서 호스트 풀과 세션 호
    ```
 
 1. 랩 컴퓨터로 전환한 후 랩 컴퓨터 내의 Azure Portal이 표시된 브라우저 창에서 **가상 머신**을 검색하여 선택합니다. 그런 다음 **가상 머신** 블레이드에서 **az140-cl-vm11** 항목을 선택합니다.
-1. **az140-cl-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **RDP**를 선택한 다음 **RDP 파일 다운로드**를 선택합니다.
-1. 메시지가 표시되면 암호로 **Pa55w.rd1234**를 사용하여 **ADATUM\\aduser1** 사용자로 로그인합니다.
+1. **az140-cl-vm11** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 다음 자격 증명을 제공하고 **연결**을 선택합니다.
+
+   |설정|값|
+   |---|---|
+   |사용자 이름|**Student@adatum.com**|
+   |암호|**Pa55w.rd1234**|
+
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Windows Desktop 클라이언트 다운로드 페이지](https://go.microsoft.com/fwlink/?linkid=2068602)로 이동합니다. 해당 페이지에서 메시지가 표시되면 **실행**을 선택하여 설치를 시작합니다. **Remote Desktop Setup** 마법사의 **Installation Scope** 페이지에서 **Install for all users of this machine** 옵션을 선택하고 **Install**을 클릭합니다. 관리 자격 증명에 대한 사용자 계정 컨트롤 관련 메시지가 표시되면 암호로 **Pa55w.rd1234**를 사용하여 **ADATUM\\Student** 사용자 이름으로 인증합니다.
 1. 설치가 완료되면 **Launch Remote Desktop when setup exits** 체크박스가 선택되어 있는지 확인한 후 **Finish**를 클릭하여 Remote Desktop 클라이언트를 시작합니다.
 
 #### 작업 2: Azure Virtual Desktop 작업 영역 구독
 
-1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다. 이 랩의 앞부분에서 확인한 userPrincipalName을 로그인 이름으로 입력하고, 암호로는 **Pa55w.rd1234**를 사용합니다.
+1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다. 로그인할 때는 이 랩 앞부분에서 확인한 userPrincipalName, 그리고 이 계정을 만들 때 설정한 암호를 입력합니다.
 
-   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 **Pa55w.rd1234** 사용). 
+   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
 
 1. **Stay signed in to all your apps** 창에서 **Allow my organization to manage my device** 체크박스 선택을 취소하고 **No, sign in to this app only**를 선택합니다. 
 1. **Remote Desktop** 페이지에 **aduser1** 사용자 계정과 그룹 등록을 통해 연결되어 있으며 작업 영역에 게시된 애플리케이션 그룹에 포함되어 있는 애플리케이션 목록이 표시되는지 확인합니다. 
 
 #### 작업 3: Azure Virtual Desktop 앱 테스트
 
-1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop**클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭하여 **Command Prompt** 창이 시작되는지 확인합니다. 인증하라는 메시지가 표시되면 **aduser1**사용자 계정의 암호로 **Pa55w.rd1234**를 입력하고 **사용자 이름 및 암호 저장** 체크박스를 선택한 후 **확인**을 선택합니다.
+1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop**클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭하여 **Command Prompt** 창이 시작되는지 확인합니다. 인증하라는 메시지가 표시되면 **aduser1** 사용자 계정을 만들 때 설정한 암호를 입력하고 **Remember me** 체크박스를 선택한 후 **OK**를 선택합니다.
 
    > **참고**: 처음에는 애플리케이션이 시작되려면 몇 분 정도 걸릴 수 있지만 그 이후부터는 애플리케이션이 훨씬 빠르게 시작됩니다.
 

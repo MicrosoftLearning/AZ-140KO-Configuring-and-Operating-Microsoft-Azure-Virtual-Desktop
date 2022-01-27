@@ -13,8 +13,9 @@ lab:
 - Azure 구독과 연결된 Azure AD 테넌트의 전역 관리자 역할, 그리고 Azure 구독의 Owner 또는 Contributor 역할이 할당되어 있는 Microsoft 계정 또는 Azure AD 계정
 - **Azure Virtual Desktop의 배포 준비(AD DS)** 랩 완료
 - **Azure Virtual Desktop 프로필 관리(AD DS)** 랩 완료
+- **WVD용 조건부 액세스 정책 구성(AD DS)** 랩 완료
 
-## 예상 소요 시간
+## 예상 시간
 
 60분
 
@@ -51,7 +52,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
 #### 작업 1: Azure Virtual Desktop 세션 호스트의 구성 준비
 
-1. 랩 컴퓨터에서 웹 브라우저를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 이 랩에서 사용할 구독의 Owner 역할이 할당된 사용자 계정의 자격 증명을 입력하여 로그인합니다.
+1. 랩 컴퓨터에서 웹 브라우저를 시작하여 [Azure Portal](https://portal.azure.com)로 이동하고 이 랩에서 사용할 구독에서 Owner 역할을 가진 사용자 계정의 자격 증명을 제공하여 로그인합니다.
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저 창에서 **Cloud Shell** 창 내에 **PowerShell** 셸 세션을 엽니다.
 1. Cloud Shell 창의 PowerShell 세션에서 다음 명령을 실행하여 이 랩에서 사용할 Azure Virtual Desktop 세션 호스트 Azure VM을 시작합니다.
 
@@ -81,19 +82,13 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
      -TemplateParameterFile $HOME/az140-42_azuredeploycl42.parameters.json
    ```
 
-   > **참고**: 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 완료되려면 10분 정도 걸립니다. 
+   > **참고**: 다음 작업을 진행하기 전에 배포가 완료될 때까지 기다립니다. 10분 정도 걸릴 수 있습니다. 
 
 #### 작업 3: MSIX 패키징용으로 Windows 10을 실행하는 Azure VM 준비
 
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드의 가상 머신 목록에서 **az140-cl-vm42** 항목을 선택합니다. 그러면 **az140-cl-vm42** 블레이드가 열립니다.
 1. **az140-cl-vm42** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
-1. 메시지가 표시되면 다음 자격 증명으로 로그인합니다.
-
-   |설정|값|
-   |---|---|
-   |사용자 이름|**ADATUM\\wvdadmin1**|
-   |암호|**Pa55w.rd1234**|
-
+1. 메시지가 표시되면 **ADATUM\wvdadmin1** 사용자 이름, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 로그인합니다. 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음 명령을 실행하여 MSIX 패키징용 운영 체제를 준비합니다.
 
    ```powershell
@@ -253,7 +248,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
    ```
 
-1. Hyper-V 구성 요소 설치가 완료되 **Y**를 입력하고 **Enter** 키를 눌러 운영 체제를 다시 시작합니다.. 운영 체제가 다시 시작되면 **ADATUM\wvdadmin1** 계정과 **Pa55w.rd1234** 암호를 사용해 다시 로그인합니다.
+1. Hyper-V 구성 요소 설치가 완료되 **Y**를 입력하고 **Enter** 키를 눌러 운영 체제를 다시 시작합니다. 운영 체제가 다시 시작되면 **ADATUM\wvdadmin1** 계정, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 다시 로그인합니다.
 
 #### 작업 2: MSIX 앱 연결 이미지 만들기
 
@@ -347,7 +342,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **시작**메뉴에서 **Azure AD Connect** 폴더를 확장하고 **Azure AD Connect**를 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **Azure AD Connect 시작** 페이지에서 **구성**을 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **추가 작업** 페이지에서 **동기화 옵션 사용자 지정**을 선택하고 **다음**을 선택합니다.
-1. **Microsoft Azure Active Directory Connect** 창의 **AD Azure에 연결** 페이지에서 이 작업의 앞부분에서 확인한 **aadsyncuser** 사용자 계정의 사용자 계정 이름과 **Pa55w.rd1234** 암호를 사용하여 인증합니다.
+1. **Microsoft Azure Active Directory Connect** 창의 **AD Azure에 연결** 페이지에서 이 작업의 앞부분에서 확인한 **aadsyncuser** 사용자 계정의 사용자 계정 이름, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 인증합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **디렉터리 연결** 페이지에서 **다음**을 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **도메인 및 OU 필터링** 페이지에서 **선택한 도메인 및 OU 동기화** 옵션이 선택되어 있는지 확인합니다. 그런 다음 **adatum.com** 노드를 확장하여 **WVDInfra** OU 옆의 체크박스를 선택하고(선택되어 있는 나머지 모든 체크박스는 변경하지 않고 그대로 유지) **다음**을 선택합니다.
 1. **Microsoft Azure Active Directory Connect** 창의 **선택적 기능** 페이지에서 기본 설정을 적용하고 **다음**을 선택합니다.
@@ -493,7 +488,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Windows Desktop 클라이언트 다운로드 페이지](https://go.microsoft.com/fwlink/?linkid=2068602)로 이동합니다. 다운로드가 완료되면 **파일 열기**를 선택하여 설치를 시작합니다. **Remote Desktop Setup** 마법사의 **Installation Scope** 페이지에서 **Install for all users of this machine** 옵션을 선택하고 **Install**을 클릭합니다. 
 1. 설치가 완료되면 **Launch Remote Desktop when setup exits** 체크박스가 선택되어 있는지 확인한 후 **Finish**를 클릭하여 Remote Desktop 클라이언트를 시작합니다.
-1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser1** 사용자 계정 이름으로 로그인합니다. 암호로는 **Pa55w.rd1234**를 사용합니다.
+1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser1** 사용자 계정 이름, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 로그인합니다. 
 1. 메시지가 표시되면 **Stay signed in to all your apps** 창에서 **Allow my organization to manage my device** 체크박스 선택을 취소하고 **No, sign in to this app only**를 클릭합니다.
 1. **Remote Desktop** 클라이언트 창의 **az140-21-ws1** 섹션에서 **XML Notepad** 아이콘을 두 번 클릭합니다. 메시지가 표시되면 암호를 입력하고 XML Notepad가 정상적으로 시작되었는지 확인합니다.
 
