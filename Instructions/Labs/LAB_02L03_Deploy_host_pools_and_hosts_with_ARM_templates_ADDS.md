@@ -222,7 +222,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내에서 **시작**을 클릭하고 **시작** 메뉴에서 **Remote Desktop** 클라이언트 앱을 선택합니다.
 1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다. 로그인할 때는 userPrincipalName, 그리고 이 계정을 만들 때 설정한 암호를 입력합니다.
 
-   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery**를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
+   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
 
 1. **Remote Desktop** 페이지에서 **SessionDesktop** 아이콘을 두 번 클릭합니다. 자격 증명을 입력하라는 메시지가 표시되면 같은 암호를 다시 입력하고 **Remember me** 체크박스를 선택한 후에 **OK**를 클릭합니다.
 1. **Stay signed in to all your apps** 창에서 **Allow my organization to manage my device** 체크박스 선택을 취소하고 **No, sign in to this app only**를 선택합니다. 
@@ -231,7 +231,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
 
    > **참고**: 이번에는 개인 데스크톱 할당을 직접 모드에서 자동으로 전환해 보겠습니다. 
 
-1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2-DAG \| 할당 **블레이드의 할당 목록 바로 위에 있는 알림 표시줄에서 **VM 할당** 링크를 클릭합니다. 그러면 **az140-23-hp2 \| 세션 호스트** 블레이드로 리디렉션됩니다. 
+1. 랩 컴퓨터로 전환하여 Azure Portal이 표시된 웹 브라우저 내 **az140-23-hp2-DAG \| 할당** 블레이드의 할당 목록 바로 위에 있는 알림 표시줄에서 **VM 할당** 링크를 클릭합니다. 그러면 **az140-23-hp2 \| 세션 호스트** 블레이드로 리디렉션됩니다. 
 1. **az140-23-hp2 \| 세션 호스트** 블레이드에서 호스트 중 하나의 **할당된 사용자** 열 목록에 **aduser7**이 표시되어 있는지 확인합니다.
 
    > **참고**: 호스트 풀이 자동 할당 방식으로 구성되어 있으므로 aduser7이 할당된 사용자로 표시됩니다.

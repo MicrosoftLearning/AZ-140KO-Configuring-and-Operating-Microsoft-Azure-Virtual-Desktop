@@ -393,7 +393,7 @@ AD DS(Active Directory Domain Services) 환경에서 배포를 준비해야 합�
 
 #### 작업 3: 디렉터리 동기화를 구성하는 데 사용할 Azure AD 사용자 만들기
 
-1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자:**** Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 새 Azure AD 사용자를 만듭니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
+1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 새 Azure AD 사용자를 만듭니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
 
    > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 

@@ -70,7 +70,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
 #### 작업 2: Azure Virtual Desktop 호스트 풀 배포
 
-1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Virtual Desktop**을 검색하여 선택합니다. 그런 다음 **Azure Virtual Desktop** 블레이드 왼쪽의 세로 메뉴에 있는 **관리** 섹션에서 **호스트 풀**을 선택합니다. 그런 후에 **Azure Virtual Desktop \****| 호스트 풀** 블레이드에서 **+ 만들기**를 선택합니다. 
+1. **az140-cl-vm11a**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Azure Virtual Desktop**을 검색하여 선택합니다. 그런 다음 **Azure Virtual Desktop** 블레이드 왼쪽의 세로 메뉴에 있는 **관리** 섹션에서 **호스트 풀**을 선택합니다. 그런 후에 **Azure Virtual Desktop \| 호스트 풀** 블레이드에서 **+ 만들기**를 선택합니다. 
 1. **호스트 풀 만들기** 블레이드의 **기본** 탭에서 다음 설정을 지정하고 **다음: 가상 머신 >** 을 선택합니다.
 
    |설정|값|
@@ -84,7 +84,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
    |최대 세션 제한|**10**|
    |부하 분산 알고리즘|**폭 우선**|
 
-1. **호스트 풀 만들기** 블레이드의 **가상 머신** 탭에서 다음 설정을 지정하고(다른 설정은 기본값으로 유지) **다음: 작업 영역 >**을 선택합니다(*<Azure_AD_domain_name>* 자리 표시자는 Azure AD DS 인스턴스를 배포한 구독과 연결된 Azure AD 테넌트의 이름으로, `<password>` 자리 표시자는 aadadmin1 계정을 만들 때 설정한 암호로 바꿔야 함).
+1. **호스트 풀 만들기** 블레이드의 **가상 머신** 탭에서 다음 설정을 지정하고(다른 설정은 기본값으로 유지) **다음: 작업 영역 >** 을 선택합니다(*<Azure_AD_domain_name>* 자리 표시자는 Azure AD DS 인스턴스를 배포한 구독과 연결된 Azure AD 테넌트의 이름으로, `<password>` 자리 표시자는 aadadmin1 계정을 만들 때 설정한 암호로 바꿔야 함).
 
    > **참고**: 사용한 암호는 잘 기억해 두세요. 이 랩의 뒷부분과 이어지는 랩에서 해당 암호를 사용해야 합니다.
 

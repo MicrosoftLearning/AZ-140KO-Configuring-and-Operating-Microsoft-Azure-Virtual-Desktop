@@ -352,14 +352,14 @@ Active Directory Domain Services(AD DS) 환경에서 호스트 풀과 세션 호
 
 1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다. 로그인할 때는 이 랩 앞부분에서 확인한 userPrincipalName, 그리고 이 계정을 만들 때 설정한 암호를 입력합니다.
 
-   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery**를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
+   > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser1** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
 
 1. **Stay signed in to all your apps** 창에서 **Allow my organization to manage my device** 체크박스 선택을 취소하고 **No, sign in to this app only**를 선택합니다. 
 1. **Remote Desktop** 페이지에 **aduser1** 사용자 계정과 그룹 등록을 통해 연결되어 있으며 작업 영역에 게시된 애플리케이션 그룹에 포함되어 있는 애플리케이션 목록이 표시되는지 확인합니다. 
 
 #### 작업 3: Azure Virtual Desktop 앱 테스트
 
-1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop **클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭하여 **Command Prompt** 창이 시작되는지 확인합니다. 인증하라는 메시지가 표시되면 **aduser1** 사용자 계정을 만들 때 설정한 암호를 입력하고 **Remember me** 체크박스를 선택한 후 **OK**를 선택합니다.
+1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 **Remote Desktop**클라이언트 창에 있는 애플리케이션 목록에서 **Command Prompt**를 두 번 클릭하여 **Command Prompt** 창이 시작되는지 확인합니다. 인증하라는 메시지가 표시되면 **aduser1** 사용자 계정을 만들 때 설정한 암호를 입력하고 **Remember me** 체크박스를 선택한 후 **OK**를 선택합니다.
 
    > **참고**: 처음에는 애플리케이션이 시작되려면 몇 분 정도 걸릴 수 있지만 그 이후부터는 애플리케이션이 훨씬 빠르게 시작됩니다.
 
