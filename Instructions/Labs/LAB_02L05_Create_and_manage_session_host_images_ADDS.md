@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 세션 호스트 이미지 만들기 및 관리(AD DS)'
     module: '모듈 2: WVD 인프라 구현'
@@ -165,6 +165,7 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
    ```
 
    > **참고**: 설치 관리자에서는 ALLUSER=1 및 ALLUSERS=1 매개 변수가 지원됩니다. ALLUSER=1 매개 변수는 VDI 환경의 시스템별 설치용입니다. ALLUSERS=1 매개 변수는 VDI 환경과 VDI 이외 환경에서 모두 사용 가능합니다. 
+   > **참고** **다른 버전의 제품이 이미 설치됨**이라는 오류가 발생하면 다음 단계를 완료합니다. **제어판 > 프로그램 > 프로그램 및 기능**으로 이동하고, **Teams Machine-Wide Installer** 프로그램을 마우스 오른쪽 단추로 클릭하고, **제거**를 선택합니다. 프로그램을 제거한 후에 위의 13단계를 다시 실행합니다. 
 
 1. **az140-25-vm0**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음을 실행하여 Microsoft Edge Chromium을 설치합니다(학습 목적을 위해, 이 랩에 사용되는 이미지에 Edge가 이미 존재하기 때문).
 
@@ -331,6 +332,8 @@ VM에 Teams 데스크톱 앱 배포](https://docs.microsoft.com/ko-kr/microsoftt
 1. **호스트 풀 만들기** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
    > **참고**: 배포가 완료될 때까지 기다립니다. 10분 정도 걸릴 수 있습니다.
+   > 
+   > **참고** 할당량 제한에 도달하여 배포가 실패하면 첫 번째 랩에서 설명한 단계를 수행하여 Standard D2sv3 제한의 할당량을 30으로 늘릴 것을 자동으로 요청하세요.
 
    > **참고**: 사용자 지정 이미지 기반 호스트 배포를 수행한 후에는 [GitHub 리포지토리](https://github.com/The-Virtual-Desktop-Team/)에서 제공되는 Virtual Desktop Optimization Tool을 실행하는 것이 좋습니다.
 

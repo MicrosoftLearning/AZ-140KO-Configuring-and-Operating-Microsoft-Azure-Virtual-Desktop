@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: 호스트 풀에서 자동 크기 조정 구현(AD DS)'
     module: '모듈: WVD 인프라 모니터링 및 유지 관리'
@@ -148,7 +148,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
 1. Azure Automation 계정의 구성을 확인하려면 **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 메시지가 표시되면 이 랩에서 사용 중인 구독의 Owner 역할이 할당된 사용자 계정의 Azure AD 자격 증명을 사용하여 로그인합니다.
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 Azure Portal이 표시된 Microsoft Edge 창에서 **Automation 계정**을 검색하여 선택합니다. 그런 다음 **Automation 계정** 블레이드에서 새로 프로비전된 Azure Automation 계정에 해당하는 항목(**az140-automation-51** 접두사로 시작되는 항목)을 선택합니다.
 1. Automation 계정 블레이드 왼쪽의 세로 메뉴에 있는 **프로세스 자동화** 섹션에서 **Runbook**을 선택하고 Runbook 목록에서 **WVDAutoScaleRunbookARMBased** Runbook이 있는지 확인합니다.
-1. Automation 계정 블레이드 왼쪽의 세로 메뉴에 있는 **계정 설정** 섹션에서 **실행 계정**을 선택하고 오른쪽의 계정 목록에서 **Azure 실행 계정** 옆에 있는 **+ 만들기**를 클릭합니다.
+1. Automation 계정 블레이드 왼쪽의 세로 메뉴에 있는 **계정 설정** 섹션에서 **실행 계정**을 선택하고 오른쪽의 계정 목록에서 **+ Azure 실행 계정** 옆에 있는 **만들기**를 클릭합니다.
 1. **Azure 실행 계정 만들기** 블레이드에서 **만들기**를 클릭하고 새 계정이 정상적으로 작성되었는지 확인합니다.
 
 #### 작업 3: Azure 논리 앱 만들기
@@ -277,6 +277,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 세�
    | project TimeStampUTC = TimeGenerated, TimeStampLocal = TimeStamp_s, HostPool = hostpoolName_s, LineNumAndMessage = logmessage_s, AADTenantId = TenantId
    ```
 
+   >**참고**: 구조를 잘라내어 붙여넣을 때 두 번째 줄에 추가적인 파이프 문자(|)가 있으면 실패를 방지하기 위해 제거합니다. 각 쿼리에 적용될 수 있습니다.
    >**참고**: 결과가 표시되지 않으면 몇 분 기다린 후 다시 시도합니다.
 
 1. 쿼리 창에 다음 쿼리를 붙여넣고 **실행**을 클릭하여 대상 호스트 풀의 활성 사용자 세션 및 현재 실행 중인 세션 호스트의 총 수를 표시합니다.

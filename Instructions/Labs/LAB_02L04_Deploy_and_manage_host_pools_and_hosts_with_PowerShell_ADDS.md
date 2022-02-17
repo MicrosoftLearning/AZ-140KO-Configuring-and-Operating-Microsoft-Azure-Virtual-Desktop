@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '랩: PowerShell을 사용하여 호스트 풀 및 호스트 배포 및 관리'
     module: '모듈 2: WVD 인프라 구현'
@@ -142,6 +142,9 @@ Active Directory Domain Services(AD DS) 환경에서 PowerShell을 사용하여 
 #### 작업 3: PowerShell을 사용하여 Windows 10 Enterprise를 실행하는 Azure VM의 템플릿 기반 배포 수행
 
 1. 랩 컴퓨터에서 **az140-dc-vm11** Azure VM에 연결된 원격 데스트톱 세션을 사용하여 랩 파일 **\\\\AZ-140\\AllFiles\\Labs\\02\\az140-24_azuredeployhp3.json** 및 **\\\\AZ-140\\AllFiles\\Labs\\02\\az140-24_azuredeployhp3.parameters.json**을 **C:\\AllFiles\\Labs\\02** 폴더에 복사합니다(필요하면 폴더를 만듭니다).
+
+>**참고:** 랩 컴퓨터에서 중첩된 가상 머신으로 파일을 가져오는 데 문제가 있으면 랩 컴퓨터의 Azure Portal에서, 2개의 파일을 이전 랩에서 만든 **az140-22-profiles** 파일 공유에 업로드할 수 있습니다. 파일을 공유에 업로드한 후에는 간단히 **az140-dc-vm1**로 이동하고, Azure Portal의 해당 파일 공유에서 파일을 로컬로 다운로드하면 됩니다.
+
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 콘솔에서 다음 명령을 실행하여 Windows 10 Enterprise(다중 세션)를 실행하는 Azure VM을 배포합니다. 이 VM은 이전 작업에서 만든 호스트 풀의 Azure Virtual Desktop 세션 호스트 역할을 합니다.
 
    ```powershell
@@ -183,6 +186,8 @@ Active Directory Domain Services(AD DS) 환경에서 PowerShell을 사용하여 
    $labFilesFolder = 'C:\AllFiles\Labs\02'
    New-Item -ItemType Directory -Path $labFilesFolder
    ```
+
+>**참고** [T] 구조를 사용하여 PowerShell cmdlet을 복사할 때 주의하세요. 때로는 복사한 텍스트가 잘못될 수 있습니다. 예를 들어 $ 기호가 숫자 4로 표시될 수 있습니다. cmdlet을 실행하기 전에 이러한 오류를 수정해야 합니다. PowerShell ISE **스크립트** 창을 복사하고, 오류를 수정하고, 올바른 텍스트를 강조 표시하고, **F8**(**선택 항목 실행**)을 누릅니다.
 
 1. **az140-24-p3-0**에 연결된 원격 데스크톱 세션 내의 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 Azure Virtual Desktop 에이전트 및 부팅 로더 설치 관리자를 다운로드합니다. 호스트 풀에 세션 호스트를 추가하려면 이러한 설치 관리자가 필요합니다.
 
