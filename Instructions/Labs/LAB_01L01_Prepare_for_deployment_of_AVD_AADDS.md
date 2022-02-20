@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: '랩: Azure Virtual Desktop(Azure AD DS) 배포 준비'
     module: '모듈 1: AVD 아키텍처 계획'
