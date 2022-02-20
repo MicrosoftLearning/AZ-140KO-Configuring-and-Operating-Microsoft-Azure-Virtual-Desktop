@@ -87,8 +87,8 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
 #### 작업 3: MSIX 패키징용으로 Windows 10을 실행하는 Azure VM 준비
 
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드의 가상 머신 목록에서 **az140-cl-vm42** 항목을 선택합니다. 그러면 **az140-cl-vm42** 블레이드가 열립니다.
-1. **az140-cl-vm42** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
-1. 메시지가 표시되면 **ADATUM\wvdadmin1** 사용자 이름, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 로그인합니다. 
+1. **az140-cl-vm42** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm42 \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. 메시지가 표시되면 이 사용자 계정을 만들 때 설정한 **wvdadmin1** 사용자 이름 및 암호를 사용하여 로그인합니다. 
 1. **az140-cl-vm42**에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 콘솔에서 다음 명령을 실행하여 MSIX 패키징용 운영 체제를 준비합니다.
 
    ```powershell
@@ -248,7 +248,7 @@ Active Directory Domain Services(AD DS) 환경에서 Azure Virtual Desktop 애�
    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
    ```
 
-1. Hyper-V 구성 요소 설치가 완료되 **Y**를 입력하고 **Enter** 키를 눌러 운영 체제를 다시 시작합니다. 운영 체제가 다시 시작되면 **ADATUM\wvdadmin1** 계정, 그리고 이 사용자 계정을 만들 때 설정한 암호를 사용하여 다시 로그인합니다.
+1. Hyper-V 구성 요소 설치가 완료되 **Y**를 입력하고 **Enter** 키를 눌러 운영 체제를 다시 시작합니다.. 운영 체제가 다시 시작되면 **wvdadmin1** 계정과 **Pa55w.rd1234** 암호를 사용해 다시 로그인합니다.
 
 #### 작업 2: MSIX 앱 연결 이미지 만들기
 

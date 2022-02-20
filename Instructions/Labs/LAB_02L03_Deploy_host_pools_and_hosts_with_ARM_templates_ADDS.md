@@ -176,7 +176,7 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
    |리소스 그룹|**az140-23-RG**|
    |호스트 풀 토큰|이전 작업에서 생성한 토큰의 값|
    |호스트 풀 위치|이 랩의 앞부분에서 호스트 풀을 배포한 Azure 지역의 이름|
-   |VM 관리자 계정 사용자 이름:|**student**|
+   |VM 관리자 계정 사용자 이름:|**학생** @adatum.com을 사용해서는 안 됨|
    |VM 관리자 계정 암호|**Pa55w.rd1234**|
    |VM 위치|**호스트 풀 위치** 매개 변수의 값으로 설정한 지역과 같은 Azure 지역의 이름|
    |네트워크 보안 그룹 만들기|**false**|
@@ -220,7 +220,9 @@ Azure Resource Manager 템플릿을 사용하여 Azure Virtual Desktop 호스트
    |암호|**Pa55w.rd1234**|
 
 1. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내에서 **시작**을 클릭하고 **시작** 메뉴에서 **Remote Desktop** 클라이언트 앱을 선택합니다.
-1. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다. 로그인할 때는 userPrincipalName, 그리고 이 계정을 만들 때 설정한 암호를 입력합니다.
+2. 원격 데스크톱 창 오른쪽 위에 있는 줄임표 아이콘을 클릭합니다. 그런 다음 드롭다운 메뉴에서 **Unsubscribe**를 클릭하고 확인하라는 메시지가 표시되면 **Continue**를 클릭합니다.
+3. **az140-cl-vm11**에 연결된 원격 데스크톱 세션 내의 Remote Desktop 창 **Let's get started** 페이지에서 **Subscribe**를 선택합니다.
+4. **Remote Desktop** 클라이언트 창에서 **Subscribe**를 선택하고 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다. userPrincipalName을 로그인 이름으로 입력하고, 암호로는 **Pa55w.rd1234**를 사용합니다.
 
    > **참고**: Subscribe 옵션 대신 **Remote Desktop** 클라이언트 창에서 **Subscribe with URL**을 선택할 수도 있습니다. 그러면 표시되는 **Subscribe to a Workspace** 창의 **Email or Workspace URL**에 **https://rdweb.wvd.microsoft.com/api/arm/feeddiscovery** 를 입력하고 **Next**를 선택합니다. 메시지가 표시되면 **aduser7** 자격 증명으로 로그인합니다(사용자 이름으로는 userPrincipalName 특성을 사용하고 암호로는 이 계정을 만들 때 설정한 암호 사용). 
 

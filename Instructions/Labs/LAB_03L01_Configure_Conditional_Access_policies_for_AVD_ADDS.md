@@ -104,10 +104,11 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
    |암호|**Pa55w.rd1234**|
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **시작**메뉴에서 **Azure AD Connect** 폴더를 확장하고 **Azure AD Connect**를 선택합니다.
-1. **Microsoft Azure Active Directory Connect** 창의 **Azure AD Connect 시작** 페이지에서 **구성**을 선택합니다.
-1. **Microsoft Azure Active Directory Connect** 창의 **추가 작업** 페이지에서 **디바이스 옵션 구성**을 선택하고 **다음**을 선택합니다.
-1. **Microsoft Azure Active Directory Connect** 창의 **개요** 페이지에서 **하이브리드 Azure AD 조인** 및 **디바이스 쓰기 저장** 관련 정보를 검토하고 **다음**을 선택합니다.
-1. **Microsoft Azure Active Directory Connect** 창의 **AD Azure에 연결** 페이지에서 이전 연습에서 만든 **aadsyncuser** 사용자 계정의 자격 증명을 사용하여 인증하고 **다음**을 선택합니다. 
+> **참고** 동기화 서비스가 실행 중이 아니라는 실패 오류 창이 나타나면 PowerShell 명령 창으로 이동하고 **Start-Service "ADSync"** 를 입력한 후에 4단계를 다시 시도합니다.
+3. **Microsoft Azure Active Directory Connect** 창의 **Azure AD Connect 시작** 페이지에서 **구성**을 선택합니다.
+4. **Microsoft Azure Active Directory Connect** 창의 **추가 작업** 페이지에서 **디바이스 옵션 구성**을 선택하고 **다음**을 선택합니다.
+5. **Microsoft Azure Active Directory Connect** 창의 **개요** 페이지에서 **하이브리드 Azure AD 조인** 및 **디바이스 쓰기 저장** 관련 정보를 검토하고 **다음**을 선택합니다.
+6. **Microsoft Azure Active Directory Connect** 창의 **AD Azure에 연결** 페이지에서 이전 연습에서 만든 **aadsyncuser** 사용자 계정의 자격 증명을 사용하여 인증하고 **다음**을 선택합니다.  
 
    > **참고**: 이 랩 앞부분에서 적어 둔 **aadsyncuser** 계정의 userPrincipalName 특성을 입력하고, 이 사용자 계정을 만들 때 설정한 암호를 지정합니다. 
 
@@ -175,7 +176,7 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
 
 1. 랩 컴퓨터의 Azure Portal이 표시된 웹 브라우저에서 Azure AD 테넌트의 **개요**블레이드로 다시 이동한 후 왼쪽 세로 메뉴에 있는 **관리** 섹션에서 **보안**을 클릭합니다.
 1. **보안 \| 시작** 블레이드 왼쪽의 세로 메뉴에 있는 **보호** 섹션에서 **조건부 액세스**를 클릭합니다.
-1. **조건부 액세스 \| 정책** 블레이드의 도구 모음에서 **+ 새 정책**을 클릭합니다. 
+1. **조건부 액세스 \| 정책** 블레이드의 도구 모음에서 **+ 새 정책**을 클릭하고 컨텍스트 메뉴에서 **새 정책**을 선택합니다.
 1. **새로 만들기** 블레이드에서 다음 설정을 구성합니다.
 
    - **이름** 텍스트 상자에 **az140-31-wvdpolicy1**을 입력합니다.

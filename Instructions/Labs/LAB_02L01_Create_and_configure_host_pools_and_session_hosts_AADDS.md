@@ -52,7 +52,7 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
 
    |설정|값|
    |---|---|
-   |사용자 이름|**Student@adatum.com**|
+   |사용자 이름|**aadadmin1@adatum.com**|
    |암호|**Pa55w.rd1234**|
 
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 Microsoft Edge를 시작하고 [Azure Portal](https://portal.azure.com)로 이동합니다. 그런 다음 사용자 계정 이름으로 **aadadmin1** 사용자 계정을, 암호로는 이 계정을 만들 때 설정한 암호를 입력하여 로그인합니다.
@@ -92,23 +92,24 @@ Azure Active Directory Domain Services(Azure AD DS) 환경에서 호스트 풀�
    |---|---|
    |가상 머신 추가|**예**|
    |리소스 그룹|**호스트 풀과 같은 그룹으로 기본 지정됨**|
+   |이름 접두사|**az140-21-p1**|
    |가상 머신 위치|이 랩의 첫 번째 연습에서 리소스를 배포한 Azure 지역의 이름|
    |가용성 옵션|**인프라 중복은 필요하지 않음**|
    |이미지 형식|**갤러리**|
    |이미지|**Windows 10 Enterprise 다중 세션, 버전 2004 + Microsoft 365 Apps**|
    |가상 머신 크기|**Standard D2s v3**|
    |VM 수|**2**|
-   |이름 접두사|**az140-21-p1**|
    |OS 디스크 유형|**표준 SSD**|
    |가상 네트워크|**az140-aadds-vnet11a**|
    |서브넷|**hp1-Subnet(10.10.1.0/24)**|
    |네트워크 보안 그룹|**기본**|
    |공용 인바운드 포트|**아니요**|
+   |조인할 디렉터리를 선택합니다.|**Active Directory**|
+   |AD 도메인 가입 UPN|**aadadmin1@***<Azure_AD_domain_name>*|
+   |암호|aadadmin1의 암호 사용|
    |도메인 또는 단위 지정|**예**|
    |가입할 도메인|**adatum.com**|
    |조직 구성 단위 경로|**OU=AADDC Computers,DC=adatum,DC=com**|
-   |AD 도메인 가입 UPN|**aadadmin1@***<Azure_AD_domain_name>*|
-   |암호|`<password>`|
    |가상 머신 관리자 계정 사용자 이름|**student**|
    |가상 머신 관리자 계정 암호|**Pa55w.rd1234**|
 

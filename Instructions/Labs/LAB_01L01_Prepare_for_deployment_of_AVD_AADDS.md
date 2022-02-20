@@ -82,40 +82,27 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 1. Azure Portal에서 **구독**을 검색하여 선택하고 **구독** 블레이드에서 이 랩에 사용할 Azure 구독에 해당하는 항목을 선택합니다.
 1. Azure Portal의 구독 블레이드 왼쪽 세로 메뉴에 있는 **설정** 섹션에서 **사용량 및 할당량**을 선택합니다. 
 1. 구독의 **사용량 및 할당량** 블레이드에서 **증가 요청**을 선택합니다.
-1. **새 지원 요청** 블레이드의 **기본** 탭에서 다음 항목을 지정하고 **다음: 솔루션 >** 을 선택합니다.
+1. **새 지원 요청** 블레이드의 **1. 문제 설명** 탭에서 다음 항목을 지정하고 **할당량 관리 >** 를 선택합니다.
 
    |설정|값|
    |---|---|
    |문제 유형|**서비스 및 구독 제한(할당량)**|
    |구독|이 랩에서 사용할 Azure 구독의 이름|
    |할당량 유형|**계산-VM(코어-vCPU) 구독 제한 늘리기**|
-   |지원 계획|대상 구독과 연결된 지원 계획의 이름|
+   
+1. **Azure Pass - 스폰서쉽 | 사용량 + 할당량** 블레이드의 상단 검색 창에서 다음 드롭다운 화살표를 선택합니다.
 
-1. **새 지원 요청** 블레이드의 **세부 정보** 탭에서 **세부 정보 제공** 링크를 선택합니다.
-1. **새 지원 요청** 블레이드의 **할당량 정보** 탭에서 다음 항목을 지정하고 **저장 및 계속**을 선택합니다.
-
-   |설정|값|
-   |---|---|
-   |배포 모델|**Resource Manager**|
-   |위치|이 랩에서 사용할 Azure 지역의 이름|
-   |유형|**Standard**|
-   |표준|**BS Series**|
-   |새 vCPU 한도|새 한도|
-   |표준|**DSv3 Series**|
-   |새 vCPU 한도|새 한도|
-
-   >**참고**: 여기서는 랩 환경 실행 비용을 최소화하기 위해 **BS Series** Azure VM을 사용합니다. Azure Virtual Desktop 시나리오에서 반드시 **BS Series** Azure VM을 사용해야 하는 것은 아닙니다.
-
-1. **새 지원 요청** 블레이드의 **세부 정보** 탭으로 돌아와 다음 항목을 지정하고 **다음: 검토 + 만들기 >** 를 선택합니다.
-
-   |설정|값|
-   |---|---|
-   |심각도|**C - 최소 영향**|
-   |기본 연락 방법|원하는 옵션을 선택하고 연락처 세부 정보 입력|
+|**설정**|**값**|
+|---|---|
+|**검색**|**표준 BS**|
+|**모든 위치**|**모두 지우기**, 그 다음에 *사용자 위치* 선택|
     
 1. **새 지원 요청** 블레이드의 **검토 + 만들기** 탭에서 **만들기**를 선택합니다.
 
-   > **참고**: 이 vCPU 범위 내의 할당량 늘리기 요청은 대개 몇 시간 내에 완료됩니다. 하지만 이를 기다리지 않고 이 랩을 완료해도 됩니다.
+1. 반환된 **Standard BS Family vCPUs** 항목에서 연필 아이콘, **편집**을 선택합니다.
+1. **할당량 세부 정보** 블레이드의 **새 한도** 열 텍스트 상자에서 **20**을 입력한 후에 **저장 및 계속**을 선택합니다.
+1. 할당량 요청이 완료될 때까지 기다립니다.  잠시 후 **할당량 세부 정보** 블레이드에서 요청이 승인되고 할당량이 늘어났음을 지정할 것입니다. **할당량 세부 정보** 블레이드를 닫습니다.
+1. 위의 5~8단계를 완료합니다. 5단계에서는 **검색** 텍스트 상자에 **Standard DSv3**을 사용합니다.
 
 
 ### 연습 1: Azure Active Directory Domain Services(AD DS) 도메인 구현
@@ -147,6 +134,7 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
    ```powershell
    $aadDomainName = ((Get-AzureAdTenantDetail).VerifiedDomains)[0].Name
+   $aadDomainName
    ```
 
 1. Cloud Shell 창에서 다음을 실행하여 상승된 권한을 부여받을 Azure AD 사용자를 만듭니다(`<password>` 자리 표시자는 복잡한 임의 암호로 바꿈).
@@ -181,27 +169,24 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
 
 1. Cloud Shell 창을 닫습니다.
 1. Azure Portal 내에서 **구독**을 검색하여 선택하고 **구독** 블레이드에서 이 랩에 사용 중인 Azure 구독을 선택합니다. 
-1. Azure 구독 속성이 표시된 블레이드에서 **액세스 제어(IAM)**, **+ 추가**를 차례로 선택하고 드롭다운 목록에서 **역할 할당 추가**를 선택합니다. 
-1. **역할 할당 추가** 블레이드에서 다음 설정을 지정하고 **저장**을 선택합니다.
-
-   |설정|값|
-   |---|---|
-   |역할|**소유자**|
-   |액세스 권한 할당 대상|**사용자, 그룹 또는 서비스 주체**|
-   |선택|**aadadmin1**|
+1. Azure 구독 속성이 표시된 블레이드에서 **액세스 제어(IAM)** 를 선택한 후에 **역할 할당 추가**를 선택합니다. 
+1. **역할 할당 추가** 블레이드에서 **Owner**를 선택하고 **다음**을 클릭합니다.
+1. **+구성원 선택** 하이퍼링크를 클릭합니다.
+1. **구성원 선택** 블레이드에서 **aadadmin** 항목을 선택한 후에 **선택** 단추를 클릭하고 **다음**을 클릭합니다.
+1. **검토+ 할당** 블레이드에서 **검토+ 할당** 단추를 선택합니다.
 
    > **참고**: 이 랩의 뒷부분에서 **aadadmin1** 계정을 사용하여 Azure AD DS에 조인된 Windows 10 Azure VM에서 Azure 구독 및 해당 구독의 Azure AD 테넌트를 관리합니다. 
 
 
 #### 작업 2: Azure Portal을 사용하여 Azure AD DS 인스턴스 배포
 
-1. 랩 컴퓨터에 표시된 Azure Portal에서 **Azure AD Domain Services**를 검색하여 선택하고 **Azure AD Domain Services** 블레이드에서 **+ 추가**를 선택합니다. 그러면 **Azure AD Domain Services 만들기** 블레이드가 열립니다.
+1. 랩 컴퓨터에 표시된 Azure Portal에서 **Azure AD Domain Services**를 검색하여 선택하고 **Azure AD Domain Services** 블레이드에서 **+ 만들기**를 선택합니다. 그러면 **Azure AD Domain Services 만들기** 블레이드가 열립니다.
 1. **Azure AD Domain Services 만들기** 블레이드의 **기본** 탭에서 다음 설정을 지정하고 **다음**을 선택합니다(나머지는 기존 값을 그대로 유지).
 
    |설정|값|
    |---|---|
    |구독|이 랩에서 사용 중인 Azure 구독의 이름|
-   |리소스 그룹|새 리소스 그룹 **az140-11a-RG**의 이름|
+   |리소스 그룹|**새로 만들기** **az140-11a-RG**|
    |DNS 도메인 이름|**adatum.com**|
    |지역|AVD 배포를 호스트할 지역의 이름|
    |SKU|**Standard**|
@@ -359,9 +344,9 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    Add-AzureADGroupMember -ObjectId $groupObjectId -RefObjectId $userObjectId
    ```
 
-1  Cloud Shell 창을 닫습니다.
+1. Cloud Shell 창을 닫습니다.
 1. 랩 컴퓨터에 표시된 Azure Portal에서 **가상 머신**을 검색하여 선택하고 **가상 머신** 블레이드에서 **az140-cl-vm11a** 항목을 선택합니다. 그러면 **az140-cl-vm11a** 블레이드가 열립니다.
-1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a \| 연결** 블레이드의 **Bastion** 탭에서 **Bastion 사용**을 선택합니다.
+1. **az140-cl-vm11a** 블레이드에서 **연결**을 선택하고 드롭다운 메뉴에서 **Bastion**을 선택합니다. 그런 다음 **az140-cl-vm11a** 의 **Bastion** 탭에서 다음 자격 증명을 제공하고 **연결**을 선택합니다.
 1. 메시지가 표시되면 **aadadmin1** 사용자로 로그인합니다. 이 랩 앞부분에서 확인한 해당 사용자의 계정 이름, 그리고 랩 앞부분에서 사용자 계정을 만들 때 설정한 암호를 사용하면 됩니다.
 1. **az140-cl-vm11a** Azure VM에 연결된 원격 데스크톱 세션 내에서 **Windows PowerShell ISE**를 관리자 권한으로 시작합니다. 그런 다음 **관리자: Windows PowerShell ISE** 스크립트 창에서 다음 명령을 실행하여 Active Directory 및 DNS 관련 원격 서버 관리 도구를 설치합니다.
 
@@ -428,6 +413,8 @@ Azure AD DS(Azure Active Directory Domain Services) 환경에서 Azure Virtual D
    ```
 
 1. Cloud Shell 창에서 이전 단계를 반복하여 이후 랩에서 사용할 사용자용 Azure AD 그룹을 만든 후 앞에서 만든 Azure AD 사용자 계정에 추가합니다.
+
+>**참고**: 참고: 가상 머신의 클립보드 크기가 제한되어 있기 때문에 나열된 cmdlet 중 일부는 제대로 복사되지 않습니다. 가상 머신의 메모장을 열고 번개 컨트롤에 포함되어 있는 Type Text, Type Clipboard Text 구조를 사용하여 모든 cmdlet을 복사하세요. 모든 cmdlet이 메모장에 있는 것을 확인했으면 한 무더기씩 잘라서 Cloud Shell에 붙여넣고 실행합니다.
 
    ```powershell
    $az140wvdausers = New-AzureADGroup -Description 'az140-wvd-ausers' -DisplayName 'az140-wvd-ausers' -MailEnabled $false -SecurityEnabled $true -MailNickName 'az140-wvd-ausers'
