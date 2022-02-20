@@ -104,7 +104,7 @@ Azure Active Directory(Azure AD) 조건부 액세스를 사용하여 Active Dire
    |암호|**Pa55w.rd1234**|
 
 1. **az140-dc-vm11**에 연결된 원격 데스크톱 세션 내의 **시작**메뉴에서 **Azure AD Connect** 폴더를 확장하고 **Azure AD Connect**를 선택합니다.
-> **참고** 동기화 서비스가 실행 중이 아니라는 실패 오류 창이 나타나면 PowerShell 명령 창으로 이동하고 **Start-Service "ADSync"**를 입력한 후에 4단계를 다시 시도합니다.
+> **참고** 동기화 서비스가 실행 중이 아니라는 실패 오류 창이 나타나면 PowerShell 명령 창으로 이동하고 **Start-Service "ADSync"** 를 입력한 후에 4단계를 다시 시도합니다.
 3. **Microsoft Azure Active Directory Connect** 창의 **Azure AD Connect 시작** 페이지에서 **구성**을 선택합니다.
 4. **Microsoft Azure Active Directory Connect** 창의 **추가 작업** 페이지에서 **디바이스 옵션 구성**을 선택하고 **다음**을 선택합니다.
 5. **Microsoft Azure Active Directory Connect** 창의 **개요** 페이지에서 **하이브리드 Azure AD 조인** 및 **디바이스 쓰기 저장** 관련 정보를 검토하고 **다음**을 선택합니다.
