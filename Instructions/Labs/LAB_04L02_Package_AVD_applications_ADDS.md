@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: '랩: Azure Virtual Desktop 애플리케이션 패키징(AD DS)'
     module: '모듈 4: 사용자 환경 및 앱 관리'
