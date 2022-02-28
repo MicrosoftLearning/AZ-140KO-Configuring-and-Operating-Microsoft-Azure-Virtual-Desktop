@@ -1,4 +1,12 @@
-﻿# AZ-140: Microsoft Azure Virtual Desktop 구성 및 작동
+**Important Notice!**
+
+This repo was replaced by a [new repo](https://github.com/MicrosoftLearning/AZ-140-Configuring-and-Operating-Microsoft-Azure-Virtual-Desktop.ko-kr) on 4 February 2022 . We're making this change to improve the localized version of this content and reduce the delta between English and localized content updates. 
+After a short interval, this repo will be archived.
+
+**Contributions**
+
+At this time, we are not accepting external contributions to this repo. If you have suggestions or spot any errors, please create a pull request or report an issue on the [new repo](https://github.com/MicrosoftLearning/AZ-140-Configuring-and-Operating-Microsoft-Azure-Virtual-Desktop.ko-kr).
+# AZ-140: Microsoft Azure Virtual Desktop 구성 및 작동
 
 - **[최신 학생용 핸드북 및 AllFiles 콘텐츠 다운로드](../../releases/latest)**
 - **MCT인가요?** - [MCT용 GitHub 사용자 가이드](https://microsoftlearning.github.io/MCT-User-Guide-KO/)를 살펴보세요.
